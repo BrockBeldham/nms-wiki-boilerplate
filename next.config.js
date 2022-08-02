@@ -7,8 +7,8 @@ const nextConfig = {
     loader: 'akamai',
     path: ''
   },
-  basePath: '/nextjs-pages',
-  assetPrefix: '/nextjs-pages'
+  basePath: '/nms-wiki-boilerplate',
+  assetPrefix: '/nms-wiki-boilerplate'
 }
 
 module.exports = nextConfig
