@@ -1,6 +1,6 @@
-import { useState, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Input from '../components/input';
+import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import Textarea from '../components/textarea';
@@ -9,7 +9,6 @@ import SelectGameMode from '../components/select-game-mode';
 import SelectPlatform from '../components/select-platform';
 
 import styles from '../styles/pages/base.module.scss';
-import { imageConfigDefault } from 'next/dist/shared/lib/image-config';
 
 export default function Base() {
   const [title, setTitle] = useState('');
@@ -23,6 +22,7 @@ export default function Base() {
   const [planet, setPlanet] = useState('');
   const [moon, setMoon] = useState('');
   const [axes, setAxes] = useState('');
+  const [glyphs, setGlyphs] = useState('');
   const [coordinates, setCoordinates] = useState('');
   const [mode, setMode] = useState('');
   const [platform, setPlatform] = useState('');
@@ -53,7 +53,7 @@ export default function Base() {
 | moon = ${moon}
 | axes = ${axes}
 | coordinates = ${coordinates}
-| portalglyphs = 
+| portalglyphs = ${glyphs ? `{{Gl/Small|${glyphs}}}` : ''}
 | type = 
 | mode = ${mode}
 | platform = ${platform}
@@ -144,6 +144,10 @@ ${gallery.map((image) => {
           <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the base can be found.' onChange={(value) => setPlanet(value)} />
           <Input id='moon' type='text' label='Moon Name' tooltip='If the base is located on a moon. Leave blank if the base is on a planet.' onChange={(value) => setMoon(value)} />
           <Input id='axes' type='text' label='Planetary Longitude and Latitude' tooltip='Found using your analysis visor OR on your ships dashboard' onChange={(value) => setAxes(value)} />
+        </div>
+        <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
+        <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
+        <div className='frmGroup50'>
           <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
           <SelectGameMode onChange={(value) => setMode(value)} />
           <SelectPlatform onChange={(value) => setPlatform(value)} />

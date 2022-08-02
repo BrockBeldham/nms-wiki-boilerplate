@@ -23,6 +23,16 @@ $color_placeholder: #a9a9a9;
 $color_focus: #3390d2;
 
 // fonts
+@font-face {
+  font-family: 'NMS-Glyphs-Mono';
+  src: url('/NMS-Glyphs-Mono.woff2') format('woff2'),
+    url('/NMS-Glyphs-Mono.woff') format('woff');
+}
+
+@mixin font-glyphs {
+  font-family: "NMS-Glyphs-Mono", sans-serif;
+}
+
 @mixin font-bold {
   font-family: "Roboto", sans-serif;
   font-weight: 700;

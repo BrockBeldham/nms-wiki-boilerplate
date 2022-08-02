@@ -7,8 +7,8 @@ const nextConfig = {
     loader: 'akamai',
     path: ''
   },
-  basePath: '/nms-wiki-boilerplate',
-  assetPrefix: '/nms-wiki-boilerplate'
+  basePath: isProd ? '/nms-wiki-boilerplate' : '',
+  assetPrefix: isProd ? '/nms-wiki-boilerplate' : ''
 }
 
 module.exports = nextConfig

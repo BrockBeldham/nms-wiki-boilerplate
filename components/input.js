@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tooltip from 'rc-tooltip';
 
@@ -6,6 +6,7 @@ import styles from './input.module.scss';
 
 function Input({
   frmItemClass,
+  defaultValue,
   id,
   type,
   label,
@@ -14,6 +15,12 @@ function Input({
   tooltip
 }) {
   const [value, setValue] = useState('');
+
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <div className={`frmItem ${frmItemClass ? styles[frmItemClass] : ''}`}>
@@ -49,6 +56,7 @@ function Input({
 
 Input.propTypes = {
   frmItemClass: PropTypes.string,
+  defaultValue: PropTypes.string,
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
