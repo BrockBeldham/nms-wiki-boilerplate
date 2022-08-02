@@ -25,8 +25,8 @@ $color_focus: #3390d2;
 // fonts
 @font-face {
   font-family: 'NMS-Glyphs-Mono';
-  src: url('/NMS-Glyphs-Mono.woff2') format('woff2'),
-    url('/NMS-Glyphs-Mono.woff') format('woff');
+  src: url('/fonts/NMS-Glyphs-Mono.woff2') format('woff2'),
+    url('/fonts/NMS-Glyphs-Mono.woff') format('woff');
 }
 
 @mixin font-glyphs {
