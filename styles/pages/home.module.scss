@@ -1,0 +1,14 @@
+@import '../settings';
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-flow: row wrap;
+}
+
+.btn {
+  margin: 10px;
+}

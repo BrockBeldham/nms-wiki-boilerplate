@@ -1,0 +1,59 @@
+@import "../styles/settings";
+
+.container {
+  width: 100%;
+  position: relative;
+  margin: 20px 0 0;
+}
+
+.dropzone {
+  height: 200px;
+  border: 2px solid $color_chateau_grey;
+  background: $color_alabaster_white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropIcon {
+  max-width: 50%;
+  height: 70px;
+  width: 100%;
+
+  svg {
+    fill: $color_silver_grey;
+  }
+}
+
+.dropText {
+  font-size: 0.8em;
+  color: $color_silver_grey;
+  margin: 0 0 5px;
+}
+
+.dropTextError {
+  font-size: 0.8em;
+  color: $color_coral_orange;
+  margin: 0 0 5px;
+}
+
+.dropIconActive {
+  svg {
+    fill: $color_silver_grey;
+  }
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.note {
+  font-size: 0.8em;
+  margin: 10px 0 0;
+}

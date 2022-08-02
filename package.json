@@ -10,11 +10,16 @@
   },
   "dependencies": {
     "next": "12.2.3",
+    "normalize.css": "^8.0.1",
+    "rc-tooltip": "^5.2.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.2",
+    "react-select": "^5.4.0"
   },
   "devDependencies": {
     "eslint": "8.20.0",
-    "eslint-config-next": "12.2.3"
+    "eslint-config-next": "12.2.3",
+    "sass": "^1.54.0"
   }
 }

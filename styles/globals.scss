@@ -1,0 +1,323 @@
+@import 'settings';
+@import '../node_modules/normalize.css/normalize.css';
+
+html {
+  box-sizing: border-box;
+  color: $color_white;
+}
+
+html,
+body {
+  @include font-regular;
+
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  letter-spacing: 1px;
+  font-size: 18px;
+  background-color: $color_mine_shaft_black;
+}
+
+#__next {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @include font-bold;
+}
+
+h5,
+h6 {
+  @include font-regular;
+}
+
+h1 {
+  margin: 0 0 30px;
+}
+
+h2 {
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 1.5px;
+}
+
+p {
+  margin: 0 0 40px;
+  font-size: 0.9em;
+  letter-spacing: normal;
+  line-height: 1.45em;
+}
+
+table {
+  border-spacing: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: block;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: $color_mine_shaft_black;
+
+  &.txtLink {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: $color_coral_orange;
+      transform: translateY(0);
+      opacity: 1;
+      transition: all 0.25s;
+    }
+
+    &:hover::after {
+      transform: translateY(4px);
+      opacity: 0.3;
+    }
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+hr {
+  display: block;
+  border: none;
+  height: 1px;
+  width: 90%;
+  background: $color_satin_grey;
+  margin: 20px auto;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+  outline: none;
+  border: 1px solid $color_satin_grey;
+  padding: 10px;
+  width: 100%;
+  height: 40px;
+
+  &::placeholder {
+    @include font-regular;
+
+    font-size: 18px;
+    color: $color_placeholder;
+    opacity: 1;
+  }
+}
+
+/*
+* ========== BUTTONS ================
+*/
+
+.btn {
+  @include font-bold;
+
+  display: inline-block;
+  margin: 0;
+  padding: 12px 25px 11px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid $color_white;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  color: $color_white;
+
+  &.btnDisabled {
+    border: 1px solid $color_slate_grey;
+    color: $color_slate_grey;
+  }
+}
+
+.btnLink {
+  font-size: 1em;
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  color: $color_focus;
+  cursor: pointer;
+  position: relative;
+
+  &:hover::after {
+    transform: translateY(250%);
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 1px;
+    left: 0;
+    background: $color_focus;
+    transform: translateY(0);
+    transition: all 0.25s;
+  }
+}
+
+// forms
+.frmItem {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+  margin: 10px 0;
+}
+
+.frmLabel {
+  @include font-bold;
+
+  display: block;
+  text-align: left;
+  font-size: 0.7em;
+  margin: 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: 0.25s transform, 0.1s opacity;
+
+  &.frmLabelShow {
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.25s transform, 0.15s opacity 0.1s;
+  }
+}
+
+.frmGroup50 {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  .frmItem {
+    width: 48%;
+  }
+}
+
+//icons
+.icon {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+
+  svg {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  &.iconSmall {
+    width: 10px;
+    height: 10px;
+  }
+
+  &.iconLarge {
+    width: 25px;
+    height: 25px;
+  }
+
+  &.iconRight {
+    margin-left: 10px;
+  }
+
+  &.iconLeft {
+    margin-right: 10px;
+  }
+
+  &.iconWhite {
+    fill: $color_white;
+
+    svg {
+      fill: $color_white;
+    }
+  }
+
+  &.iconBlack {
+    fill: $color_mine_shaft_black;
+
+    svg {
+      fill: $color_mine_shaft_black;
+    }
+  }
+
+  &.iconGrey {
+    fill: $color_chateau_grey;
+
+    svg {
+      fill: $color_chateau_grey;
+    }
+  }
+}
+
+// rc-slider overwrites
+.rc-slider-tooltip-inner {
+  @include font-bold;
+
+  font-size: 0.7em;
+  color: $color_mine_shaft_black;
+  background-color: $color_alabaster_white;
+  border: 1px solid $color_chateau_grey;
+  padding: 4px;
+  border-radius: 4px;
+  height: auto;
+}
+
+.rc-slider-tooltip-arrow {
+  border-top-color: $color_chateau_grey;
+}
+
+// rc-tooltip overwrites
+.rc-tooltip {
+  background-color: none;
+  opacity: 1;
+}
+
+.rc-tooltip-inner {
+  border-radius: 2px;
+  border: 1px solid $color_alabaster_white;
+  box-shadow: 0px 3px 6px rgba($color_mine_shaft_black, 0.1);
+  max-width: 250px;
+}
+
+.rc-tooltip-placement-right .rc-tooltip-arrow,
+.rc-tooltip-placement-rightTop .rc-tooltip-arrow,
+.rc-tooltip-placement-rightBottom .rc-tooltip-arrow {
+  border-right-color: $color_chateau_grey;
+}
