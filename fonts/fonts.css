@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'NMS-Glyphs-Mono';
+  src: url('./NMS-Glyphs-Mono.woff2') format('woff2'),
+    url('./NMS-Glyphs-Mono.woff') format('woff');
+}
