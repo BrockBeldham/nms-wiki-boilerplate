@@ -26,5 +26,5 @@ export default function Glyphs({ onChange }) {
 }
 
 Glyphs.propTypes = {
-  onChange: PropTypes.object
+  onChange: PropTypes.func
 };
