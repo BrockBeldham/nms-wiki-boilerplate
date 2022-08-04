@@ -7,6 +7,11 @@ export default function Home() {
       <button type='button' className={`btn btnDisabled ${styles.btn}`}>
         New Star System
       </button>
+      {/* <Link href='/system'>
+        <a className={`btn ${styles.btn}`}>
+          New Star System
+        </a>
+      </Link> */}
       <button type='button' className={`btn btnDisabled ${styles.btn}`}>
         New Planet
       </button>

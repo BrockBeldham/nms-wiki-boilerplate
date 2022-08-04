@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 
-import styles from './select.module.scss';
+import styles from './select-multi.module.scss';
 import customStyles from '../lib/select-styles';
 
-function Select({ className, id, label, placeholder, isSearchable, config, onChange }) {
-  const [value, setValue] = useState('');
-
+function SelectMulti({ className, id, label, placeholder, isSearchable, config, onChange }) {
+  const [value, setValue] = useState([]);
+  
   return (
     <div className={`frmItem ${className ? styles[className] : ''}`}>
       {label &&
@@ -19,35 +19,29 @@ function Select({ className, id, label, placeholder, isSearchable, config, onCha
         id={id}
         name={id}
         placeholder={placeholder || label}
-        isSearchable={isSearchable ? true : false}
-        value={value === '' ? value : config.filter((o) => {
-          // eslint-disable-next-line eqeqeq
-          if (typeof o.value == 'boolean') {
-            return o.value === (value.toString() === 'true');
-          } else {
-            return o.value === value;
-          }
-        })}
+        isSearchable={isSearchable}
         options={config}
-        onChange={({ value }) => {
-          setValue(value);
+        onChange={(items) => {
+          setValue(items);
           if (onChange) {
-            onChange(value);
+            onChange(items);
           }
         }}
+        isMulti
       />
     </div>
   );
 }
 
-Select.propTypes = {
+SelectMulti.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   isSearchable: PropTypes.bool,
+  isMulti: PropTypes.bool,
   config: PropTypes.array.isRequired,
   onChange: PropTypes.func
 };
 
-export default Select;
+export default SelectMulti;

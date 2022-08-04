@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
@@ -11,6 +12,7 @@ import SelectPlatform from '../components/select-platform';
 import styles from '../styles/pages/base.module.scss';
 
 export default function Base() {
+  const [codeCopied, setCodeCopied] = useState(false);
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [civ, setCiv] = useState('');
@@ -36,7 +38,6 @@ export default function Base() {
   const [features, setFeatures] = useState([]);
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
-  const [codeCopied, setCodeCopied] = useState(false);
 
   const codeTemplate = `
 {{Version|Endurance}}
@@ -107,7 +108,7 @@ ${gallery.map((image) => {
     return gallery.map((image, index) => (
       <li className={styles.galleryListItem} key={index}>
         <div className={styles.galleryImage} style={{ backgroundImage: `url(${image.preview})` }} />
-        <Input id={`gallery${index}`} type='text' label='Gallery Caption' onChange={(value) => {
+        <Input frmItemClass='frmItemGallery' id={`gallery${index}`} type='text' label='Gallery Caption' onChange={(value) => {
           setGallery((prevState) => {
             const newState = prevState.map((image, prevIndex) => {
               if (index === prevIndex) {
@@ -130,73 +131,66 @@ ${gallery.map((image) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.form}>
-        <div className='frmGroup50'>
-          <Input id='title' type='text' label='Base Name' onChange={(value) => setTitle(value)} />
-          <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
-          <Dropzone maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
-          <Input id='builder' type='text' label='Builder in-game username' onChange={(value) => setBuilder(value)} />
-          <Input id='builderLink' type='text' label='Builder wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Builder Name.' onChange={(value) => setBuilderLink(value)} />
-          <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
-          <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
-          <Input id='system' type='text' label='Star System Name' onChange={(value) => setSystem(value)} />
-          <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the base can be found.' onChange={(value) => setPlanet(value)} />
-          <Input id='moon' type='text' label='Moon Name' tooltip='If the base is located on a moon. Leave blank if the base is on a planet.' onChange={(value) => setMoon(value)} />
-          <Input id='axes' type='text' label='Planetary Longitude and Latitude' tooltip='Found using your analysis visor OR on your ships dashboard' onChange={(value) => setAxes(value)} />
-        </div>
-        <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
-        <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
-        <div className='frmGroup50'>
-          <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
-          <SelectGameMode onChange={(value) => setMode(value)} />
-          <SelectPlatform onChange={(value) => setPlatform(value)} />
-          <Select id='farm' label='Farm?' config={[
-            { value: 'Yes', label :'Yes' },
-            { value: 'No', label :'No' }
-          ]} onChange={(value) => setFarm(value)} />
-          <Select id='geobay' label='Geobay?' config={[
-            { value: 'Yes', label :'Yes' },
-            { value: 'No', label :'No' }
-          ]} onChange={(value) => setGeobay(value)} />
-          <Select id='arena' label='Arena?' config={[
-            { value: 'Yes', label :'Yes' },
-            { value: 'No', label :'No' }
-          ]} onChange={(value) => setArena(value)} />
-          <Select id='landingpad' label='Landing Pad?' config={[
-            { value: 'Yes', label :'Yes' },
-            { value: 'No', label :'No' }
-          ]} onChange={(value) => setLandingpad(value)} />
-          <Select id='racetrack' label='Racetrack?' config={[
-            { value: 'Yes', label :'Yes' },
-            { value: 'No', label :'No' }
-          ]} onChange={(value) => setRacetrack(value)} />
-          <Select id='terminal' label='Trade Terminal?' config={[
-            { value: 'Yes', label :'Yes' },
-            { value: 'No', label :'No' }
-          ]} onChange={(value) => setTerminal(value)} />
-        </div>
-        <Textarea id='layout' label='Layout' placeholder='Walk us through your base as if you were a realtor.' onChange={(value) => setLayout(value)} />
-        <SelectFeatures onChange={(items) => setFeatures(items)} />
-        <Textarea id='additionalInfo' label='Additional Info' placeholder='Any nearby resources, tourist traps, other bases.' onChange={(value) => setAdditionalInfo(value)} />
-        <Dropzone maxFiles={20} onUpload={(photos) => setGallery(photos)} />
-        {gallery.length > 0 &&
-          <ul className={styles.galleryList}>
-            {renderGalleries()}
-          </ul>
-        }
-        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
-          {codeCopied ? 'Code Copied' : 'Copy Code'}
-        </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
-          Create Page
-        </a>
+    <CodeView code={codeTemplate}>
+      <div className='frmGroup50'>
+        <Input id='title' type='text' label='Base Name' onChange={(value) => setTitle(value)} />
+        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
+        <Dropzone label='Image of Base' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
+        <Input id='builder' type='text' label='Builder in-game username' onChange={(value) => setBuilder(value)} />
+        <Input id='builderLink' type='text' label='Builder wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Builder Name.' onChange={(value) => setBuilderLink(value)} />
+        <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
+        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
+        <Input id='system' type='text' label='Star System Name' onChange={(value) => setSystem(value)} />
+        <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the base can be found.' onChange={(value) => setPlanet(value)} />
+        <Input id='moon' type='text' label='Moon Name' tooltip='If the base is located on a moon. Leave blank if the base is on a planet.' onChange={(value) => setMoon(value)} />
+        <Input id='axes' type='text' label='Planetary Longitude and Latitude' tooltip='Found using your analysis visor OR on your ships dashboard' onChange={(value) => setAxes(value)} />
       </div>
-      <div className={styles.editor}>
-        <pre className={styles.editorCode}>
-          <code>{codeTemplate}</code>
-        </pre>
+      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
+      <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
+      <div className='frmGroup50'>
+        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
+        <SelectGameMode onChange={(value) => setMode(value)} />
+        <SelectPlatform onChange={(value) => setPlatform(value)} />
+        <Select id='farm' label='Farm?' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => setFarm(value)} />
+        <Select id='geobay' label='Geobay?' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => setGeobay(value)} />
+        <Select id='arena' label='Arena?' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => setArena(value)} />
+        <Select id='landingpad' label='Landing Pad?' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => setLandingpad(value)} />
+        <Select id='racetrack' label='Racetrack?' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => setRacetrack(value)} />
+        <Select id='terminal' label='Trade Terminal?' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => setTerminal(value)} />
       </div>
-    </div>
+      <Textarea id='layout' label='Layout' placeholder='Walk us through your base as if you were a realtor.' onChange={(value) => setLayout(value)} />
+      <SelectFeatures onChange={(items) => setFeatures(items)} />
+      <Textarea id='additionalInfo' label='Additional Info' placeholder='Any nearby resources, tourist traps, other bases.' onChange={(value) => setAdditionalInfo(value)} />
+      <Dropzone label='Other Images for Gallery' maxFiles={20} onUpload={(photos) => setGallery(photos)} />
+      {gallery.length > 0 &&
+        <ul className={styles.galleryList}>
+          {renderGalleries()}
+        </ul>
+      }
+      <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
+        {codeCopied ? 'Code Copied' : 'Copy Code'}
+      </button>
+      <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        Create Page
+      </a>
+    </CodeView>
   );
 }

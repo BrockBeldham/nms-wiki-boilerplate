@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone';
 
 import styles from './dropzone.module.scss';
 
-function Dropzone({ maxFiles, onUpload }) {
+function Dropzone({ label, maxFiles, onUpload }) {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState('');
 
@@ -60,6 +60,9 @@ function Dropzone({ maxFiles, onUpload }) {
 
   return (
     <div className={styles.container}>
+      {label &&
+        <label className='frmLabel frmLabelShow'>{label}</label>
+      }
       <div {...getRootProps({ className: styles.dropzone })}>
         <input {...getInputProps()} />
         {(files.length === 0 || files.length > 1)
@@ -74,6 +77,7 @@ function Dropzone({ maxFiles, onUpload }) {
 }
 
 Dropzone.propTypes = {
+  label: PropTypes.string,
   maxFiles: PropTypes.number,
   onUpload: PropTypes.func
 };

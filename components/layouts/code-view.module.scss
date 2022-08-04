@@ -1,0 +1,29 @@
+@import '../../styles/settings';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.form {
+  width: 48%;
+}
+
+.editor {
+  width: 48%;
+  padding: 20px;
+}
+
+.editorCode {
+  white-space: break-spaces;
+  font-size: 0.7em;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 20px;
+  border: 1px solid $color_chateau_grey;
+  border-radius: 10px;
+  background: darken($color_mine_shaft_black, 8%);
+}
