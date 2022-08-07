@@ -11,7 +11,7 @@ function Dropzone({ label, maxFiles, onUpload }) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { 'image/png': ['.png', '.jpg', '.jpeg', '.webp'] },
     maxFiles,
-    maxSize: 1048576,
+    maxSize: 10485760,
     onDrop: (acceptedFiles, fileRejections) => {
       if (fileRejections.length > 0) {
         setError('One of your images is larger than 10MB');
