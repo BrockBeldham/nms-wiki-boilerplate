@@ -8,6 +8,8 @@ function Input({
   frmItemClass,
   defaultValue,
   id,
+  min,
+  max,
   type,
   label,
   placeholder,
@@ -31,6 +33,8 @@ function Input({
         className='input'
         type={type}
         id={id}
+        min={min}
+        max={max}
         name={id}
         placeholder={placeholder || label}
         value={value}
@@ -61,6 +65,8 @@ Input.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]).isRequired,
+  min: PropTypes.string,
+  max: PropTypes.string,
   type: PropTypes.string.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,

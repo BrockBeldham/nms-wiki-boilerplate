@@ -4,14 +4,11 @@ import styles from '../styles/pages/home.module.scss'
 export default function Home() {
   return (
     <div className={styles.container}>
-      <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-        New Star System
-      </button>
-      {/* <Link href='/system'>
+      <Link href='/system'>
         <a className={`btn ${styles.btn}`}>
           New Star System
         </a>
-      </Link> */}
+      </Link>
       <button type='button' className={`btn btnDisabled ${styles.btn}`}>
         New Planet
       </button>

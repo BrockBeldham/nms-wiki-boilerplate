@@ -6,9 +6,8 @@ import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import SelectMulti from '../components/select-multi';
 import Textarea from '../components/textarea';
-import SelectFeatures from '../components/base/select-features';
 import SelectGameMode from '../components/select-game-mode';
-import SelectPlatform from '../components/select-platform';
+import Planets from '../components/system/planets';
 
 import styles from '../styles/pages/system.module.scss';
 
@@ -23,8 +22,8 @@ export default function System() {
   const [starClass, setStarClass] = useState('');
   const [distance, setDistance] = useState('');
   const [coordinates, setCoordinates] = useState('');
-  const [planet, setPlanet] = useState('');
-  const [moon, setMoon] = useState('');
+  const [planet, setPlanet] = useState('2');
+  const [moon, setMoon] = useState('0');
   const [water, setWater] = useState('');
   const [gateway, setGateway] = useState('');
   const [faction, setFaction] = useState('');
@@ -38,6 +37,8 @@ export default function System() {
   const [discovered, setDiscovered] = useState('');
   const [discoveredLink, setDiscoveredLink] = useState('');
   const [defaultTitle, setDefaultTitle] = useState('');
+  const [planets, setPlanets] = useState([...Array(2)]);
+  const [resources, setResources] = useState([]);
   const [glyphs, setGlyphs] = useState('');
   const [galaxyMap, setGalaxyMap] = useState('');
   const [multitoolTech, setMultitoolTech] = useState([]);
@@ -46,6 +47,46 @@ export default function System() {
   const [vehicleTech, setVehicleTech] = useState([]);
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
+
+  console.log(resources);
+  console.log(planets);
+
+  const renderPlanets = () => {
+    const usedResources = [];
+    return planets.map((planet) => planet ? `
+| [[File:${planet.photo}|150px]] 
+| ${planet.name}
+| ${planet.type}
+| ${planet.weather}
+| ${planet.sentinels}
+| ${planet.fauna}
+| ${planet.flora}
+|-
+|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource) => {
+  console.log(usedResources, resource.value, !usedResources.includes(resource.value));
+  if (!usedResources.includes(resource.value)) {
+    usedResources.push(resource.value);
+    return ` [[${resource.value}]]`;
+  } else {
+    return ` ${resource.value}`;
+  }
+}) : ''}
+|colspan=5 | '''Notes:''' ${planet.notes || ''}
+|-`
+:
+`| [[File:nmsMisc_NotAvailable.png|150px]] 
+| [[PlanetName]]
+| type
+| weather
+| sentinels
+| fauna
+| flora
+|-
+|colspan=2 | '''Resources:'''
+|colspan=5 | '''Notes:'''
+|-
+`).toString().replace(/,/g,'');
+  };
 
   const codeTemplate = `
 {{Version|Endurance}}
@@ -100,15 +141,7 @@ Notable Bases include:
 ! {{Style_header}} width=100 | Fauna
 ! {{Style_header}} width=100 | Flora
 |-
-| [[File:nmsMisc_NotAvailable.png|150px]] 
-| [[PlanetName]] 
-| Type
-|YES/NO (Ext. Weather)
-|YES/NO (Ext. Sentinels)
-|-
-|colspan=2 | '''Resources:''' Resources
-|colspan=5 | '''Notes''': Notes
-|-
+${renderPlanets()}
 |}
 
 ==Location information==
@@ -203,8 +236,8 @@ ${gallery.map((image) => {
         <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setStarClass(value)} />
         <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => setDistance(value)} />
         <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
-        <Input id='planet' type='text' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => setPlanet(value)} />
-        <Input id='moon' type='text' label='Moon Amount' tooltip='The amount of lunar bodies in this system' onChange={(value) => setMoon(value)} />
+        <Input id='planet' type='number' min='2' max='6' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => setPlanet(value)} />
+        <Input id='moon' type='number' min='0' max='4' label='Moon Amount' tooltip='The amount of lunar bodies in this system' onChange={(value) => setMoon(value)} />
         <Select id='water' label='Contains Water' config={[
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
@@ -319,6 +352,23 @@ ${gallery.map((image) => {
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => setDiscovered(value)} />
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
       </div>
+      <Planets amount={Number(moon) + Number(planet)} onChange={(index, key, value) => {
+        if (key === 'resources') {
+          const flatValues = value.map((val) => (val.label));
+          const newResources = resources;
+          newResources[index] = flatValues;
+          setResources(newResources.flat());
+        }
+        setPlanets((prevState) => {
+          return prevState.map((p, prevIndex) => {
+            if (index === prevIndex) {
+              return { ...p, [key]: value };
+            }
+
+            return p;
+          });
+        });
+      }} />
       <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
       <div className='frmGroup50'>
