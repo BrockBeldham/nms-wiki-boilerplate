@@ -15,7 +15,10 @@ body {
   height: 100%;
   letter-spacing: 1px;
   font-size: 18px;
-  background-color: $color_mine_shaft_black;
+  background-image: url('../public/images/bg-long-huge.jpg');
+  background-position: top center;
+  background-repeat: repeat;
+  background-color: $color_black_knight;
 }
 
 #__next {
@@ -41,7 +44,7 @@ h6 {
 }
 
 h1 {
-  margin: 0 0 30px;
+  margin: 30px 0;
 }
 
 h2 {
@@ -79,28 +82,25 @@ video {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: $color_mine_shaft_black;
+  color: $color_white;
+  position: relative;
 
-  &.txtLink {
-    position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: $color_white;
+    transform: translateY(0);
+    opacity: 1;
+    transition: all 0.25s;
+  }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: $color_coral_orange;
-      transform: translateY(0);
-      opacity: 1;
-      transition: all 0.25s;
-    }
-
-    &:hover::after {
-      transform: translateY(4px);
-      opacity: 0.3;
-    }
+  &:hover::after {
+    transform: translateY(2px);
+    opacity: 0.3;
   }
 }
 
@@ -117,23 +117,27 @@ hr {
   margin: 20px auto;
 }
 
-input[type="text"],
-input[type="tel"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
+input,
 textarea {
   outline: none;
-  border: 1px solid $color_satin_grey;
-  padding: 10px;
+  padding: 6px 12px;
   width: 100%;
-  height: 40px;
+  height: 35px;
+  border-radius: 3px;
+  background: $color_black_knight;
+  border: 1px solid $color_grey_squant;
+  color: $color_white;
+  font-size: 14px;
+
+  &[type=number] {
+    padding: 6px 25px 6px 12px;
+  }
 
   &::placeholder {
     @include font-regular;
 
-    font-size: 18px;
-    color: $color_placeholder;
+    font-size: 14px;
+    color: $color_grey_squant;
     opacity: 1;
   }
 }
@@ -143,23 +147,38 @@ textarea {
 */
 
 .btn {
-  @include font-bold;
+  @include font-nms;
 
   display: inline-block;
   margin: 0;
-  padding: 12px 25px 11px;
+  padding: 10px 20px 8px;
   cursor: pointer;
   background: transparent;
-  border: 1px solid $color_white;
+  border: 2px solid $color_orange_new_black;
   text-align: center;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-size: 0.7em;
+  font-size: 0.9em;
   color: $color_white;
+  text-shadow: 0px 2px 0 rgba(0, 0, 0, 0.4);
+  transition: background 0.25s;
+
+  &::after {
+    display: none;
+  }
+
+  &:hover {
+    background: $color_orange_new_black;
+  }
 
   &.btnDisabled {
+    cursor: default;
     border: 1px solid $color_slate_grey;
     color: $color_slate_grey;
+
+    &:hover {
+      background: transparent;
+    }
   }
 }
 
@@ -169,7 +188,7 @@ textarea {
   padding: 0;
   margin: 0;
   border: none;
-  color: $color_focus;
+  color: $color_white;
   cursor: pointer;
   position: relative;
 
@@ -185,10 +204,14 @@ textarea {
     height: 1px;
     bottom: 1px;
     left: 0;
-    background: $color_focus;
+    background: $color_white;
     transform: translateY(0);
     transition: all 0.25s;
   }
+}
+
+.btnContainer {
+  margin: 50px 0;
 }
 
 // forms
@@ -200,11 +223,12 @@ textarea {
 }
 
 .frmLabel {
-  @include font-bold;
+  @include font-nms;
 
   display: block;
   text-align: left;
   font-size: 0.7em;
+  letter-spacing: 2px;
   margin: 0 0 5px;
   white-space: nowrap;
   overflow: hidden;
@@ -270,10 +294,10 @@ textarea {
   }
 
   &.iconBlack {
-    fill: $color_mine_shaft_black;
+    fill: $color_black_knight;
 
     svg {
-      fill: $color_mine_shaft_black;
+      fill: $color_black_knight;
     }
   }
 
@@ -291,7 +315,7 @@ textarea {
   @include font-bold;
 
   font-size: 0.7em;
-  color: $color_mine_shaft_black;
+  color: $color_black_knight;
   background-color: $color_alabaster_white;
   border: 1px solid $color_chateau_grey;
   padding: 4px;
@@ -312,7 +336,7 @@ textarea {
 .rc-tooltip-inner {
   border-radius: 2px;
   border: 1px solid $color_alabaster_white;
-  box-shadow: 0px 3px 6px rgba($color_mine_shaft_black, 0.1);
+  box-shadow: 0px 3px 6px rgba($color_black_knight, 0.1);
   max-width: 250px;
 }
 

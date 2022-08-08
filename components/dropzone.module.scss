@@ -8,8 +8,9 @@
 
 .dropzone {
   height: 200px;
-  border: 2px solid $color_chateau_grey;
-  background: $color_alabaster_white;
+  border-radius: 3px;
+  background: $color_black_knight;
+  border: 1px solid $color_grey_squant;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,13 +25,13 @@
   width: 100%;
 
   svg {
-    fill: $color_silver_grey;
+    fill: $color_grey_squant;
   }
 }
 
 .dropText {
   font-size: 0.8em;
-  color: $color_silver_grey;
+  color: $color_grey_squant;
   margin: 0 0 5px;
 }
 
@@ -42,7 +43,15 @@
 
 .dropIconActive {
   svg {
-    fill: $color_silver_grey;
+    fill: $color_grey_squant;
+  }
+}
+
+.dropBtn {
+  color: $color_grey_squant;
+
+  &::after {
+    background: $color_grey_squant;
   }
 }
 
@@ -54,6 +63,6 @@
 }
 
 .note {
-  font-size: 0.8em;
+  font-size: 0.7em;
   margin: 10px 0 0;
 }

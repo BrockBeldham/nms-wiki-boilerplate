@@ -3,3 +3,27 @@
   src: url('./NMS-Glyphs-Mono.woff2') format('woff2'),
     url('./NMS-Glyphs-Mono.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'NMSGeoSans-Kerned';
+  src: url('./NMSGeoSans-Kerned.woff2') format('woff2'),
+    url('./NMSGeoSans-Kerned.woff') format('woff')
+}
+
+@font-face {
+  font-family: 'Raleway-regular';
+  src: url('./Raleway-regular.woff2') format('woff2'),
+    url('./Raleway-regular.woff') format('woff')
+}
+
+@font-face {
+  font-family: 'Raleway-thin';
+  src: url('./Raleway-thin.woff2') format('woff2'),
+    url('./Raleway-thin.woff') format('woff')
+}
+
+@font-face {
+  font-family: 'Raleway-bold';
+  src: url('./Raleway-bold.woff2') format('woff2'),
+    url('./Raleway-bold.woff') format('woff')
+}

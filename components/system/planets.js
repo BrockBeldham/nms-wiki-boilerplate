@@ -9,7 +9,7 @@ import styles from './planets.module.scss';
 export default function Planets({ amount, onChange }) {
   return [...Array(amount)].map((a, index) => (
     <div className={`frmGroup50 ${styles.planet}`} key={index}>
-      <h2>Planet {index + 1}</h2>
+      <h2 className={styles.title}>Planet {index + 1}</h2>
       <Dropzone label='Planet Image' maxFiles={1} onUpload={(photos) => onChange(index, 'photo', photos[0].name)} />
       <Input id='title' type='text' label='Planet Name' onChange={(value) => onChange(index, 'name', value)} />
       <Input id='type' type='text' label='Planet Type' onChange={(value) => onChange(index, 'type', value)} />

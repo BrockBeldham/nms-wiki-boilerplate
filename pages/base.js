@@ -131,7 +131,7 @@ ${gallery.map((image) => {
   };
 
   return (
-    <CodeView code={codeTemplate}>
+    <CodeView code={codeTemplate}  title='Create A New Base'>
       <div className='frmGroup50'>
         <Input id='title' type='text' label='Base Name' onChange={(value) => setTitle(value)} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
@@ -185,12 +185,14 @@ ${gallery.map((image) => {
           {renderGalleries()}
         </ul>
       }
-      <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
-        {codeCopied ? 'Code Copied' : 'Copy Code'}
-      </button>
-      <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
-        Create Page
-      </a>
+      <div className='btnContainer'>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
+          {codeCopied ? 'Code Copied' : 'Copy Code'}
+        </button>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+          Create Page
+        </a>
+      </div>
     </CodeView>
   );
 }

@@ -1,0 +1,18 @@
+@import '../../styles/settings';
+
+.planet {
+  padding: 30px 0 0;
+  margin: 20px 0;
+  border-top: 1px solid $color_grey_squant;
+
+  &:last-child {
+    border-bottom: 1px solid $color_grey_squant;
+  }
+}
+
+.title {
+  @include font-bold;
+
+  margin: 0;
+  color: $color_orange_new_black;
+}

@@ -41,7 +41,7 @@ function Dropzone({ label, maxFiles, onUpload }) {
             </svg>
           </div>
           <p className={styles.dropTextError}>{error}</p>
-          <p className={styles.dropTextError}>Drag & drop image here or <button type='button' className='btnLink'>click to browse</button></p>
+          <p className={styles.dropTextError}>Drag & drop image here or <button type='button' className={`btnLink ${styles.dropBtn}`}>click to browse</button></p>
         </>
       );
     } else {
@@ -52,7 +52,7 @@ function Dropzone({ label, maxFiles, onUpload }) {
               <use href='#svgUpload' />
             </svg>
           </div>
-          <p className={styles.dropText}>Drag & drop image here or <button type='button' className='btnLink'>click to browse</button></p>
+          <p className={styles.dropText}>Drag & drop image here or <button type='button' className={`btnLink ${styles.dropBtn}`}>click to browse</button></p>
         </>
       );
     }

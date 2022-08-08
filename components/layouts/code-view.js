@@ -1,23 +1,37 @@
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import Footer from './footer';
 
 import styles from './code-view.module.scss';
 
-export default function CodeView({ children, code }) {
+export default function CodeView({ children, code, title }) {
   return (
-    <div className={styles.container}>
-      <div className={styles.form}>
-        {children}
+    <>
+      <Link href='/'>
+        <a className={`btn ${styles.backBtn}`}>Back</a>
+      </Link>
+      <div className={styles.intro}>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.text}>Creating a wiki page is easy! Just fill out this form as completely as you can. Once the form is completed, click &apos;Copy Code&apos; to copy the Markdown to your clipboard and then click &apos;Create Page&apos; to open the wiki in a new window. Paste the Markdown code into the Wiki editor and hit &apos;Saev Changes&apos;!</p>
+        <p className={styles.text}>If you notice any errors or bugs on this page please DM <a href='https://www.reddit.com/user/hotbrowndoubledouble' target='_blank' rel='noreferrer'>HotbrownDoubleDouble</a> on Reddit.</p>
       </div>
-      <div className={styles.editor}>
-        <pre className={styles.editorCode}>
-          <code>{code}</code>
-        </pre>
+      <div className={styles.container}>
+        <div className={styles.form}>
+          {children}
+        </div>
+        <div className={styles.editor}>
+          <pre className={styles.editorCode}>
+            <code>{code}</code>
+          </pre>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 
 CodeView.propTypes = {
   children: PropTypes.array,
-  code: PropTypes.string
+  code: PropTypes.string,
+  title: PropTypes.string
 };

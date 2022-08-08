@@ -1,5 +1,31 @@
 @import '../../styles/settings';
 
+.backBtn {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+}
+
+.intro {
+  width: 100%;
+  max-width: 900px;
+  padding: 0 40px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  @include font-nms;
+
+  text-transform: uppercase;
+  font-size: 2.5em;
+}
+
+.text {
+  font-size: 0.8em;
+  margin: 0 0 10px;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -14,7 +40,7 @@
 
 .editor {
   width: 48%;
-  padding: 20px;
+  padding: 30px 20px 20px;
 }
 
 .editorCode {
@@ -23,7 +49,7 @@
   line-height: 1.5em;
   margin: 0;
   padding: 20px;
-  border: 1px solid $color_chateau_grey;
+  border: 1px solid $color_grey_squant;
   border-radius: 10px;
-  background: darken($color_mine_shaft_black, 8%);
+  background: $color_black_knight;
 }

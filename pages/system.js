@@ -88,9 +88,7 @@ export default function System() {
 `).toString().replace(/,/g,'');
   };
 
-  const codeTemplate = `
-{{Version|Endurance}}
-{{stub}}
+  const codeTemplate = `{{Version|Endurance}}
 {{System infobox
 | name = ${title}
 | image = ${image}
@@ -214,7 +212,7 @@ ${gallery.map((image) => {
   };
 
   return (
-    <CodeView code={codeTemplate}>
+    <CodeView code={codeTemplate} title='Create A Star System'>
       <div className='frmGroup50'>
         <Input id='title' type='text' label='System Name' onChange={(value) => setTitle(value)} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
@@ -424,12 +422,14 @@ ${gallery.map((image) => {
         ]} onChange={(items) => setVehicleTech(items)} />
       </div>
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => setAdditionalInfo(value)} />
-      <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
-        {codeCopied ? 'Code Copied' : 'Copy Code'}
-      </button>
-      <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
-        Create Page
-      </a>
+      <div className='btnContainer'>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
+          {codeCopied ? 'Code Copied' : 'Copy Code'}
+        </button>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+          Create Page
+        </a>
+      </div>
     </CodeView>
   );
 }

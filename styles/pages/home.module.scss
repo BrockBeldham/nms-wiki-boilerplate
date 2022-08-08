@@ -3,10 +3,38 @@
 .container {
   display: flex;
   justify-content: center;
-  padding: 100px;
+  padding: 80px;
   max-width: 1000px;
   margin: 0 auto;
   flex-flow: row wrap;
+}
+
+.intro {
+  width: 100%;
+  max-width: 900px;
+  padding: 0 40px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.title {
+  @include font-nms;
+
+  text-transform: uppercase;
+  font-size: 5em;
+  margin: 0 0 30px;
+}
+
+.subtitle {
+  @include font-light;
+
+  text-transform: uppercase;
+  font-size: 1.8em;
+}
+
+.text {
+  font-size: 0.8em;
+  margin: 0 0 10px;
 }
 
 .btn {

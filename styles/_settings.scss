@@ -4,8 +4,8 @@ $desktop_width: 800px;
 $mobile_width: 500px;
 
 // Colors
-$color_mine_shaft_black: #363434;
-$color_white: #fff;
+// $color_black_knight: #363434;
+// $color_white: #fff;
 $color_chateau_grey: #a9aeb0;
 $color_satin_grey: #eeebe4;
 $color_sunshine_yellow: #f7f17e;
@@ -19,7 +19,12 @@ $color_alabaster_white: #f5f4f2;
 $color_silver_grey: #ccc;
 $color_tinge_grey: #e6e6e6;
 $color_cerulean_blue: #2d56d0;
-$color_placeholder: #a9a9a9;
+
+$color_black_knight: #010b14;
+$color_grey_jet: #353535;
+$color_grey_squant: #666666;
+$color_white: #ffffff;
+$color_orange_new_black: #ff8400;
 $color_focus: #3390d2;
 
 // fonts
@@ -28,21 +33,22 @@ $color_focus: #3390d2;
 }
 
 @mixin font-bold {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
+  font-family: 'Raleway-bold', sans-serif;
 }
 
 @mixin font-regular {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
+  font-family: 'Raleway-regular', sans-serif;
 }
 
 @mixin font-light {
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
+  font-family: 'Raleway-thin', sans-serif;
 }
 
 @mixin font-mono {
   font-family: 'Roboto Mono', monospace;
   font-weight: 400;
+}
+
+@mixin font-nms {
+  font-family: 'NMSGeoSans-Kerned', sans-serif;
 }
