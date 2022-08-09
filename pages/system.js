@@ -50,9 +50,6 @@ export default function System() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  console.log(resources);
-  console.log(planets);
-
   const renderPlanets = () => {
     const usedResources = [];
     return planets.map((planet) => planet ? `
@@ -65,7 +62,6 @@ export default function System() {
 | ${planet.flora}
 |-
 |colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource) => {
-  console.log(usedResources, resource.value, !usedResources.includes(resource.value));
   if (!usedResources.includes(resource.value)) {
     usedResources.push(resource.value);
     return ` [[${resource.value}]]`;
