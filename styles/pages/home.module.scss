@@ -12,7 +12,6 @@
 .intro {
   width: 100%;
   max-width: 900px;
-  padding: 0 40px;
   margin: 0 auto 50px;
   text-align: center;
 }
@@ -39,4 +38,30 @@
 
 .btn {
   margin: 10px;
+}
+
+@media (max-width: $desktop_width) {
+  .container {
+    padding: 40px;
+  }
+
+  .title {
+    font-size: 3em;
+  }
+
+  .subtitle {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: $mobile_width) {
+  .title {
+    font-size: 2em;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.7em;
+    padding: 10px 10px 8px;
+  }
 }

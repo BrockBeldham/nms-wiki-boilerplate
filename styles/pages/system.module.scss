@@ -1,18 +1,18 @@
 @import '../settings';
 
 .btn {
-  margin-right: 20px;
+  margin: 10px 20px 10px 0;
 }
 
 .galleryList {
   display: flex;
   flex-flow: row wrap;
-  margin: 20px 0;
+  margin: 20px 0 0;
 }
 
 .galleryListItem {
   width: 120px;
-  margin: 0 20px 0 0;
+  margin: 0 20px 20px 0;
 }
 
 .galleryImage {
@@ -20,4 +20,15 @@
   height: 100px;
   background-position: center;
   background-size: cover;
+}
+
+@media (max-width: $mobile_width) {
+  .btn {
+    width: 47%;
+    margin: 10px 6% 10px 0;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
 }

@@ -26,3 +26,9 @@
     background: $color_orange_new_black;
   }
 }
+
+@media (max-width: $mobile_width) {
+  .glyphBtn {
+    font-size: 1.5em;
+  }
+}

@@ -29,7 +29,7 @@
 .container {
   display: flex;
   justify-content: space-between;
-  padding: 40px;
+  padding: 40px 20px;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -52,4 +52,59 @@
   border: 1px solid $color_grey_squant;
   border-radius: 10px;
   background: $color_black_knight;
+}
+
+.editorClose {
+  display: none;
+}
+
+@media (max-width: $desktop_width) {
+  .container {
+    position: relative;
+  }
+
+  .backBtn {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .intro {
+    padding: 80px 20px 0;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .editor {
+    display: none;
+
+    &.editorShow {
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: 20px;
+      left: 0;
+    }
+  }
+
+  .editorClose {
+    display: block;
+    padding: 0;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 50px;
+    right: 40px;
+
+    svg {
+      fill: $color_white;
+    }
+  }
+}
+
+@media (max-width: $mobile_width) {
+  .title {
+    font-size: 1.5em;
+  }
 }

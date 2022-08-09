@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -12,7 +12,9 @@ import SelectPlatform from '../components/select-platform';
 import styles from '../styles/pages/base.module.scss';
 
 export default function Base() {
+  const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [viewCode, setViewCode] = useState(false);
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [civ, setCiv] = useState('');
@@ -39,8 +41,7 @@ export default function Base() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  const codeTemplate = `
-{{Version|Endurance}}
+  const codeTemplate = `{{Version|Endurance}}
 {{Base infobox
 | name = ${title}
 | image = ${image}
@@ -131,8 +132,13 @@ ${gallery.map((image) => {
   };
 
   return (
-    <CodeView code={codeTemplate}  title='Create A New Base'>
-      <div className='frmGroup50'>
+    <CodeView
+      code={codeTemplate}
+      title='Create A New Base'
+      viewCode={viewCode}
+      closeEditor={() => setViewCode(false)}
+    >
+      <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Base Name' onChange={(value) => setTitle(value)} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
         <Dropzone label='Image of Base' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
@@ -186,6 +192,12 @@ ${gallery.map((image) => {
         </ul>
       }
       <div className='btnContainer'>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
+          myRef.current.scrollIntoView();
+          setViewCode(true);
+        }}>
+          View Code
+        </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>

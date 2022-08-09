@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -12,7 +12,9 @@ import Planets from '../components/system/planets';
 import styles from '../styles/pages/system.module.scss';
 
 export default function System() {
+  const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [viewCode, setViewCode] = useState(false);
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [region, setRegion] = useState('');
@@ -212,8 +214,13 @@ ${gallery.map((image) => {
   };
 
   return (
-    <CodeView code={codeTemplate} title='Create A Star System'>
-      <div className='frmGroup50'>
+    <CodeView
+      code={codeTemplate}
+      title='Create A Star System'
+      viewCode={viewCode}
+      closeEditor={() => setViewCode(false)}
+    >
+      <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='System Name' onChange={(value) => setTitle(value)} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
         <Dropzone label='Space Station or Star System Image' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
@@ -229,7 +236,7 @@ ${gallery.map((image) => {
           { value: 'Green', label :'Green' },
           { value: 'Red', label :'Red' },
           { value: 'Blue', label :'Blue' },
-          { value: 'Black', label :'Black' }
+          { value: 'Black Hole', label :'Black Hole' }
         ]} onChange={(value) => setColor(value)} />
         <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setStarClass(value)} />
         <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => setDistance(value)} />
@@ -423,6 +430,12 @@ ${gallery.map((image) => {
       </div>
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => setAdditionalInfo(value)} />
       <div className='btnContainer'>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
+          myRef.current.scrollIntoView();
+          setViewCode(true);
+        }}>
+          View Code
+        </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
