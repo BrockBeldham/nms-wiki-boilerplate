@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
+import Tooltip from 'rc-tooltip';
 
 import styles from './select.module.scss';
 import customStyles from '../lib/select-styles';
 
-function Select({ className, id, label, placeholder, isSearchable, config, onChange }) {
+function Select({
+  className,
+  id,
+  label,
+  placeholder,
+  isSearchable,
+  config,
+  onChange,
+  tooltip
+}) {
   const [value, setValue] = useState('');
 
   return (
@@ -36,6 +46,15 @@ function Select({ className, id, label, placeholder, isSearchable, config, onCha
           }
         }}
       />
+      {tooltip &&
+        <Tooltip trigger='click' placement='right' overlay={tooltip}>
+          <span className={`icon iconWhite ${styles.ttpIcon}`}>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+              <use href='#svgHelp'/>
+            </svg>
+          </span>
+        </Tooltip>
+      }
     </div>
   );
 }
@@ -47,7 +66,8 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   isSearchable: PropTypes.bool,
   config: PropTypes.array.isRequired,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  tooltip: PropTypes.string
 };
 
 export default Select;

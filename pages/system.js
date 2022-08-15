@@ -8,6 +8,15 @@ import SelectMulti from '../components/select-multi';
 import Textarea from '../components/textarea';
 import SelectGameMode from '../components/select-game-mode';
 import Planets from '../components/system/planets';
+import Gallery from '../components/gallery';
+import systemEconomy from '../lib/select-data/system-economy';
+import systemFaction from '../lib/select-data/system-faction';
+import systemWealth from '../lib/select-data/system-wealth';
+import systemConflict from '../lib/select-data/system-conflict';
+import systemMultitoolTech from '../lib/select-data/system-tech-multitool';
+import systemStarshipTech from '../lib/select-data/system-tech-starship';
+import systemExosuitTech from '../lib/select-data/system-tech-exosuit';
+import systemVehicleTech from '../lib/select-data/system-tech-vehicle';
 
 import styles from '../styles/pages/system.module.scss';
 
@@ -50,29 +59,33 @@ export default function System() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
+  console.log(planets);
+
   const renderPlanets = () => {
     const usedResources = [];
     return planets.map((planet) => planet ? `
 | [[File:${planet.photo}|150px]] 
-| ${planet.name}
-| ${planet.type}
-| ${planet.weather}
-| ${planet.sentinels}
-| ${planet.fauna}
-| ${planet.flora}
+| ${planet.name || '[[PlanetName]]'}
+| ${planet.type || 'type'}
+| ${planet.weather || 'weather'}
+| ${planet.sentinels || 'sentinels'}
+| ${planet.fauna || 'fauna'}
+| ${planet.flora || 'flora'}
 |-
-|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource) => {
+|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource, index) => {
   if (!usedResources.includes(resource.value)) {
     usedResources.push(resource.value);
-    return ` [[${resource.value}]]`;
+    console.log(index, planet.resources.length - 1, index !== planet.resources.length - 1);
+    return `[[${resource.value}]]`;
   } else {
-    return ` ${resource.value}`;
+    return `${resource.value}`;
   }
-}) : ''}
+}).join(', ') : ''}
 |colspan=5 | '''Notes:''' ${planet.notes || ''}
 |-`
 :
-`| [[File:nmsMisc_NotAvailable.png|150px]] 
+`
+| [[File:nmsMisc_NotAvailable.png|150px]] 
 | [[PlanetName]]
 | type
 | weather
@@ -83,7 +96,7 @@ export default function System() {
 |colspan=2 | '''Resources:'''
 |colspan=5 | '''Notes:'''
 |-
-`).toString().replace(/,/g,'');
+`).join('');
   };
 
   const codeTemplate = `{{Version|Endurance}}
@@ -122,10 +135,6 @@ export default function System() {
 {{aliasc|text=Original|name=${defaultTitle}}}
 {{aliasc|text=Current|name=${title}}}
 
-==Notable locations / Waypoints==
-Notable Bases include:
-{{CARGOBasesSys|${title}}}
-
 ==Planets & Moons==
 {| class="article-table" style="width:100%; max-width: 1000px;"
 |-
@@ -156,13 +165,13 @@ ${renderPlanets()}
 The space station merchants offer the following S-class items for sale:
 
 ${multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
-${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).toString().replace(/,/g,'')}` : ''}
+${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
 ${starshipTech.length > 0 ? `===Starship Technology Merchant===
-${starshipTech.map((tech) => (`* [[${tech.value}]]\n`)).toString().replace(/,/g,'')}` : ''}
+${starshipTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
 ${exosuitTech.length > 0 ? `===Exosuit Technology Merchant===
-${exosuitTech.map((tech) => (`* [[${tech.value}]]\n`)).toString().replace(/,/g,'')}` : ''}
+${exosuitTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
 ${vehicleTech.length > 0 ? `===Vehicle Shop Merchant===
-${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).toString().replace(/,/g,'')}` : ''}
+${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
 ==Additional information==
 ${additionalInfo}
 
@@ -171,7 +180,7 @@ ${gallery.length > 0 ? `
 <gallery>
 ${gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
-}).toString().replace(/,/g,'')}
+}).join('')}
 </gallery>
 ` : ''}`;
 
@@ -181,32 +190,6 @@ ${gallery.map((image) => {
     setTimeout(() => {
       setCodeCopied(false);
     }, 3000)
-  };
-
-  const renderGalleries = () => {
-    return gallery.map((image, index) => (
-      <li className={styles.galleryListItem} key={index}>
-        <div className={styles.galleryImage} style={{ backgroundImage: `url(${image.preview})` }} />
-        <Input frmItemClass='frmItemGallery' id={`gallery${index}`} type='text' label='Gallery Caption' onChange={(value) => {
-          setGallery((prevState) => {
-            const newState = prevState.map((image, prevIndex) => {
-              if (index === prevIndex) {
-                return {
-                  path: image.path,
-                  preview: image.preview,
-                  name: image.name,
-                  caption: value
-                };
-              }
-
-              return image;
-            });
-
-            return newState;
-          });
-        }} />
-      </li>
-    ))
   };
 
   return (
@@ -237,8 +220,14 @@ ${gallery.map((image) => {
         <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setStarClass(value)} />
         <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => setDistance(value)} />
         <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
-        <Input id='planet' type='number' min='2' max='6' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => setPlanet(value)} />
-        <Input id='moon' type='number' min='0' max='4' label='Moon Amount' tooltip='The amount of lunar bodies in this system' onChange={(value) => setMoon(value)} />
+        <Input id='planet' type='number' min='2' max='6' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => {
+          setPlanet(value);
+          setPlanets([...Array(Number(value) + Number(moon))]);
+        }} />
+        <Input id='moon' type='number' min='0' max='4' label='Moon Amount' tooltip='The amount of lunar bodies in this system' onChange={(value) => {
+          setMoon(value);
+          setPlanets([...Array(Number(planet) + Number(value))]);
+        }} />
         <Select id='water' label='Contains Water' config={[
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
@@ -247,107 +236,12 @@ ${gallery.map((image) => {
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
         ]} onChange={(value) => setGateway(value)} />
-        <Select id='faction' label='System`s Faction' config={[
-          { value: 'Gek', label :'Gek' },
-          { value: 'Korvax', label :'Korvax' },
-          { value: `Vy'keen`, label :`Vy'keen` },
-          { value: 'Gek Abandoned', label :'Gek Abandoned' },
-          { value: 'Korvax Abandoned', label :'Korvax Abandoned' },
-          { value: `Vy'keen Abandoned`, label :`Vy'keen Abandoned` },
-          { value: 'Uncharted', label :'Uncharted' }
-        ]} onChange={(value) => setFaction(value)} />
-        <Select id='economy' label='Economy Type' config={[
-          { value: 'Mercantile', label: 'Mercantile' },
-          { value: 'Trading', label: 'Trading' },
-          { value: 'Shipping', label: 'Shipping' },
-          { value: 'Commercial', label: 'Commercial' },
-          { value: 'Material Fusion', label: 'Material Fusion' },
-          { value: 'Alchemical', label: 'Alchemical' },
-          { value: 'Metal Processing', label: 'Metal Processing' },
-          { value: 'Ore Processing', label: 'Ore Processing' },
-          { value: 'Research', label: 'Research' },
-          { value: 'Scientific', label: 'Scientific' },
-          { value: 'Experimental', label: 'Experimental' },
-          { value: 'Mathematical', label: 'Mathematical' },
-          { value: 'Mining', label: 'Mining' },
-          { value: 'Minerals', label: 'Minerals' },
-          { value: 'Ore Extraction', label: 'Ore Extraction' },
-          { value: 'Prospecting', label: 'Prospecting' },
-          { value: 'Manufacturing', label: 'Manufacturing' },
-          { value: 'Industrial', label: 'Industrial' },
-          { value: 'Construction', label: 'Construction' },
-          { value: 'Mass Production', label: 'Mass Production' },
-          { value: 'High Tech', label: 'High Tech' },
-          { value: 'Technology', label: 'Technology' },
-          { value: 'Nano-construction', label: 'Nano-construction' },
-          { value: 'Engineering', label: 'Engineering' },
-          { value: 'Power Generation', label: 'Power Generation' },
-          { value: 'Energy Supply', label: 'Energy Supply' },
-          { value: 'Fuel Generation', label: 'Fuel Generation' },
-          { value: 'High Voltage', label: 'High Voltage' }
-        ]} isSearchable onChange={(value) => setEconomy(value)} />
+        <Select id='faction' label='System`s Faction' config={systemFaction} onChange={(value) => setFaction(value)} />
+        <Select id='economy' label='Economy Type' config={systemEconomy} isSearchable onChange={(value) => setEconomy(value)} />
         <Input id='economybuy' type='text' label='Economy Buy Rate' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setEconomybuy(value)} />
         <Input id='economysell' type='text' label='Economy Sell Rate' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setEconomysell(value)} />
-        <Select id='wealth' label='System`s Wealth' config={[
-          { value: 'Declining', label: 'Declining' },
-          { value: 'Destitute', label: 'Destitute' },
-          { value: 'Failing', label: 'Failing' },
-          { value: 'Fledgling', label: 'Fledgling' },
-          { value: 'Low Supply', label: 'Low Supply' },
-          { value: 'Struggling', label: 'Struggling' },
-          { value: 'Unsuccessful', label: 'Unsuccessful' },
-          { value: 'Unpromising', label: 'Unpromising' },
-          { value: 'Adequate', label: 'Adequate' },
-          { value: 'Balanced', label: 'Balanced' },
-          { value: 'Comfortable', label: 'Comfortable' },
-          { value: 'Developing', label: 'Developing' },
-          { value: 'Medium Supply', label: 'Medium Supply' },
-          { value: 'Promising', label: 'Promising' },
-          { value: 'Satisfactory', label: 'Satisfactory' },
-          { value: 'Sustainable', label: 'Sustainable' },
-          { value: 'Advanced', label: 'Advanced' },
-          { value: 'Affluent', label: 'Affluent' },
-          { value: 'Booming', label: 'Booming' },
-          { value: 'Flourishing', label: 'Flourishing' },
-          { value: 'High Supply', label: 'High Supply' },
-          { value: 'Opulent', label: 'Opulent' },
-          { value: 'Prosperous', label: 'Prosperous' },
-          { value: 'Wealthy', label: 'Wealthy' },
-          { value: 'Black Market', label: 'Black Market' }
-        ]} isSearchable onChange={(value) => setWealth(value)} />
-        <Select id='conflict' label='System`s Conflict' config={[
-          { value: 'Gentle', label: 'Gentle' },
-          { value: 'Low', label: 'Low' },
-          { value: 'Mild', label: 'Mild' },
-          { value: 'Peaceful', label: 'Peaceful' },
-          { value: 'Relaxed', label: 'Relaxed' },
-          { value: 'Stable', label: 'Stable' },
-          { value: 'Tranquil', label: 'Tranquil' },
-          { value: 'Trivial', label: 'Trivial' },
-          { value: 'Unthreatening', label: 'Unthreatening' },
-          { value: 'Untroubled', label: 'Untroubled' },
-          { value: 'Belligerent', label: 'Belligerent' },
-          { value: 'Boisterous', label: 'Boisterous' },
-          { value: 'Fractious', label: 'Fractious' },
-          { value: 'Intermittent', label: 'Intermittent' },
-          { value: 'Medium', label: 'Medium' },
-          { value: 'Rowdy', label: 'Rowdy' },
-          { value: 'Sporadic', label: 'Sporadic' },
-          { value: 'Testy', label: 'Testy' },
-          { value: 'Unruly', label: 'Unruly' },
-          { value: 'Unstable', label: 'Unstable' },
-          { value: 'Aggressive', label: 'Aggressive' },
-          { value: 'Alarming', label: 'Alarming' },
-          { value: 'At War', label: 'At War' },
-          { value: 'Critical', label: 'Critical' },
-          { value: 'Dangerous', label: 'Dangerous' },
-          { value: 'Destructive', label: 'Destructive' },
-          { value: 'Formidable', label: 'Formidable' },
-          { value: 'High', label: 'High' },
-          { value: 'Lawless', label: 'Lawless' },
-          { value: 'Perilous', label: 'Perilous' },
-          { value: 'Pirate Controlled', label: 'Pirate Controlled' }
-        ]} isSearchable onChange={(value) => setConflict(value)} />
+        <Select id='wealth' label='System`s Wealth' config={systemWealth} isSearchable onChange={(value) => setWealth(value)} />
+        <Select id='conflict' label='System`s Conflict' config={systemConflict} isSearchable onChange={(value) => setConflict(value)} />
         <SelectGameMode onChange={(value) => setMode(value)} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => setDiscovered(value)} />
@@ -374,55 +268,28 @@ ${gallery.map((image) => {
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
       <div className='frmGroup50'>
         <Dropzone label='Galaxy Map' maxFiles={1} onUpload={(photos) => setGalaxyMap(photos[0].name)} />
-        <Dropzone label='Other Images for Gallery' maxFiles={20} onUpload={(photos) => setGallery(photos)} />
-        {gallery.length > 0 &&
-          <ul className={styles.galleryList}>
-            {renderGalleries()}
-          </ul>
-        }
-        <SelectMulti id='multitoolTech' label='Multi-tool S-class Upgrades Available' config={[
-          { value: 'Scanner', label: 'Scanner' },
-          { value: 'Mining Beam', label: 'Mining Beam' },
-          { value: 'Boltcaster', label: 'Boltcaster' },
-          { value: 'Blaze Javelin', label: 'Blaze Javelin' },
-          { value: 'Pulse Spitter', label: 'Pulse Spitter' },
-          { value: 'Scatter Blaster', label: 'Scatter Blaster' },
-          { value: 'Plasma Launcher', label: 'Plasma Launcher' },
-          { value: 'Geology Cannon', label: 'Geology Cannon' },
-          { value: 'Neutron Cannon', label: 'Neutron Cannon' }
-        ]} onChange={(items) => setMultitoolTech(items)} />
-        <SelectMulti id='starshipTech' label='Starship S-class Upgrades Available' config={[
-          { value: 'Launch Thruster', label: 'Launch Thruster' },
-          { value: 'Pulse Engine', label: 'Pulse Engine' },
-          { value: 'Deflector Shield', label: 'Deflector Shield' },
-          { value: 'Hyperdrive', label: 'Hyperdrive' },
-          { value: 'Photon Cannon', label: 'Photon Cannon' },
-          { value: 'Phase Beam', label: 'Phase Beam' },
-          { value: 'Positron', label: 'Positron' },
-          { value: 'Infra-Knife', label: 'Infra-Knife' },
-          { value: 'Cyclotron', label: 'Cyclotron' }
-        ]} onChange={(items) => setStarshipTech(items)} />
-        <SelectMulti id='exosuitTech' label='Exosuit S-class Upgrades Available' config={[
-          { value: 'Life Support', label: 'Life Support' },
-          { value: 'Movement', label: 'Movement' },
-          { value: 'Defence Systems', label: 'Defence Systems' },
-          { value: 'Toxic Protection Module', label: 'Toxic Protection Module' },
-          { value: 'Radiation Protection Module', label: 'Radiation Protection Module' },
-          { value: 'Thermal Protection Module (high temp)', label: 'Thermal Protection Module (high temp)' },
-          { value: 'Thermal Protection Module (sub-zero)', label: 'Thermal Protection Module (sub-zero)' },
-          { value: 'Underwater Protection Module', label: 'Underwater Protection Module' }
-        ]} onChange={(items) => setExosuitTech(items)} />
-        <SelectMulti id='vehicleTech' label='Vehicle S-class Upgrades Available' config={[
-          { value: 'Fusion Engine', label: 'Fusion Engine' },
-          { value: 'Exocraft Acceleration Module', label: 'Exocraft Acceleration Module' },
-          { value: 'Exocraft Mining Laser', label: 'Exocraft Mining Laser' },
-          { value: 'Exocraft Mounted Cannon', label: 'Exocraft Mounted Cannon' },
-          { value: 'Minotaur Engine Upgrade', label: 'Minotaur Engine Upgrade' },
-          { value: 'Minotaur Laser Upgrade', label: 'Minotaur Laser Upgrade' },
-          { value: 'Minotaur Cannon Upgrade', label: 'Minotaur Cannon Upgrade' },
-          { value: 'Humboldt Drive', label: 'Humboldt Drive' },
-          { value: 'Nautilon Cannon', label: 'Nautilon Cannon' }
-        ]} onChange={(items) => setVehicleTech(items)} />
+        <Gallery gallery={gallery} onUpload={(photos) => setGallery(photos)} onChange={(value, index) => {
+          setGallery((prevState) => {
+            const newState = prevState.map((image, prevIndex) => {
+              if (index === prevIndex) {
+                return {
+                  path: image.path,
+                  preview: image.preview,
+                  name: image.name,
+                  caption: value
+                };
+              }
+
+              return image;
+            });
+
+            return newState;
+          });
+        }} />
+        <SelectMulti id='multitoolTech' label='Multi-tool S-class Upgrades Available' config={systemMultitoolTech} onChange={(items) => setMultitoolTech(items)} />
+        <SelectMulti id='starshipTech' label='Starship S-class Upgrades Available' config={systemStarshipTech} onChange={(items) => setStarshipTech(items)} />
+        <SelectMulti id='exosuitTech' label='Exosuit S-class Upgrades Available' config={systemExosuitTech} onChange={(items) => setExosuitTech(items)} />
+        <SelectMulti id='vehicleTech' label='Vehicle S-class Upgrades Available' config={systemVehicleTech} onChange={(items) => setVehicleTech(items)} />
       </div>
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => setAdditionalInfo(value)} />
       <div className='btnContainer'>

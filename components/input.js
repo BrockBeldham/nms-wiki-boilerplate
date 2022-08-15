@@ -20,6 +20,7 @@ function Input({
 
   useEffect(() => {
     if (defaultValue) {
+      console.log(defaultValue);
       setValue(defaultValue);
     }
   }, [defaultValue]);

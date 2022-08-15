@@ -5,6 +5,7 @@ import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import Textarea from '../components/textarea';
+import Gallery from '../components/gallery';
 import SelectFeatures from '../components/base/select-features';
 import SelectGameMode from '../components/select-game-mode';
 import SelectPlatform from '../components/select-platform';
@@ -105,32 +106,6 @@ ${gallery.map((image) => {
     }, 3000)
   };
 
-  const renderGalleries = () => {
-    return gallery.map((image, index) => (
-      <li className={styles.galleryListItem} key={index}>
-        <div className={styles.galleryImage} style={{ backgroundImage: `url(${image.preview})` }} />
-        <Input frmItemClass='frmItemGallery' id={`gallery${index}`} type='text' label='Gallery Caption' onChange={(value) => {
-          setGallery((prevState) => {
-            const newState = prevState.map((image, prevIndex) => {
-              if (index === prevIndex) {
-                return {
-                  path: image.path,
-                  preview: image.preview,
-                  name: image.name,
-                  caption: value
-                };
-              }
-
-              return image;
-            });
-
-            return newState;
-          });
-        }} />
-      </li>
-    ))
-  };
-
   return (
     <CodeView
       code={codeTemplate}
@@ -185,12 +160,24 @@ ${gallery.map((image) => {
       <Textarea id='layout' label='Layout' placeholder='Walk us through your base as if you were a realtor.' onChange={(value) => setLayout(value)} />
       <SelectFeatures onChange={(items) => setFeatures(items)} />
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Any nearby resources, tourist traps, other bases.' onChange={(value) => setAdditionalInfo(value)} />
-      <Dropzone label='Other Images for Gallery' maxFiles={20} onUpload={(photos) => setGallery(photos)} />
-      {gallery.length > 0 &&
-        <ul className={styles.galleryList}>
-          {renderGalleries()}
-        </ul>
-      }
+      <Gallery gallery={gallery} onUpload={(photos) => setGallery(photos)} onChange={(value, index) => {
+        setGallery((prevState) => {
+          const newState = prevState.map((image, prevIndex) => {
+            if (index === prevIndex) {
+              return {
+                path: image.path,
+                preview: image.preview,
+                name: image.name,
+                caption: value
+              };
+            }
+
+            return image;
+          });
+
+          return newState;
+        });
+      }} />
       <div className='btnContainer'>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();

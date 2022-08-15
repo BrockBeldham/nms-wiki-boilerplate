@@ -1,0 +1,37 @@
+@import '../../styles/settings';
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 30px 0;
+}
+
+.flora {
+  width: 49%;
+  padding: 30px 0 20px;
+  border-bottom: 1px solid $color_grey_squant;
+
+  &:nth-child(1),
+  &:nth-child(2) {
+    border-top: 1px solid $color_grey_squant;
+  }
+}
+
+.title {
+  @include font-bold;
+
+  margin: 0;
+  color: $color_orange_new_black;
+}
+
+.deleteFlora {
+  background: none;
+  border: none;
+  padding: 0;
+
+  svg {
+    fill: $color_white;
+  }
+}

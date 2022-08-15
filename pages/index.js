@@ -17,9 +17,14 @@ export default function Home() {
             New Star System
           </a>
         </Link>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
+        {/* <button type='button' className={`btn btnDisabled ${styles.btn}`}>
           New Planet
-        </button>
+        </button> */}
+        <Link href='/planet'>
+          <a className={`btn ${styles.btn}`}>
+            New Planet
+          </a>
+        </Link>
         <button type='button' className={`btn btnDisabled ${styles.btn}`}>
           New Moon
         </button>
