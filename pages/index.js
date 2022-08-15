@@ -17,17 +17,16 @@ export default function Home() {
             New Star System
           </a>
         </Link>
-        {/* <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New Planet
-        </button> */}
         <Link href='/planet'>
           <a className={`btn ${styles.btn}`}>
             New Planet
           </a>
         </Link>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New Moon
-        </button>
+        <Link href='/moon'>
+          <a className={`btn ${styles.btn}`}>
+            New Moon
+          </a>
+        </Link>
         <Link href='/base'>
           <a className={`btn ${styles.btn}`}>
             New Base

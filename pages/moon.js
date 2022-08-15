@@ -47,7 +47,7 @@ export default function System() {
   const [galaxy, setGalaxy] = useState('');
   const [region, setRegion] = useState('');
   const [system, setSystem] = useState('');
-  const [moon, setMoon] = useState('');
+  const [planet, setPlanet] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
   const [atmosphere, setAtmosphere] = useState('');
@@ -63,9 +63,8 @@ export default function System() {
   const [discovered, setDiscovered] = useState('');
   const [discoveredLink, setDiscoveredLink] = useState('');
   const [defaultTitle, setDefaultTitle] = useState('');
-  const [planetType, setPlanetType] = useState('');
+  const [moonType, setMoonType] = useState('');
   const [glyphs, setGlyphs] = useState('');
-  const [moonsDetails, setMoonsDetails] = useState('');
   const [sentinelDetails, setSentinelDetails] = useState('');
   const [gallery, setGallery] = useState([]);
   const [faunaDetails, setFaunaDetails] = useState([faunaDefault]);
@@ -131,10 +130,10 @@ ${floraDetails.map((f) => (`
   }
 
   const codeTemplate = `{{Version|Endurance}}
-{{Planet infobox
+{{Moon infobox
 | name = ${title}
 | image = ${image}
-| moon = ${moon}
+| planet = ${planet}
 | system = ${system}
 | region = ${region}
 | galaxy = ${galaxy}
@@ -163,15 +162,12 @@ ${floraDetails.map((f) => (`
 {{aliasc|text=Original|name=${defaultTitle}}}
 {{aliasc|text=Current|name=${title}}}
 
-==Planet type==
-${planetType}
+==Moon type==
+${moonType}
 
 ==Location information==
 ===Glyphs===
 {{Gl|${glyphs}}}
-
-===Moons===
-${moonsDetails ? moonsDetails : `${title} is not orbited by any moons.`}
 
 ==Notable locations / Waypoints==
 Notable Bases include:
@@ -222,10 +218,10 @@ ${gallery.map((image) => {
         <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => setTitle(value)} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
         <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
-        <Input id='moon' type='text' label='Planet`s Moon' tooltip='Name(s) of the moon(s) orbiting this planet or number of orbiting moons. Leave blank if there are no moons.' onChange={(value) => setMoon(value)} />
-        <Input id='system' type='text' label='System Name' onChange={(value) => setSystem(value)} />
-        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
         <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
+        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
+        <Input id='system' type='text' label='System Name' onChange={(value) => setSystem(value)} />
+        <Input id='planet' type='text' label='Moon`s Planet' tooltip='The name of the planet this moon orbits.' onChange={(value) => setPlanet(value)} />
         <Select id='description' label='Planet`s Description' config={planetDescription} isSearchable onChange={(value) => setDescription(value)} />
         <Select id='type' label='Planet`s Biome Type' config={planetBiome} isSearchable onChange={(value) => setType(value)} />
         <Input id='atmosphere' type='text' label='Atmosphere Make-up' onChange={(value) => setAtmosphere(value)} />
@@ -244,10 +240,9 @@ ${gallery.map((image) => {
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
         <SelectGameMode onChange={(value) => setMode(value)} />
       </div>
-      <Textarea id='planetType' label='Planet Type' placeholder='Describe the planet`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => setPlanetType(value)} />
+      <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => setMoonType(value)} />
       <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
-      <Textarea id='moons' label='Moons' placeholder='Does this planet have any moons? Leave blank if none.' onChange={(value) => setMoonsDetails(value)} />
       <FaunaDetails details={faunaDetails} onChange={(index, key, value) => {
         setFaunaDetails((prevState) => (prevState.map((f, prevIndex) => {
           if (index === prevIndex) {
