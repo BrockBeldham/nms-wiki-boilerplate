@@ -154,13 +154,13 @@ ${floraDetails.map((f) => (`
 | mode = ${mode}
 | release = Endurance
 }}
-'''${title}''' is a planet in No Man's Sky.
+'''${title}''' is a planet.
 
 ==Summary==
-'''${title}''' is a [[planet]] in the [[star system]] [[${system}]].
+'''${title}''' is a [[planet]] in the [[${system}]] [[star system]].
 
 ==Alias names==
-{{aliasc|text=Original|name=${defaultTitle}}}
+${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}` : ''}
 {{aliasc|text=Current|name=${title}}}
 
 ==Planet type==
