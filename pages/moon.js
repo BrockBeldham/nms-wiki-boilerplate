@@ -13,6 +13,8 @@ import Gallery from '../components/gallery';
 import planetBiome from '../lib/select-data/planet-biome';
 import planetDescription from '../lib/select-data/planet-description';
 import planetWeather from '../lib/select-data/planet-weather';
+import planetSentinels from '../lib/select-data/planet-sentinels';
+import planetFloraFauna from '../lib/select-data/planet-flora-fauna';
 import planetResources from '../lib/select-data/planet-resources';
 
 import styles from '../styles/pages/planet.module.scss';
@@ -43,6 +45,7 @@ export default function System() {
   const [codeCopied, setCodeCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);
   const [title, setTitle] = useState('');
+  const [defaultTitle, setDefaultTitle] = useState('');
   const [image, setImage] = useState('');
   const [galaxy, setGalaxy] = useState('');
   const [region, setRegion] = useState('');
@@ -62,7 +65,7 @@ export default function System() {
   const [mode, setMode] = useState('');
   const [discovered, setDiscovered] = useState('');
   const [discoveredLink, setDiscoveredLink] = useState('');
-  const [defaultTitle, setDefaultTitle] = useState('');
+  const [bases, setBases] = useState('');
   const [moonType, setMoonType] = useState('');
   const [glyphs, setGlyphs] = useState('');
   const [sentinelDetails, setSentinelDetails] = useState('');
@@ -142,7 +145,7 @@ ${floraDetails.map((f) => (`
 | atmosphere = ${atmosphere}
 | terrain = ${terrain}
 | weather = ${weather}
-| resources = ${resources.map((resource) => resource.value).join('')}
+| resources = ${resources.map((resource) => resource.value).join(', ')}
 | sentinel = ${sentinels}
 | flora = ${flora}
 | fauna = ${fauna}
@@ -172,9 +175,9 @@ ${moonType}
 {{Gl|${glyphs}}}
 
 ==Notable locations / Waypoints==
-Notable Bases include:
+${bases ? (`Notable Bases include:
 
-{{CARGOBasesPlanet|${title}}}
+{{CARGOBasesPlanet|${title}}}`) : ''}
   
 ==Life==
 ===Fauna===
@@ -230,9 +233,9 @@ ${gallery.map((image) => {
         <Input id='terrain' type='text' label='Terrain' onChange={(value) => setTerrain(value)} />
         <Select id='weather' label='Weather' config={planetWeather} isSearchable onChange={(value) => setWeather(value)} />
         <SelectMulti id='resources' label='Resources' config={planetResources} isSearchable onChange={(items) => setResources(items)} />
-        <Input id='sentinels' type='text' label='Sentinels' onChange={(value) => setSentinels(value)} />
-        <Input id='flora' type='text' label='Flora' onChange={(value) => setFlora(value)} />
-        <Input id='fauna' type='text' label='Fauna' onChange={(value) => setFauna(value)} />
+        <Select id='sentinels' label='Sentinels' config={planetSentinels} isSearchable onChange={(items) => setSentinels(items)} />
+        <Select id='flora' label='Flora' config={planetFloraFauna} isSearchable onChange={(items) => setFlora(items)} />
+        <Select id='fauna' label='Fauna' config={planetFloraFauna} isSearchable onChange={(items) => setFauna(items)} />
         <Select id='garden' label='Garden World' config={[
           { label: 'Yes', value: 'Yes'},
           { label: 'No', value: 'No' }
@@ -241,6 +244,10 @@ ${gallery.map((image) => {
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => setDiscovered(value)} />
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
         <SelectGameMode onChange={(value) => setMode(value)} />
+        <Select id='bases' label='Are there, or will there be, bases on this planet?' config={[
+          { label: 'Yes', value: 'Yes'},
+          { label: 'No', value: 'No' }
+        ]} onChange={(value) => setBases(value)} />
       </div>
       <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => setMoonType(value)} />
       <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />

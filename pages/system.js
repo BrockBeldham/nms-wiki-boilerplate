@@ -84,8 +84,7 @@ export default function System() {
 |colspan=5 | '''Notes:''' ${planet.notes || ''}
 |-`
 :
-`
-| [[File:nmsMisc_NotAvailable.png|150px]] 
+`| [[File:nmsMisc_NotAvailable.png|150px]] 
 | [[PlanetName]]
 | type
 | weather
@@ -97,6 +96,23 @@ export default function System() {
 |colspan=5 | '''Notes:'''
 |-
 `).join('');
+  };
+
+  const renderSpaceStation = () => {
+    if (multitoolTech.length === 0 && starshipTech.length === 0 && exosuitTech.length === 0 && vehicleTech.length === 0) {
+      return 'The space station merchants\' inventory has not been logged at this time.'
+    } else {
+      return `The space station merchants offer the following S-class items for sale:
+
+${multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
+${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
+${starshipTech.length > 0 ? `===Starship Technology Merchant===
+${starshipTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
+${exosuitTech.length > 0 ? `===Exosuit Technology Merchant===
+${exosuitTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
+${vehicleTech.length > 0 ? `===Vehicle Shop Merchant===
+${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
+    }
   };
 
   const codeTemplate = `{{Version|Endurance}}
@@ -157,21 +173,13 @@ ${renderPlanets()}
 {{Gl|${glyphs}}}
 
 ===Navigation Images===
-[[File:${galaxyMap}|300px]]
+[[File:${galaxyMap}|400px]]
 
 ===System Location===
 
 ==Space station==
-The space station merchants offer the following S-class items for sale:
+${renderSpaceStation()}
 
-${multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
-${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
-${starshipTech.length > 0 ? `===Starship Technology Merchant===
-${starshipTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
-${exosuitTech.length > 0 ? `===Exosuit Technology Merchant===
-${exosuitTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
-${vehicleTech.length > 0 ? `===Vehicle Shop Merchant===
-${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
 ==Additional information==
 ${additionalInfo}
 
