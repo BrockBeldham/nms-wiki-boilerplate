@@ -102,6 +102,10 @@ a {
     transform: translateY(2px);
     opacity: 0.3;
   }
+
+  &.nolink::after {
+    display: none;
+  }
 }
 
 button {

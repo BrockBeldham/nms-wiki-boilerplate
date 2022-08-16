@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import CodeView from '../components/layouts/code-view';
+import Footer from '../components/layouts/footer';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
