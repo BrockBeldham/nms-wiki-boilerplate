@@ -9,9 +9,7 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_GOOGLE_ANALYTICS: 'G-8YL3N5E1Q0',
-  },
-  basePath: isProd ? '/nms-wiki-boilerplate' : '',
-  assetPrefix: isProd ? '/nms-wiki-boilerplate' : ''
+  }
 }
 
 module.exports = nextConfig
