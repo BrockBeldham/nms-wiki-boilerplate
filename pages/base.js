@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
+import Head from 'next/head';
 import CodeView from '../components/layouts/code-view';
-import Footer from '../components/layouts/footer';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
@@ -114,6 +114,10 @@ ${gallery.map((image) => {
       viewCode={viewCode}
       closeEditor={() => setViewCode(false)}
     >
+      <Head>
+        <title>New Base | No Man&apos;s Sky Wiki Boilerplate Creator</title>
+        <meta name='description' content="Generate boilerplate markdown code for a new base. Create a new base page on the No Man's Sky Fandom wiki with your generated code." />
+      </Head>
       <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Base Name' onChange={(value) => setTitle(value)} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />

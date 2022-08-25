@@ -1,15 +1,20 @@
-import Link from 'next/link'
-import Footer from '../components/layouts/footer'
+import Head from 'next/head';
+import Link from 'next/link';
+import Footer from '../components/layouts/footer';
 
-import styles from '../styles/pages/home.module.scss'
+import styles from '../styles/pages/home.module.scss';
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>No Man&apos;s Sky Wiki Boilerplate Creator</title>
+        <meta name='description' content="Use these forms to generate boilerplate markdown code. Create a page on the No Man's Sky Fandom wiki with your generated code." />
+      </Head>
       <div className={styles.container}>
         <div className={styles.intro}>
           <h1 className={styles.title}>No Man&apos;s Sky</h1>
-          <h2 className={styles.subtitle}>Wiki Page Creator</h2>
+          <h2 className={styles.subtitle}>Wiki Boilerplate Creator</h2>
           <p className={styles.text}>Which page do you want to create?</p>
         </div>
         <Link href='/system'>

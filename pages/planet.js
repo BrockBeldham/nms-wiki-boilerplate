@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
+import Head from 'next/head';
 import CodeView from '../components/layouts/code-view';
-import Footer from '../components/layouts/footer';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
@@ -76,21 +76,22 @@ export default function System() {
   const [floraDetails, setFloraDetails] = useState([floraDefault]);
 
   const renderFauna = () => {
-    if (floraDetails.length === 1
-      && !floraDetails.image
-      && !floraDetails.name
-      && !floraDetails.ecosystem
-      && !floraDetails.genus
-      && !floraDetails.height
-      && !floraDetails.weight
-      && !floraDetails.discovered
-      && !floraDetails.description) {
+    console.log(faunaDetails);
+    if (faunaDetails.length === 1
+      && !faunaDetails.image
+      && !faunaDetails.name
+      && !faunaDetails.ecosystem
+      && !faunaDetails.genus
+      && !faunaDetails.height
+      && !faunaDetails.weight
+      && !faunaDetails.discovered
+      && !faunaDetails.description) {
       return `Fauna has not been logged at this time.`
     } else {
       return `
 {| class="article-table" style="width:100%; max-width: 1000px;"
 ! width="150px" | Image !! Name !! Ecosystem !! Genus !! Height !! Weight !! Discovered !! Brief description
-${floraDetails.map((f) => (`
+${faunaDetails.map((f) => (`
 |-
 | [[File:${f.image}|150px]]
 | '''${f.name}'''
@@ -164,8 +165,7 @@ ${floraDetails.map((f) => (`
 '''${title}''' is a [[planet]] in the [[${system}]] [[star system]].
 
 ==Alias names==
-${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}` : ''}
-{{aliasc|text=Current|name=${title}}}
+${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${title}}}
 
 ==Planet type==
 ${planetType}
@@ -222,6 +222,10 @@ ${gallery.map((image) => {
       viewCode={viewCode}
       closeEditor={() => setViewCode(false)}
     >
+      <Head>
+        <title>New Planet | No Man&apos;s Sky Wiki Boilerplate Creator</title>
+        <meta name='description' content="Generate boilerplate markdown code for a new planet. Create a new planet page on the No Man's Sky Fandom wiki with your generated code." />
+      </Head>
       <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => setTitle(value)} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
@@ -257,6 +261,7 @@ ${gallery.map((image) => {
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
       <Textarea id='moons' label='Moons' placeholder='Does this planet have any moons? Leave blank if none.' onChange={(value) => setMoonsDetails(value)} />
       <FaunaDetails details={faunaDetails} onChange={(index, key, value) => {
+        console.log(index, key, value);
         setFaunaDetails((prevState) => (prevState.map((f, prevIndex) => {
           if (index === prevIndex) {
             return { ...f, [key]: value };

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
+import Head from 'next/head';
 import CodeView from '../components/layouts/code-view';
-import Footer from '../components/layouts/footer';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
@@ -75,21 +75,21 @@ export default function System() {
   const [floraDetails, setFloraDetails] = useState([floraDefault]);
 
   const renderFauna = () => {
-    if (floraDetails.length === 1
-      && !floraDetails.image
-      && !floraDetails.name
-      && !floraDetails.ecosystem
-      && !floraDetails.genus
-      && !floraDetails.height
-      && !floraDetails.weight
-      && !floraDetails.discovered
-      && !floraDetails.description) {
+    if (faunaDetails.length === 1
+      && !faunaDetails.image
+      && !faunaDetails.name
+      && !faunaDetails.ecosystem
+      && !faunaDetails.genus
+      && !faunaDetails.height
+      && !faunaDetails.weight
+      && !faunaDetails.discovered
+      && !faunaDetails.description) {
       return `Fauna has not been logged at this time.`
     } else {
       return `
 {| class="article-table" style="width:100%; max-width: 1000px;"
 ! width="150px" | Image !! Name !! Ecosystem !! Genus !! Height !! Weight !! Discovered !! Brief description
-${floraDetails.map((f) => (`
+${faunaDetails.map((f) => (`
 |-
 | [[File:${f.image}|150px]]
 | '''${f.name}'''
@@ -165,8 +165,7 @@ ${floraDetails.map((f) => (`
 It orbits the planet [[${planet}]].
 
 ==Alias names==
-${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}` : ''}
-{{aliasc|text=Current|name=${title}}}
+${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${title}}}
 
 ==Moon type==
 ${moonType}
@@ -220,6 +219,10 @@ ${gallery.map((image) => {
       viewCode={viewCode}
       closeEditor={() => setViewCode(false)}
     >
+      <Head>
+        <title>New Moon | No Man&apos;s Sky Wiki Boilerplate Creator</title>
+        <meta name='description' content="Generate boilerplate markdown code for a new moon. Create a new moon page on the No Man's Sky Fandom wiki with your generated code." />
+      </Head>
       <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => setTitle(value)} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
