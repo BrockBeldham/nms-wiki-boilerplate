@@ -190,19 +190,13 @@ ${renderFlora()}
 ${sentinelDetails}
 
 ==Resources==
-${resources.length > 0 ? `
-The following resources can be found on this planet:
-${resources.map((resource) => `* {{Resource2icon|${resource.value}}} [[${resource.value}]]\n`).join('')}
-` : ''}
-
+${resources.length > 0 ? `The following resources can be found on this planet:
+${resources.map((resource) => `* {{Resource2icon|${resource.value}}} [[${resource.value}]]\n`).join('')}` : ''}
 ==Gallery==
-${gallery.length > 0 ? `
-<gallery>
+${gallery.length > 0 ? `<gallery>
 ${gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
-}).join('')}
-</gallery>
-` : ''}`;
+}).join('')}</gallery>` : ''}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(codeTemplate);

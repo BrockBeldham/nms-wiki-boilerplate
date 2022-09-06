@@ -86,18 +86,14 @@ ${layout}
 
 ==Features==
 ${features.map((feature) => (`* [[${feature.value}]]\n`)).toString().replace(/,/g,'')}
-
 ==Additional information==
 ${additionalInfo}
 
 ==Gallery==
-${gallery.length > 0 ? `
-<gallery>
+${gallery.length > 0 ? `<gallery>
 ${gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
-}).toString().replace(/,/g,'')}
-</gallery>
-` : ''}`;
+}).toString().replace(/,/g,'')}</gallery>` : ''}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(codeTemplate);

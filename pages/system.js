@@ -62,8 +62,7 @@ export default function System() {
 
   const renderPlanets = () => {
     const usedResources = [];
-    return planets.map((planet) => planet ? `
-| [[File:${planet.photo}|150px]] 
+    return planets.map((planet) => planet ? `| [[File:${planet.photo}|150px]] 
 | ${planet.name || '[[PlanetName]]'}
 | ${planet.type || 'type'}
 | ${planet.weather || 'weather'}
@@ -74,7 +73,6 @@ export default function System() {
 |colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource, index) => {
   if (!usedResources.includes(resource.value)) {
     usedResources.push(resource.value);
-    console.log(index, planet.resources.length - 1, index !== planet.resources.length - 1);
     return `[[${resource.value}]]`;
   } else {
     return `${resource.value}`;
@@ -83,7 +81,8 @@ export default function System() {
 |colspan=5 | '''Notes:''' ${planet.notes || ''}
 |-`
 :
-`| [[File:nmsMisc_NotAvailable.png|150px]] 
+`
+| [[File:nmsMisc_NotAvailable.png|150px]] 
 | [[PlanetName]]
 | type
 | weather
@@ -178,18 +177,14 @@ ${renderPlanets()}
 
 ==Space station==
 ${renderSpaceStation()}
-
 ==Additional information==
 ${additionalInfo}
 
 ==Gallery==
-${gallery.length > 0 ? `
-<gallery>
+${gallery.length > 0 ? `<gallery>
 ${gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
-}).join('')}
-</gallery>
-` : ''}`;
+}).join('')}</gallery>` : ''}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(codeTemplate);
