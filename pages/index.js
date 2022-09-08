@@ -37,11 +37,16 @@ export default function Home() {
             New Base
           </a>
         </Link>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New Fauna
-        </button>
+        <Link href='/creature'>
+          <a className={`btn ${styles.btn}`}>
+            New Creature
+          </a>
+        </Link>
         <button type='button' className={`btn btnDisabled ${styles.btn}`}>
           New Starship
+        </button>
+        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
+          New Multitool
         </button>
         <button type='button' className={`btn btnDisabled ${styles.btn}`}>
           New NMH Fauna Album Entry
