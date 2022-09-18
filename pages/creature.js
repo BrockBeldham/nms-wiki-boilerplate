@@ -99,7 +99,7 @@ ${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}\n` : ''}{{aliasc
 It can be found on the [[planet]] [[${planet}]] in the [[${system}]] [[star system]].
 
 ===Coordinates===
-{{coords|${coordinates.split(':')[0]}|${coordinates.split(':')[1]}|${coordinates.split(':')[2]}|${coordinates.split(':')[3]}}}
+${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0] : 'XXXX'}|${coordinates.split(':')[1] ? coordinates.split(':')[1] : 'XXXX'}|${coordinates.split(':')[2] ? coordinates.split(':')[2] : 'XXXX'}|${coordinates.split(':')[3] ? coordinates.split(':')[3] : 'XXXX'}}}` : ''}
 
 ===Glyphs===
 {{Gl|${glyphs}}}
@@ -139,8 +139,8 @@ ${gallery.map((image) => {
         <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
         <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
         <Input id='system' type='text' label='Star System Name' onChange={(value) => setSystem(value)} />
-        <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the base can be found.' onChange={(value) => setPlanet(value)} />
-        <Input id='moon' type='text' label='Moon Name' tooltip='If the base is located on a moon. Leave blank if the base is on a planet.' onChange={(value) => setMoon(value)} />
+        <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the creature can be found.' onChange={(value) => setPlanet(value)} />
+        <Input id='moon' type='text' label='Moon Name' tooltip='If the creature is located on a moon. Leave blank if the creature is on a planet.' onChange={(value) => setMoon(value)} />
       </div>
       <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />

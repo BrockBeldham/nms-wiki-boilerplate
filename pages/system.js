@@ -165,7 +165,7 @@ ${renderPlanets()}
 
 ==Location information==
 ===Coordinates===
-{{coords|${coordinates.split(':')[0]}|${coordinates.split(':')[1]}|${coordinates.split(':')[2]}|${coordinates.split(':')[3]}}}
+${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0] : 'XXXX'}|${coordinates.split(':')[1] ? coordinates.split(':')[1] : 'XXXX'}|${coordinates.split(':')[2] ? coordinates.split(':')[2] : 'XXXX'}|${coordinates.split(':')[3] ? coordinates.split(':')[3] : 'XXXX'}}}` : ''}
 
 ===Glyphs===
 {{Gl|${glyphs}}}
