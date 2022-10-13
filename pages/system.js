@@ -113,7 +113,7 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
     }
   };
 
-  const codeTemplate = `{{Version|Endurance}}
+  const codeTemplate = `{{Version|Waypoint}}
 {{System infobox
 | name = ${title}
 | image = ${image}
@@ -138,7 +138,7 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
 | civilized = ${civ || 'No Man\'s High Hub'}
 | discovered = ${discoveredLink ? '' : discovered}
 | discoveredlink = ${discoveredLink}
-| release = Endurance
+| release = Waypoint
 }}
 '''${title}''' is a star system.
 

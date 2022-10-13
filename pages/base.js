@@ -43,7 +43,7 @@ export default function Base() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  const codeTemplate = `{{Version|Endurance}}
+  const codeTemplate = `{{Version|Waypoint}}
 {{Base infobox
 | name = ${title}
 | image = ${image}
@@ -61,7 +61,7 @@ export default function Base() {
 | type = 
 | mode = ${mode}
 | platform = ${platform}
-| release = Endurance
+| release = Waypoint
 | farm = ${farm}
 | geobay = ${geobay}
 | arena = ${arena}

@@ -51,7 +51,7 @@ export default function Creature() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  const codeTemplate = `{{Version|Endurance}}
+  const codeTemplate = `{{Version|Waypoint}}
 {{Creature infobox
 | name = ${title}
 | image = ${image}
@@ -79,7 +79,7 @@ export default function Creature() {
 | discoveredlink = ${discoveredLink}
 | researchteam = ${researchteam}
 | mode = ${mode}
-| release = Endurance
+| release = Waypoint
 }}
 '''${title}''' is a creature.
 
