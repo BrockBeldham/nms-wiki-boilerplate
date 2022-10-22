@@ -70,7 +70,7 @@ export default function System() {
 | ${planet.fauna || 'fauna'}
 | ${planet.flora || 'flora'}
 |-
-|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource, index) => {
+|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource) => {
   if (!usedResources.includes(resource.value)) {
     usedResources.push(resource.value);
     return `[[${resource.value}]]`;
@@ -98,7 +98,7 @@ export default function System() {
 
   const renderSpaceStation = () => {
     if (multitoolTech.length === 0 && starshipTech.length === 0 && exosuitTech.length === 0 && vehicleTech.length === 0) {
-      return 'The space station merchants\' inventory has not been logged at this time.'
+      return 'The space station merchants\' inventory has not been logged at this time.';
     } else {
       return `The space station merchants offer the following S-class items for sale:
 
@@ -191,7 +191,7 @@ ${gallery.map((image) => {
     setCodeCopied(true);
     setTimeout(() => {
       setCodeCopied(false);
-    }, 3000)
+    }, 3000);
   };
 
   return (
@@ -308,7 +308,7 @@ ${gallery.map((image) => {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
           Create Page
         </a>
       </div>

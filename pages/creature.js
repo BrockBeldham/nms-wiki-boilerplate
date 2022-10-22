@@ -118,7 +118,7 @@ ${gallery.map((image) => {
     setCodeCopied(true);
     setTimeout(() => {
       setCodeCopied(false);
-    }, 3000)
+    }, 3000);
   };
 
   return (
@@ -202,7 +202,7 @@ ${gallery.map((image) => {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
           Create Page
         </a>
       </div>

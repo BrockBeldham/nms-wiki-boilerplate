@@ -85,7 +85,7 @@ export default function System() {
       && !faunaDetails.weight
       && !faunaDetails.discovered
       && !faunaDetails.description) {
-      return `Fauna has not been logged at this time.`
+      return 'Fauna has not been logged at this time.';
     } else {
       return `
 {| class="article-table" style="width:100%; max-width: 1000px;"
@@ -103,7 +103,7 @@ ${faunaDetails.map((f) => (`
 |}
 `;
     }
-  }
+  };
 
   const renderFlora = () => {
     if (floraDetails.length === 1
@@ -115,7 +115,7 @@ ${faunaDetails.map((f) => (`
       && !floraDetails.elements
       && !floraDetails.discovered
       && !floraDetails.description) {
-      return `Flora has not been logged at this time.`
+      return 'Flora has not been logged at this time.';
     } else {
       return `
 {| class="article-table" style="width:100%; max-width: 1000px;"
@@ -132,7 +132,7 @@ ${floraDetails.map((f) => (`
 | ${f.description}`)).join('')}
 |}`;
     }
-  }
+  };
 
   const codeTemplate = `{{Version|Waypoint}}
 {{Planet infobox
@@ -205,7 +205,7 @@ ${gallery.map((image) => {
     setCodeCopied(true);
     setTimeout(() => {
       setCodeCopied(false);
-    }, 3000)
+    }, 3000);
   };
 
   return (
@@ -237,7 +237,7 @@ ${gallery.map((image) => {
         <Select id='flora' label='Flora' config={planetFloraFauna} isSearchable onChange={(items) => setFlora(items)} />
         <Select id='fauna' label='Fauna' config={planetFloraFauna} isSearchable onChange={(items) => setFauna(items)} />
         <Select id='garden' label='Garden World' config={[
-          { label: 'Yes', value: 'Yes'},
+          { label: 'Yes', value: 'Yes' },
           { label: 'No', value: 'No' }
         ]} tooltip='See https://nomanssky.fandom.com/wiki/Garden_World for official definition.' onChange={(value) => setGarden(value)} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
@@ -245,7 +245,7 @@ ${gallery.map((image) => {
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
         <SelectGameMode onChange={(value) => setMode(value)} />
         <Select id='bases' label='Are there, or will there be, bases on this planet?' config={[
-          { label: 'Yes', value: 'Yes'},
+          { label: 'Yes', value: 'Yes' },
           { label: 'No', value: 'No' }
         ]} onChange={(value) => setBases(value)} />
       </div>
@@ -321,7 +321,7 @@ ${gallery.map((image) => {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => copyToClipboard()}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
           Create Page
         </a>
       </div>
