@@ -36,10 +36,10 @@ export default function FaunaDetails({ details, onChange, deleteFauna }) {
       ))}
     </div>
   );
-};
+}
 
 FaunaDetails.propTypes = {
   details: PropTypes.array,
   onChange: PropTypes.func,
-  deleteFlora: PropTypes.func
+  deleteFauna: PropTypes.func
 };

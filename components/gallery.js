@@ -12,7 +12,7 @@ export default function Gallery({ gallery, onUpload, onChange }) {
         <Input frmItemClass='frmItemGallery' id={`gallery${index}`} type='text' label='Gallery Caption' onChange={(value) => 
           onChange(value, index)} />
       </li>
-    ))
+    ));
   };
 
   return (

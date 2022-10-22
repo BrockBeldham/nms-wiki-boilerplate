@@ -254,7 +254,6 @@ ${gallery.map((image) => {
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
       <Textarea id='moons' label='Moons' placeholder='Does this planet have any moons? Leave blank if none.' onChange={(value) => setMoonsDetails(value)} />
       <FaunaDetails details={faunaDetails} onChange={(index, key, value) => {
-        console.log(index, key, value);
         setFaunaDetails((prevState) => (prevState.map((f, prevIndex) => {
           if (index === prevIndex) {
             return { ...f, [key]: value };

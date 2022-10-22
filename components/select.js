@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import Tooltip from 'rc-tooltip';
