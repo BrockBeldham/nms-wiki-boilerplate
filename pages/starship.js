@@ -51,7 +51,7 @@ export default function Starship() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  const codeTemplate = `{{Version|Waypoint}}
+  const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Starship infobox
 | name = ${title}
 | image = ${image}
@@ -78,7 +78,7 @@ export default function Starship() {
 | discovered = ${discovered}
 | discoveredlink = ${discoveredLink}
 | mode = ${mode}
-| release = Waypoint
+| release = ${process.env.NEXT_PUBLIC_VERSION}
 | maneuverB = ${maneuverB}
 | damageB = ${damageB}
 | shieldB = ${shieldB}

@@ -44,7 +44,7 @@ export default function Multitool() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  const codeTemplate = `{{Version|Waypoint}}
+  const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Multitool infobox
 | name = ${title}
 | image = ${image}
@@ -68,7 +68,7 @@ export default function Multitool() {
 | discovered = ${discovered}
 | discoveredlink = ${discoveredLink}
 | mode = ${mode}
-| release = Waypoint
+| release = ${process.env.NEXT_PUBLIC_VERSION}
 }}
 '''${title}''' is a multi-tool.
 

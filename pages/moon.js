@@ -133,7 +133,7 @@ ${floraDetails.map((f) => (`
     }
   };
 
-  const codeTemplate = `{{Version|Waypoint}}
+  const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Moon infobox
 | name = ${title}
 | image = ${image}
@@ -155,7 +155,7 @@ ${floraDetails.map((f) => (`
 | discovered = ${discoveredLink ? '' : discovered}
 | discoveredlink = ${discoveredLink}
 | mode = ${mode}
-| release = Waypoint
+| release = ${process.env.NEXT_PUBLIC_VERSION}
 }}
 '''${title}''' is a moon.
 
