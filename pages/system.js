@@ -19,7 +19,7 @@ import systemStarshipTech from '../lib/select-data/system-tech-starship';
 import systemExosuitTech from '../lib/select-data/system-tech-exosuit';
 import systemVehicleTech from '../lib/select-data/system-tech-vehicle';
 
-import styles from '../styles/pages/system.module.scss';
+import styles from '../styles/forms.module.scss';
 
 export default function System() {
   const myRef = useRef(null);

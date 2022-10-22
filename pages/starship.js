@@ -11,9 +11,9 @@ import SelectGameMode from '../components/select-game-mode';
 import systemEconomy from '../lib/select-data/system-economy';
 import starshipType from '../lib/select-data/starship-type';
 
-import styles from '../styles/pages/creature.module.scss';
+import styles from '../styles/forms.module.scss';
 
-export default function Creature() {
+export default function Starship() {
   const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);

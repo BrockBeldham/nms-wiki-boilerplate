@@ -18,7 +18,7 @@ import planetSentinels from '../lib/select-data/planet-sentinels';
 import planetFloraFauna from '../lib/select-data/planet-flora-fauna';
 import planetResources from '../lib/select-data/planet-resources';
 
-import styles from '../styles/pages/planet.module.scss';
+import styles from '../styles/forms.module.scss';
 
 export default function System() {
   const faunaDefault = {

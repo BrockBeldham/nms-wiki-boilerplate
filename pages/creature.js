@@ -14,7 +14,7 @@ import faunaGenus from '../lib/select-data/fauna-genus';
 import faunaBehaviour from '../lib/select-data/fauna-behaviour';
 import faunaProducts from '../lib/select-data/fauna-products';
 
-import styles from '../styles/pages/creature.module.scss';
+import styles from '../styles/forms.module.scss';
 
 export default function Creature() {
   const myRef = useRef(null);

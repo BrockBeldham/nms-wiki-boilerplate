@@ -17,9 +17,11 @@ export default function Home() {
           <h2 className={styles.subtitle}>Wiki Boilerplate Creator</h2>
           <p className={styles.text}>Which page do you want to create?</p>
         </div>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New Region
-        </button>
+        <Link href='/region'>
+          <a className={`btn ${styles.btn}`}>
+            New Region
+          </a>
+        </Link>
         <Link href='/system'>
           <a className={`btn ${styles.btn}`}>
             New Star System

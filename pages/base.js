@@ -11,7 +11,7 @@ import SelectFeatures from '../components/base/select-features';
 import SelectGameMode from '../components/select-game-mode';
 import SelectPlatform from '../components/select-platform';
 
-import styles from '../styles/pages/base.module.scss';
+import styles from '../styles/forms.module.scss';
 
 export default function Base() {
   const myRef = useRef(null);

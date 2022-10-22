@@ -9,9 +9,9 @@ import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
 import SelectGameMode from '../components/select-game-mode';
 
-import styles from '../styles/pages/creature.module.scss';
+import styles from '../styles/forms.module.scss';
 
-export default function Creature() {
+export default function Multitool() {
   const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);
