@@ -17,6 +17,9 @@ export default function Home() {
           <h2 className={styles.subtitle}>Wiki Boilerplate Creator</h2>
           <p className={styles.text}>Which page do you want to create?</p>
         </div>
+        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
+          New Region
+        </button>
         <Link href='/system'>
           <a className={`btn ${styles.btn}`}>
             New Star System
@@ -47,9 +50,11 @@ export default function Home() {
             New Starship
           </a>
         </Link>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New Multitool
-        </button>
+        <Link href='/multitool'>
+          <a className={`btn ${styles.btn}`}>
+            New Multitool
+          </a>
+        </Link>
         <button type='button' className={`btn btnDisabled ${styles.btn}`}>
           New NMH Fauna Album Entry
         </button>
