@@ -1,4 +1,4 @@
-const isProd = process.env.NODE_ENV === 'production'
+// const isProd = process.env.NODE_ENV === 'production';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -10,6 +10,6 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_GOOGLE_ANALYTICS: 'G-8YL3N5E1Q0',
   }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
