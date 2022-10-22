@@ -135,7 +135,7 @@ ${gallery.map((image) => {
         <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
         <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
         <Input id='system' type='text' label='Star System Name' onChange={(value) => setSystem(value)} />
-        <Input id='planet' type='text' label='Planet Name' tooltip='Starship Name OR the starship circled by the moon where the starship can be found.' onChange={(value) => setPlanet(value)} />
+        <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the starship can be found.' onChange={(value) => setPlanet(value)} />
         <Input id='moon' type='text' label='Moon Name' tooltip='If the starship is located on a moon. Leave blank if the starship is on a planet.' onChange={(value) => setMoon(value)} />
         <Select id='location' label='Location' config={[
           { label: 'Trading Post', value: 'Trading Post' },
