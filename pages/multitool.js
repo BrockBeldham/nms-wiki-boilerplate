@@ -124,7 +124,7 @@ ${gallery.map((image) => {
         <meta name='description' content="Generate boilerplate markdown code for a new multi-tool. Create a new multi-tool page on the No Man's Sky Fandom wiki with your generated code." />
       </Head>
       <div className='frmGroup50' ref={myRef}>
-        <Input id='title' type='text' label='Base Name' onChange={(value) => setTitle(value)} />
+        <Input id='title' type='text' label='Multi-tool Name' onChange={(value) => setTitle(value)} />
         <Dropzone label='Image of Base' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
         <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
         <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
