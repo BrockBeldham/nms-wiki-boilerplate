@@ -9,6 +9,7 @@ import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
 import SelectGameMode from '../components/select-game-mode';
 import systemEconomy from '../lib/select-data/system-economy';
+import starshipType from '../lib/select-data/starship-type';
 
 import styles from '../styles/pages/creature.module.scss';
 
@@ -34,7 +35,7 @@ export default function Creature() {
   const [exotic, setExotic] = useState('');
   const [shipClass, setShipClass] = useState('');
   const [inventory, setInventory] = useState('');
-  const [slots, setSlots] = useState('');
+  // const [slots, setSlots] = useState('');
   const [techslots, setTechslots] = useState('');
   const [cargoslots, setCargoslots] = useState('');
   const [cost, setCost] = useState('');
@@ -70,7 +71,6 @@ export default function Creature() {
 | exotic = ${exotic}
 | class = ${shipClass}
 | inventory = ${inventory}
-| slots = ${slots}
 | techslots = ${techslots}
 | cargoslots = ${cargoslots}
 | cost = ${cost}
@@ -115,7 +115,7 @@ ${gallery.map((image) => {
     setCodeCopied(true);
     setTimeout(() => {
       setCodeCopied(false);
-    }, 3000)
+    }, 3000);
   };
 
   return (
@@ -151,18 +151,44 @@ ${gallery.map((image) => {
       <div className='frmGroup50'>
         <Select id='economy' label='Economy Type' config={systemEconomy} isSearchable onChange={(value) => setEconomy(value)} />
         <Input id='pilot' type='text' label='NPC Pilot`s Name' onChange={(value) => setPilot(value)} />
-
-
-
-        
+        <Select id='type' label='Ship Type' config={starshipType} isSearchable onChange={(value) => setType(value)} />
+        {type === 'Freighter' || type === 'Frigate' &&
+          <Select id='subtype' label='Freighter or Frigate Subtype' config={starshipType} isSearchable onChange={(value) => setSubtype(value)} />
+        }
+        {type === 'Exotic' &&
+          <Select id='exotic' label='Exotic Subtype' config={[
+            { value: 'Squid', label: 'Squid' },
+            { value: 'Ball', label: 'Ball' },
+            { value: 'Guppy', label: 'Guppy' },
+            { value: 'Mosquito', label: 'Mosquito' }
+          ]} isSearchable onChange={(value) => setExotic(value)} />
+        }
+        <Select id='class' label='Class' config={[
+          { value: 'C', label: 'C' },
+          { value: 'B', label: 'B' },
+          { value: 'A', label: 'A' },
+          { value: 'S', label: 'S' }
+        ]} isSearchable onChange={(value) => setShipClass(value)} />
+        <Select id='inventory' label='Inventory Size' config={[
+          { value: 'Small', label: 'Small' },
+          { value: 'Medium', label: 'Medium' },
+          { value: 'Large', label: 'Large' }
+        ]} isSearchable onChange={(value) => setInventory(value)} />
+        <Input id='techslots' type='text' label='Tech Slots' onChange={(value) => setTechslots(value)} />
+        <Input id='cargoslots' type='text' label='Cargo Slots' onChange={(value) => setCargoslots(value)} />
+        <Input id='cost' type='text' label='Cost' onChange={(value) => setCost(value)} />
         <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => setDiscovered(value)} />
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
         <SelectGameMode onChange={(value) => setMode(value)} />
+        <Input id='maneuverB' type='text' label='Maneuverability' onChange={(value) => setManeuverB(value)} />
+        <Input id='damageB' type='text' label='Maximum Damage' onChange={(value) => setDamageB(value)} />
+        <Input id='shieldB' type='text' label='Maximum Shield' onChange={(value) => setShieldB(value)} />
+        <Input id='warpB' type='text' label='Maximum Warp' onChange={(value) => setWarpB(value)} />
       </div>
-      <Textarea id='appearance' label='Appearance' placeholder='Describe what the creature looks like.' onChange={(value) => setAppearance(value)} />
-      <Textarea id='additionalInfo' label='Additional Info' placeholder='Any nearby resources, tourist traps, other bases.' onChange={(value) => setAdditionalInfo(value)} />
+      <Textarea id='appearance' label='Appearance' placeholder='Describe what the starship looks like.' onChange={(value) => setAppearance(value)} />
+      <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the starship.' onChange={(value) => setAdditionalInfo(value)} />
       <Gallery gallery={gallery} onUpload={(photos) => setGallery(photos)} onChange={(value, index) => {
         setGallery((prevState) => {
           const newState = prevState.map((image, prevIndex) => {
@@ -191,7 +217,7 @@ ${gallery.map((image) => {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
           Create Page
         </a>
       </div>

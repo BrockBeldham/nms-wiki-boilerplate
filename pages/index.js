@@ -42,9 +42,11 @@ export default function Home() {
             New Creature
           </a>
         </Link>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New Starship
-        </button>
+        <Link href='/starship'>
+          <a className={`btn ${styles.btn}`}>
+            New Starship
+          </a>
+        </Link>
         <button type='button' className={`btn btnDisabled ${styles.btn}`}>
           New Multitool
         </button>
@@ -57,5 +59,5 @@ export default function Home() {
       </div>
       <Footer />
     </>
-  )
+  );
 }
