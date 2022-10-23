@@ -57,12 +57,6 @@ export default function Home() {
             New Multitool
           </a>
         </Link>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New NMH Fauna Album Entry
-        </button>
-        <button type='button' className={`btn btnDisabled ${styles.btn}`}>
-          New NMH Starship Album Entry
-        </button>
       </div>
       <Footer />
     </>
