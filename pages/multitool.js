@@ -199,7 +199,7 @@ ${gallery.map((image) => {
           return newState;
         });
       }} />
-      <div className='btnContainer'>
+      <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);

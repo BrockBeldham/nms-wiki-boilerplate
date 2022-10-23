@@ -298,7 +298,7 @@ ${gallery.map((image) => {
         <SelectMulti id='vehicleTech' label='Vehicle S-class Upgrades Available' config={systemVehicleTech} onChange={(items) => setVehicleTech(items)} />
       </div>
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => setAdditionalInfo(value)} />
-      <div className='btnContainer'>
+      <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
