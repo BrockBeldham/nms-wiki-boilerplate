@@ -44,6 +44,7 @@ export default function System() {
 
   const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [codeCatCopied, setCodeCatCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);
   const [title, setTitle] = useState('');
   const [defaultTitle, setDefaultTitle] = useState('');
@@ -74,6 +75,19 @@ export default function System() {
   const [gallery, setGallery] = useState([]);
   const [faunaDetails, setFaunaDetails] = useState([faunaDefault]);
   const [floraDetails, setFloraDetails] = useState([floraDefault]);
+
+  const categoryTemplate = `This category is for content related to the '''${title}''' [[planet]].
+
+[[Category: Planets]]
+[[Category: ${system}]]`;
+
+  const copyCategory = () => {
+    navigator.clipboard.writeText(categoryTemplate);
+    setCodeCatCopied(true);
+    setTimeout(() => {
+      setCodeCatCopied(false);
+    }, 3000);
+  };
 
   const renderFauna = () => {
     if (faunaDetails.length === 1
@@ -322,6 +336,16 @@ ${gallery.map((image) => {
         </button>
         <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
           Create Page
+        </a>
+      </div>
+      <h2 className={styles.catTitle}>Create Category</h2>
+      <p className={styles.catText}>When you create a new page, you should always create a category. This keeps your pages organized in a hierarchical structure. Simple click &quot;copy category&quot; and then click &quot;create category&quot; to open the Wiki and create a category for this page.</p>
+      <div className={styles.catBtnContainer}>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyCategory()}>
+          {codeCatCopied ? 'Category Copied' : 'Copy Category'}
+        </button>
+        <a href={`https://nomanssky.fandom.com/wiki/Category:${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+          Create Category
         </a>
       </div>
     </CodeView>
