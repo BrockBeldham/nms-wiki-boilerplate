@@ -10,6 +10,7 @@ import Textarea from '../components/textarea';
 import SelectGameMode from '../components/select-game-mode';
 import Planets from '../components/system/planets';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import systemEconomy from '../lib/select-data/system-economy';
 import systemFaction from '../lib/select-data/system-faction';
 import systemWealth from '../lib/select-data/system-wealth';
@@ -312,6 +313,7 @@ ${gallery.map((image) => {
           Create Page
         </a>
       </div>
+      <CreateCategory type='system' title={title} parentTitle={region} />
     </CodeView>
   );
 }

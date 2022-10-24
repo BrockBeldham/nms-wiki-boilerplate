@@ -1,0 +1,17 @@
+@import '../styles/settings';
+
+.btnContainer {
+  margin: 20px 0;
+}
+
+.title {
+  @include font-nms;
+
+  font-size: 1.2em;
+  letter-spacing: 3px;
+  font-weight: normal;
+}
+
+.text {
+  margin: 0 0 20px;
+}

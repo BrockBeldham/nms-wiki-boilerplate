@@ -4,13 +4,13 @@ import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Dropzone from '../components/dropzone';
 import Select from '../components/select';
+import CreateCategory from '../components/create-category';
 
 import styles from '../styles/forms.module.scss';
 
 export default function Creature() {
   const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
-  const [codeCatCopied, setCodeCatCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
@@ -19,19 +19,6 @@ export default function Creature() {
   const [coordinates, setCoordinates] = useState('');
   const [distance, setDistance] = useState('');
   const [civ, setCiv] = useState('');
-
-  const categoryTemplate = `This category is for content related to the '''${title}''' [[region]].
-
-[[Category: Regions]]
-[[Category: ${galaxy}]]`;
-
-  const copyCategory = () => {
-    navigator.clipboard.writeText(categoryTemplate);
-    setCodeCatCopied(true);
-    setTimeout(() => {
-      setCodeCatCopied(false);
-    }, 3000);
-  };
 
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Region infobox
@@ -115,16 +102,7 @@ ${civ ? `This region has been explored by the [[${civ}]].` : 'This region has no
           Create Page
         </a>
       </div>
-      <h2 className={styles.catTitle}>Create Category</h2>
-      <p className={styles.catText}>When you create a new page, you should always create a category. This keeps your pages organized in a hierarchical structure. Simple click &quot;copy category&quot; and then click &quot;create category&quot; to open the Wiki and create a category for this page.</p>
-      <div className={styles.catBtnContainer}>
-        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyCategory()}>
-          {codeCatCopied ? 'Category Copied' : 'Copy Category'}
-        </button>
-        <a href={`https://nomanssky.fandom.com/wiki/Category:${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
-          Create Category
-        </a>
-      </div>
+      <CreateCategory type='planet' title={title} parentTitle={galaxy} />
     </CodeView>
   );
 }

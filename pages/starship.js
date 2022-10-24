@@ -8,6 +8,7 @@ import Select from '../components/select';
 import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
 import SelectGameMode from '../components/select-game-mode';
+import CreateCategory from '../components/create-category';
 import systemEconomy from '../lib/select-data/system-economy';
 import starshipType from '../lib/select-data/starship-type';
 
@@ -221,6 +222,7 @@ ${gallery.map((image) => {
           Create Page
         </a>
       </div>
+      <CreateCategory type='system' title={system} parentTitle={region} />
     </CodeView>
   );
 }

@@ -11,6 +11,7 @@ import SelectGameMode from '../components/select-game-mode';
 import FaunaDetails from '../components/planet/fauna-details';
 import FloraDetails from '../components/planet/flora-details';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import planetBiome from '../lib/select-data/planet-biome';
 import planetDescription from '../lib/select-data/planet-description';
 import planetWeather from '../lib/select-data/planet-weather';
@@ -321,6 +322,7 @@ ${gallery.map((image) => {
           Create Page
         </a>
       </div>
+      <CreateCategory type='moon' title={title} parentTitle={planet} />
     </CodeView>
   );
 }

@@ -7,6 +7,7 @@ import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import SelectGameMode from '../components/select-game-mode';
 import faunaEcosystem from '../lib/select-data/fauna-ecosystem';
 import faunaGender from '../lib/select-data/fauna-gender';
@@ -206,6 +207,7 @@ ${gallery.map((image) => {
           Create Page
         </a>
       </div>
+      <CreateCategory type='system' title={system} parentTitle={region} />
     </CodeView>
   );
 }

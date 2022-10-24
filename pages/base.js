@@ -7,6 +7,7 @@ import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import SelectFeatures from '../components/base/select-features';
 import SelectGameMode from '../components/select-game-mode';
 import SelectPlatform from '../components/select-platform';
@@ -193,6 +194,7 @@ ${gallery.map((image) => {
           Create Page
         </a>
       </div>
+      <CreateCategory type={moon ? 'moon' : 'planet'} title={moon || planet} parentTitle={system} />
     </CodeView>
   );
 }

@@ -4,24 +4,8 @@
   margin: 50px 0;
 }
 
-.catBtnContainer {
-  margin: 20px 0;
-}
-
 .btn {
   margin: 10px 20px 10px 0;
-}
-
-.catTitle {
-  @include font-nms;
-
-  font-size: 1.2em;
-  letter-spacing: 3px;
-  font-weight: normal;
-}
-
-.catText {
-  margin: 0 0 20px;
 }
 
 @media (max-width: $mobile_width) {
