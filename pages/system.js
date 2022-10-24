@@ -101,7 +101,7 @@ export default function System() {
     if (multitoolTech.length === 0 && starshipTech.length === 0 && exosuitTech.length === 0 && vehicleTech.length === 0) {
       return 'The space station merchants\' inventory has not been logged at this time.';
     } else {
-      return `The space station merchants offer the following S-class items for sale:
+      return `The space station merchants offer the following {{class|S}} class items for sale:
 
 ${multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
 ${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}

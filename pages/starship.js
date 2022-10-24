@@ -94,7 +94,7 @@ export default function Starship() {
 ${appearance}
 
 ==Location==
-A${['A', 'S'].includes(shipClass) ? 'n' : ''} ${shipClass}-class version of this starship was discovered in the [[${system}]] system, located in the [[${region}]].
+A${['A', 'S'].includes(shipClass) ? 'n' : ''} {{class|${shipClass}}} class version of this starship was discovered in the [[${system}]] system, located in the [[${region}]].
 
 ===Coordinates===
 ${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0] : 'XXXX'}|${coordinates.split(':')[1] ? coordinates.split(':')[1] : 'XXXX'}|${coordinates.split(':')[2] ? coordinates.split(':')[2] : 'XXXX'}|${coordinates.split(':')[3] ? coordinates.split(':')[3] : 'XXXX'}}}` : ''}
