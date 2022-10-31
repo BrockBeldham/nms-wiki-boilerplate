@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import Head from 'next/head';
+import * as ga from '../lib/ga';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -315,13 +316,17 @@ ${gallery.map((image) => {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
+          ga.click('Region', 'Button', 'View Code');
         }}>
           View Code
         </button>
-        <button type='button' className={`btn ${styles.btn}`} onClick={() => copyToClipboard()}>
+        <button type='button' className={`btn ${styles.btn}`} onClick={() => {
+          copyToClipboard();
+          ga.click('Region', 'Button', 'Copy Code');
+        }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer' onClick={() => ga.click('Region', 'Button', 'Create Page')}>
           Create Page
         </a>
       </div>
