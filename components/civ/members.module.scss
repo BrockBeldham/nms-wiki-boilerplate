@@ -11,18 +11,12 @@
 .member {
   width: 49%;
   padding: 30px 0 20px;
-  // border-bottom: 1px solid $color_grey_squant;
   position: relative;
 
   &:nth-child(1),
   &:nth-child(2) {
     border-top: 1px solid $color_grey_squant;
   }
-
-  // &:last-child,
-  // &:nth-last-child(2) {
-  //   border-bottom: none;
-  // }
 }
 
 .title {
