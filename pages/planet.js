@@ -316,17 +316,22 @@ ${gallery.map((image) => {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.click('Region', 'Button', 'View Code');
+          ga.buttonClick('View Code');
         }}>
           View Code
         </button>
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           copyToClipboard();
-          ga.click('Region', 'Button', 'Copy Code');
+          ga.buttonClick('Copy Code');
+          ga.recordCiv(civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer' onClick={() => ga.click('Region', 'Button', 'Create Page')}>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`}
+          className={`btn whiteBtn ${styles.btn}`}
+          target='_blank'
+          rel='noreferrer'
+          onClick={() => ga.buttonClick('Create Page')}>
           Create Page
         </a>
       </div>
