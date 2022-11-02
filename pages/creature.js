@@ -56,7 +56,7 @@ export default function Creature() {
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Creature infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | galaxy = ${galaxy}
 | region = ${region}
 | system = ${system}

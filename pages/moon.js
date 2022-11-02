@@ -93,7 +93,7 @@ export default function System() {
 ! width="150px" | Image !! Name !! Ecosystem !! Genus !! Height !! Weight !! Discovered !! Brief description
 ${faunaDetails.map((f) => (`
 |-
-| [[File:${f.image}|150px]]
+| [[File:${f.image || 'nmsMisc_NotAvailable.png'}|150px]]
 | '''${f.name}'''
 | ${f.ecosystem}
 | ${f.genus}
@@ -123,7 +123,7 @@ ${faunaDetails.map((f) => (`
 ! width="150px" | Image !! Name !! Age !! Root Structure !! Nutrient Source !! Elements !! Discovered !! Brief description
 ${floraDetails.map((f) => (`
 |-
-| [[File:${f.image}|150px]]
+| [[File:${f.image || 'nmsMisc_NotAvailable.png'}|150px]]
 | '''${f.name}'''
 | ${f.age}
 | ${f.roots}
@@ -138,7 +138,7 @@ ${floraDetails.map((f) => (`
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Moon infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | planet = ${planet}
 | system = ${system}
 | region = ${region}

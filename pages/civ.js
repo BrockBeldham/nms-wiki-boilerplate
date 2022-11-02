@@ -42,7 +42,7 @@ export default function Civ() {
   const [leader, setLeader] = useState('');
   const [federation, setFederation] = useState('');
   const [un, setUn] = useState('');
-  const [platform, setPlatform] = useState('');
+  const [platform, setPlatform] = useState([]);
   const [mission, setMission] = useState('');
   const [background, setBackground] = useState('');
   const [guidelines, setGuidelines] = useState('');
@@ -52,11 +52,13 @@ export default function Civ() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
+  console.log(platform);
+
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Civilized Space}}
 {{Civilized Space infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | galaxy = ${galaxy}
 | quadrant = ${quadrant}
 | region = ${region}
@@ -72,7 +74,7 @@ export default function Civ() {
 | leader = ${leader}
 | federation = ${federation}
 | un42 = ${un}
-| platform = ${platform}
+| platform = ${platform.map((item) => item.value).join('/')}
 | release = Waypoint
 }}
 '''${title}''' is a civilized space community.
@@ -202,6 +204,7 @@ ${gallery.map((image) => {
           { value: 'PS', label: 'PS' },
           { value: 'XB', label: 'XB' },
           { value: 'NS', label: 'NS' },
+          { value: 'All', label: 'All' },
         ]} isSearchable onChange={(items) => setPlatform(items)} />
       </div>
       <Textarea id='mission' label='Civilization`s Mission' placeholder='Our mission is to...' onChange={(value) => setMission(value)} />

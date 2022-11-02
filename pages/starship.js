@@ -56,7 +56,7 @@ export default function Starship() {
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Starship infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | galaxy = ${galaxy}
 | region = ${region}
 | system = ${system}

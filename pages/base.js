@@ -48,7 +48,7 @@ export default function Base() {
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Base infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | civilized = ${civ || 'No Man\'s High Hub'}
 | builder = ${builderLink ? '' : builder}
 | builderlink = ${builderLink}

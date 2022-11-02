@@ -64,7 +64,7 @@ export default function System() {
 
   const renderPlanets = () => {
     const usedResources = [];
-    return planets.map((planet) => planet ? `| [[File:${planet.photo}|150px]] 
+    return planets.map((planet) => planet ? `| [[File:${planet.photo || 'nmsMisc_NotAvailable.png'}|150px]] 
 | ${planet.name || '[[PlanetName]]'}
 | ${planet.type || 'type'}
 | ${planet.weather || 'weather'}
@@ -118,7 +118,7 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{System infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | region = ${region}
 | galaxy = ${galaxy}
 | multiplestars = ${multiplestars !== '1' ? multiplestars : ''}

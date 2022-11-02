@@ -49,7 +49,7 @@ export default function Multitool() {
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Multitool infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | galaxy = ${galaxy}
 | region = ${region}
 | system = ${system}

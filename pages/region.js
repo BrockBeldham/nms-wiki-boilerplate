@@ -24,7 +24,7 @@ export default function Creature() {
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Region infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | galaxy = ${galaxy}
 | quadrant = ${quadrant}
 | coordinates = ${coordinates.split(':')[0] ? coordinates.split(':')[0] : 'XXXX'}:${coordinates.split(':')[1] ? coordinates.split(':')[1] : 'XXXX'}:${coordinates.split(':')[2] ? coordinates.split(':')[2] : 'XXXX'}:XXXX
@@ -54,7 +54,7 @@ The following regions border ${title}:
 {{RegionNeighbours|coord=${coordinates.split(':')[0] ? coordinates.split(':')[0] : 'XXXX'}:${coordinates.split(':')[1] ? coordinates.split(':')[1] : 'XXXX'}:${coordinates.split(':')[2] ? coordinates.split(':')[2] : 'XXXX'}:XXXX|gal=${galaxy || 'Euclid'}}}
 
 ==Civilized Space==
-${civ ? `This region has been explored by the [[${civ}]].` : 'This region has not been explored by a [[Civilized Space|civilization]]'}`;
+${civ ? `This region has been explored by the [[${civ}]].` : 'This region has not been explored by a [[Civilized space|civilization]]'}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(codeTemplate);
