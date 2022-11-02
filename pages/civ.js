@@ -119,7 +119,7 @@ ${gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
 }).join('')}</gallery>` : ''}
 
-[[Category:CivName | ${title}]]`;
+[[Category:${title}| ]]`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(codeTemplate);
