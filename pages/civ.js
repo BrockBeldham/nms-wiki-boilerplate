@@ -52,8 +52,6 @@ export default function Civ() {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
 
-  console.log(platform);
-
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Civilized Space}}
 {{Civilized Space infobox
