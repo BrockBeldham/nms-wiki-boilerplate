@@ -88,7 +88,7 @@ ${layout}
 
 ==Features==
 ${features.map((feature) => (`* [[${feature.value}]]\n`)).toString().replace(/,/g,'')}
-==Additional information==
+==Additional Information==
 ${additionalInfo}
 
 ==Gallery==

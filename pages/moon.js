@@ -70,8 +70,35 @@ export default function System() {
   const [discoveredLink, setDiscoveredLink] = useState('');
   const [bases, setBases] = useState('');
   const [moonType, setMoonType] = useState('');
+  const [temp, setTemp] = useState('');
+  const [tempUnit, setTempUnit] = useState('');
+  const [daytemp, setDaytemp] = useState('');
+  const [nighttemp, setNighttemp] = useState('');
+  const [radnorm, setRadnorm] = useState('');
+  const [toxicnorm, setToxicnorm] = useState('');
+  const [daystormtemp, setDaystormtemp] = useState('');
+  const [nightstormtemp, setNightstormtemp] = useState('');
+  const [radstorm, setRadstorm] = useState('');
+  const [toxicstorm, setToxicstorm] = useState('');
+  const [daycavetemp, setDaycavetemp] = useState('');
+  const [nightcavetemp, setNightcavetemp] = useState('');
+  const [daystormcavetemp, setDaystormcavetemp] = useState('');
+  const [nightstormcavetemp, setNightstormcavetemp] = useState('');
+  const [radcave, setRadcavetemp] = useState('');
+  const [toxiccave, setToxiccavetemp] = useState('');
+  const [cavestormrad, setCavestormrad] = useState('');
+  const [cavestormtoxic, setCavestormtoxic] = useState('');
+  const [daywatertemp, setDaywatertemp] = useState('');
+  const [nightwatertemp, setNightwatertemp] = useState('');
+  const [waterrad, setWaterrad] = useState('');
+  const [watertoxic, setWatertoxic] = useState('');
+  const [daystormwatertemp, setDaystormwatertemp] = useState('');
+  const [nightstormwatertemp, setNightstormwatertemp] = useState('');
+  const [waterstormrad, setWaterstormrad] = useState('');
+  const [waterstormtoxic, setWaterstormtoxic] = useState('');
   const [glyphs, setGlyphs] = useState('');
   const [sentinelDetails, setSentinelDetails] = useState('');
+  const [additionalInfo, setAdditionalInfo] = useState('');
   const [gallery, setGallery] = useState([]);
   const [faunaDetails, setFaunaDetails] = useState([faunaDefault]);
   const [floraDetails, setFloraDetails] = useState([floraDefault]);
@@ -166,17 +193,48 @@ ${floraDetails.map((f) => (`
 
 It orbits the planet [[${planet}]].
 
-==Alias names==
+==Alias Names==
 ${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${title}}}
 
-==Moon type==
+==Moon Type==
 ${moonType}
 
-==Location information==
-===Glyphs===
+${temp === 'Yes' ?
+`===Environment Conditions===
+The surface has ${weather} weather conditions.
+
+{{PlanetWeather
+|tunit=${tempUnit}
+|daytemp=${daytemp}
+|nighttemp=${nighttemp}
+|radnorm=${radnorm}
+|toxicnorm=${toxicnorm}
+|daystormtemp=${daystormtemp}
+|nightstormtemp=${nightstormtemp}
+|radstorm=${radstorm}
+|toxicstorm=${toxicstorm}
+|daycavetemp=${daycavetemp}
+|nightcavetemp=${nightcavetemp}
+|daystormcavetemp=${daystormcavetemp}
+|nightstormcavetemp=${nightstormcavetemp}
+|radcave=${radcave}
+|toxiccave=${toxiccave}
+|cavestormrad=${cavestormrad}
+|cavestormtoxic=${cavestormtoxic}
+|daywatertemp=${daywatertemp}
+|nightwatertemp=${nightwatertemp}
+|waterrad=${waterrad}
+|watertoxic=${watertoxic}
+|daystormwatertemp=${daystormwatertemp}
+|nightstormwatertemp=${nightstormwatertemp}
+|waterstormrad=${waterstormrad}
+|waterstormtoxic=${waterstormtoxic}
+}}` : ''}
+
+==Moon Glyphs==
 {{Gl|${glyphs}}}
 
-==Notable locations / Waypoints==
+==Notable Locations / Waypoints==
 ${bases ? (`Notable Bases include:
 
 {{CARGOBasesPlanet|${title}}}`) : ''}
@@ -194,6 +252,9 @@ ${sentinelDetails}
 ==Resources==
 ${resources.length > 0 ? `The following resources can be found on this planet:
 ${resources.map((resource) => `* {{Resource2icon|${resource.value}}} [[${resource.value}]]\n`).join('')}` : ''}
+==Additional Information==
+${additionalInfo}
+
 ==Gallery==
 ${gallery.length > 0 ? `<gallery>
 ${gallery.map((image) => {
@@ -250,6 +311,73 @@ ${gallery.map((image) => {
         ]} onChange={(value) => setBases(value)} />
       </div>
       <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => setMoonType(value)} />
+      <div className='frmGroup50'>
+        <Select id='temp' label='Include surface temperatures?' config={[
+          { label: 'Yes', value: 'Yes' },
+          { label: 'No', value: 'No' }
+        ]} onChange={(value) => setTemp(value)} />
+        {temp === 'Yes' &&
+          <Select id='tempUnit' label='Temperature Units' config={[
+            { label: 'C', value: 'C' },
+            { label: 'F', value: 'F' }
+          ]} onChange={(value) => setTempUnit(value)} />
+        }
+      </div>
+      {temp === 'Yes' &&
+        <>
+          <h2 className={styles.heading}>Environmental Conditions</h2>
+          <div className='frmGroup50'>
+            <div className='frmGroup50 frmItem'>
+              <Input id='daytemp' type='number' label='Daytime' onChange={(value) => setDaytemp(value)} />
+              <Input id='nighttemp' type='number' label='Nighttime' onChange={(value) => setNighttemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='radnorm' type='number' label='Radiation' onChange={(value) => setRadnorm(value)} />
+              <Input id='toxicnorm' type='number' label='Toxicity' onChange={(value) => setToxicnorm(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='daystormtemp' type='number' label='Daytime Storm' onChange={(value) => setDaystormtemp(value)} />
+              <Input id='nightstormtemp' type='number' label='Nighttime Storm' onChange={(value) => setNightstormtemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='radstorm' type='number' label='Radiation Storm' onChange={(value) => setRadstorm(value)} />
+              <Input id='toxicstorm' type='number' label='Toxicity Storm' onChange={(value) => setToxicstorm(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='daycavetemp' type='number' label='Daytime' onChange={(value) => setDaycavetemp(value)} />
+              <Input id='nightcavetemp' type='number' label='Nighttime' onChange={(value) => setNightcavetemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='daystormcavetemp' type='number' label='Radiation' onChange={(value) => setDaystormcavetemp(value)} />
+              <Input id='nightstormcavetemp' type='number' label='Toxicity' onChange={(value) => setNightstormcavetemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='radcave' type='number' label='Daytime Storm' onChange={(value) => setRadcavetemp(value)} />
+              <Input id='toxiccave' type='number' label='Nighttime Storm' onChange={(value) => setToxiccavetemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='cavestormrad' type='number' label='Radiation Storm' onChange={(value) => setCavestormrad(value)} />
+              <Input id='cavestormtoxic' type='number' label='Toxicity Storm' onChange={(value) => setCavestormtoxic(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='daywatertemp' type='number' label='Daytime' onChange={(value) => setDaywatertemp(value)} />
+              <Input id='nightwatertemp' type='number' label='Nighttime' onChange={(value) => setNightwatertemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='waterrad' type='number' label='Radiation' onChange={(value) => setWaterrad(value)} />
+              <Input id='watertoxic' type='number' label='Toxicity' onChange={(value) => setWatertoxic(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='daystormwatertemp' type='number' label='Daytime Storm' onChange={(value) => setDaystormwatertemp(value)} />
+              <Input id='nightstormwatertemp' type='number' label='Nighttime Storm' onChange={(value) => setNightstormwatertemp(value)} />
+            </div>
+            <div className='frmGroup50 frmItem'>
+              <Input id='waterstormrad' type='number' label='Radiation Storm' onChange={(value) => setWaterstormrad(value)} />
+              <Input id='waterstormtoxic' type='number' label='Toxicity Storm' onChange={(value) => setWaterstormtoxic(value)} />
+            </div>
+          </div>
+        </>
+      }
       <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
       <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
       <FaunaDetails details={faunaDetails} onChange={(index, key, value) => {
@@ -289,6 +417,7 @@ ${gallery.map((image) => {
         Add Plant
       </button>
       <Textarea id='moons' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => setSentinelDetails(value)} />
+      <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the planet.' onChange={(value) => setAdditionalInfo(value)} />
       <div className='frmGroup50'>
         <Gallery gallery={gallery} onUpload={(photos) => setGallery(photos)} onChange={(value, index) => {
           setGallery((prevState) => {

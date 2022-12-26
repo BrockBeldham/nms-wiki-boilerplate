@@ -1,5 +1,11 @@
 @import './settings';
 
+.heading {
+  @include font-bold;
+  margin: 0;
+  color: $color_orange_new_black;
+}
+
 .btnContainer {
   margin: 50px 0;
 }

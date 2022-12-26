@@ -147,7 +147,7 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
 ==Summary==
 '''${title}''' is a [[star system]] in the [[${region}]].
 
-==Alias names==
+==Alias Names==
 {{aliasc|text=Original|name=${defaultTitle}}}
 {{aliasc|text=Current|name=${title}}}
 
@@ -177,9 +177,9 @@ ${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0
 
 ===System Location===
 
-==Space station==
+==Space Station==
 ${renderSpaceStation()}
-==Additional information==
+==Additional Information==
 ${additionalInfo}
 
 ==Gallery==

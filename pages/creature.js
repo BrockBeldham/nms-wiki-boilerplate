@@ -91,7 +91,7 @@ export default function Creature() {
 ==Appearance==
 ${appearance}
 
-==Alias names==
+==Alias Names==
 ${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${title}}}
 
 ==Discovery Menu==
@@ -106,7 +106,7 @@ ${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0
 ===Glyphs===
 {{Gl|${glyphs}}}
 
-==Additional information==
+==Additional Information==
 ${additionalInfo}
 
 ==Gallery==

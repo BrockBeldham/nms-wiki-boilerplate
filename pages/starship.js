@@ -103,7 +103,7 @@ ${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0
 ===Glyphs===
 {{Gl|${glyphs}}}
 
-==Additional information==
+==Additional Information==
 ${additionalInfo}
 
 ==Gallery==

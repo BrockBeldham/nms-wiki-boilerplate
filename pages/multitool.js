@@ -97,7 +97,7 @@ The {{class|${mtClass}}} class version of this weapon has the following bonus st
 ==Acquirement==
 ${acquirement}
 
-==Additional information==
+==Additional Information==
 ${additionalInfo}
 
 ==Gallery==

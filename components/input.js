@@ -47,7 +47,7 @@ function Input({
       />
       {tooltip &&
         <Tooltip trigger='click' placement='right' overlay={tooltip}>
-          <span className={`icon iconWhite ${styles.ttpIcon}`}>
+          <span className='icon iconWhite ttpIcon'>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
               <use href='#svgHelp'/>
             </svg>
