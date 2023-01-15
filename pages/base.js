@@ -1,6 +1,7 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
 import baseReducer from '../reducers/base';
+import * as ga from '../lib/ga';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -8,11 +9,12 @@ import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import SelectFeatures from '../components/base/select-features';
 import SelectGameMode from '../components/select-game-mode';
 import SelectPlatform from '../components/select-platform';
 
-import styles from '../styles/pages/base.module.scss';
+import styles from '../styles/forms.module.scss';
 
 const initialState = {
   title: '',
@@ -48,7 +50,7 @@ export default function Base() {
   const [viewCode, setViewCode] = useState(false);
   const [data, dispatch] = useReducer(baseReducer, initialState);
 
-  const codeTemplate = `{{Version|Waypoint}}
+  const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Base infobox
 | name = ${data.title}
 | image = ${data.image}
@@ -66,7 +68,7 @@ export default function Base() {
 | type = 
 | mode = ${data.mode}
 | platform = ${data.platform}
-| release = Waypoint
+| release = ${process.env.NEXT_PUBLIC_VERSION}
 | farm = ${data.farm}
 | geobay = ${data.geobay}
 | arena = ${data.arena}
@@ -91,7 +93,7 @@ ${data.layout}
 
 ==Features==
 ${data.features.map((feature) => (`* [[${feature.value}]]\n`)).toString().replace(/,/g,'')}
-==Additional information==
+==Additional Information==
 ${data.additionalInfo}
 
 ==Gallery==
@@ -171,20 +173,30 @@ ${data.gallery.map((image) => {
         onUpload={(photos) => dispatch({ type: 'gallery.upload', value: photos })}
         onChange={(value, index) => dispatch({ type: 'gallery.caption', value, index })}
       />
-      <div className='btnContainer'>
+      <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
+          ga.buttonClick('View Code');
         }}>
           View Code
         </button>
-        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
+          copyToClipboard();
+          ga.buttonClick('Copy Code');
+          ga.recordCiv(data.civ);
+        }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${data.title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${data.title.replace(/ /g,'_')}?action=edit`}
+          className={`btn whiteBtn ${styles.btn}`}
+          target='_blank'
+          rel='noreferrer'
+          onClick={() => ga.buttonClick('Create Page')}>
           Create Page
         </a>
       </div>
+      <CreateCategory type={data.moon ? 'moon' : 'planet'} title={data.moon || data.planet} parentTitle={data.system} />
     </CodeView>
   );
 }

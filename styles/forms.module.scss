@@ -1,0 +1,45 @@
+@import './settings';
+
+.heading {
+  @include font-bold;
+  margin: 0;
+  color: $color_orange_new_black;
+}
+
+.btnContainer {
+  margin: 50px 0;
+}
+
+.btn {
+  margin: 10px 20px 10px 0;
+}
+
+.ruleContainer {
+  position: relative;
+}
+
+.deleteRule {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  svg {
+    fill: $color_white;
+  }
+}
+
+@media (max-width: $mobile_width) {
+  .btn {
+    width: 47%;
+    margin: 10px 6% 10px 0;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+}

@@ -14,7 +14,7 @@ body {
   padding: 0;
   height: 100%;
   letter-spacing: 1px;
-  font-size: 18px;
+  font-size: 16px;
   background-image: url('../public/images/bg-long-huge.jpg');
   background-position: top center;
   background-repeat: repeat;
@@ -133,10 +133,6 @@ textarea {
   color: $color_white;
   font-size: 14px;
 
-  &[type=number] {
-    padding: 6px 25px 6px 12px;
-  }
-
   &::placeholder {
     @include font-regular;
 
@@ -212,10 +208,6 @@ textarea {
     transform: translateY(0);
     transition: all 0.25s;
   }
-}
-
-.btnContainer {
-  margin: 50px 0;
 }
 
 // forms
@@ -304,6 +296,17 @@ textarea {
     svg {
       fill: $color_black_knight;
     }
+  }
+
+  &.ttpIcon {
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    cursor: pointer;
+    background: $color_black_knight;
+    padding: 3px;
+    width: 25px;
+    height: 25px;
   }
 }
 

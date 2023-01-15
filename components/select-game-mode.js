@@ -7,7 +7,8 @@ export default function SelectGameMode({ onChange }) {
       { value: 'Normal', label :'Normal' },
       { value: 'Survival', label :'Survival' },
       { value: 'Permadeath', label :'Permadeath' },
-      { value: 'Creative', label :'Creative' }
+      { value: 'Creative', label :'Creative' },
+      { value: 'Custom', label :'Custom' }
     ]} onChange={(value) => onChange(value)} />
   );
 }

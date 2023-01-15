@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import Head from 'next/head';
+import * as ga from '../lib/ga';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -10,6 +11,7 @@ import Textarea from '../components/textarea';
 import SelectGameMode from '../components/select-game-mode';
 import Planets from '../components/system/planets';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import systemEconomy from '../lib/select-data/system-economy';
 import systemFaction from '../lib/select-data/system-faction';
 import systemWealth from '../lib/select-data/system-wealth';
@@ -19,7 +21,7 @@ import systemStarshipTech from '../lib/select-data/system-tech-starship';
 import systemExosuitTech from '../lib/select-data/system-tech-exosuit';
 import systemVehicleTech from '../lib/select-data/system-tech-vehicle';
 
-import styles from '../styles/pages/system.module.scss';
+import styles from '../styles/forms.module.scss';
 
 export default function System() {
   const myRef = useRef(null);
@@ -62,7 +64,7 @@ export default function System() {
 
   const renderPlanets = () => {
     const usedResources = [];
-    return planets.map((planet) => planet ? `| [[File:${planet.photo}|150px]] 
+    return planets.map((planet) => planet ? `| [[File:${planet.photo || 'nmsMisc_NotAvailable.png'}|150px]] 
 | ${planet.name || '[[PlanetName]]'}
 | ${planet.type || 'type'}
 | ${planet.weather || 'weather'}
@@ -70,7 +72,7 @@ export default function System() {
 | ${planet.fauna || 'fauna'}
 | ${planet.flora || 'flora'}
 |-
-|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource, index) => {
+|colspan=2 | '''Resources:''' ${planet.resources ? planet.resources.map((resource) => {
   if (!usedResources.includes(resource.value)) {
     usedResources.push(resource.value);
     return `[[${resource.value}]]`;
@@ -98,9 +100,9 @@ export default function System() {
 
   const renderSpaceStation = () => {
     if (multitoolTech.length === 0 && starshipTech.length === 0 && exosuitTech.length === 0 && vehicleTech.length === 0) {
-      return 'The space station merchants\' inventory has not been logged at this time.'
+      return 'The space station merchants\' inventory has not been logged at this time.';
     } else {
-      return `The space station merchants offer the following S-class items for sale:
+      return `The space station merchants offer the following {{class|S}} class items for sale:
 
 ${multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
 ${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
@@ -113,10 +115,10 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
     }
   };
 
-  const codeTemplate = `{{Version|Waypoint}}
+  const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{System infobox
 | name = ${title}
-| image = ${image}
+| image = ${image || 'nmsMisc_NotAvailable.png'}
 | region = ${region}
 | galaxy = ${galaxy}
 | multiplestars = ${multiplestars !== '1' ? multiplestars : ''}
@@ -138,14 +140,14 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
 | civilized = ${civ || 'No Man\'s High Hub'}
 | discovered = ${discoveredLink ? '' : discovered}
 | discoveredlink = ${discoveredLink}
-| release = Waypoint
+| release = ${process.env.NEXT_PUBLIC_VERSION}
 }}
 '''${title}''' is a star system.
 
 ==Summary==
 '''${title}''' is a [[star system]] in the [[${region}]].
 
-==Alias names==
+==Alias Names==
 {{aliasc|text=Original|name=${defaultTitle}}}
 {{aliasc|text=Current|name=${title}}}
 
@@ -175,9 +177,9 @@ ${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0
 
 ===System Location===
 
-==Space station==
+==Space Station==
 ${renderSpaceStation()}
-==Additional information==
+==Additional Information==
 ${additionalInfo}
 
 ==Gallery==
@@ -191,7 +193,7 @@ ${gallery.map((image) => {
     setCodeCopied(true);
     setTimeout(() => {
       setCodeCopied(false);
-    }, 3000)
+    }, 3000);
   };
 
   return (
@@ -298,20 +300,30 @@ ${gallery.map((image) => {
         <SelectMulti id='vehicleTech' label='Vehicle S-class Upgrades Available' config={systemVehicleTech} onChange={(items) => setVehicleTech(items)} />
       </div>
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => setAdditionalInfo(value)} />
-      <div className='btnContainer'>
+      <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
+          ga.buttonClick('View Code');
         }}>
           View Code
         </button>
-        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
+          copyToClipboard();
+          ga.buttonClick('Copy Code');
+          ga.recordCiv(civ);
+        }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,"_")}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`}
+          className={`btn whiteBtn ${styles.btn}`}
+          target='_blank'
+          rel='noreferrer'
+          onClick={() => ga.buttonClick('Create Page')}>
           Create Page
         </a>
       </div>
+      <CreateCategory type='system' title={title} parentTitle={region} />
     </CodeView>
   );
 }

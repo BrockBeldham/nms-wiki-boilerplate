@@ -25,7 +25,7 @@ function App({ Component, pageProps }) {
     };
   }, []);
 
-  return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }
 
 App.propTypes = {
@@ -33,4 +33,4 @@ App.propTypes = {
   pageProps: PropTypes.object
 };
 
-export default App
+export default App;

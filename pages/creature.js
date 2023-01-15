@@ -1,6 +1,7 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
 import baseReducer from '../reducers/base';
+import * as ga from '../lib/ga';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -8,6 +9,7 @@ import Dropzone from '../components/dropzone';
 import Select from '../components/select';
 import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
+import CreateCategory from '../components/create-category';
 import SelectGameMode from '../components/select-game-mode';
 import faunaEcosystem from '../lib/select-data/fauna-ecosystem';
 import faunaGender from '../lib/select-data/fauna-gender';
@@ -15,7 +17,7 @@ import faunaGenus from '../lib/select-data/fauna-genus';
 import faunaBehaviour from '../lib/select-data/fauna-behaviour';
 import faunaProducts from '../lib/select-data/fauna-products';
 
-import styles from '../styles/pages/creature.module.scss';
+import styles from '../styles/forms.module.scss';
 
 const initialState = {
   title: '',
@@ -56,10 +58,10 @@ export default function Creature() {
   const [viewCode, setViewCode] = useState(false);
   const [data, dispatch] = useReducer(baseReducer, initialState);
 
-  const codeTemplate = `{{Version|Waypoint}}
+  const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Creature infobox
 | name = ${data.title}
-| image = ${data.image}
+| image = ${data.image || 'nmsMisc_NotAvailable.png'}
 | galaxy = ${data.galaxy}
 | region = ${data.region}
 | system = ${data.system}
@@ -84,7 +86,7 @@ export default function Creature() {
 | discoveredlink = ${data.discoveredLink}
 | researchteam = ${data.researchteam}
 | mode = ${data.mode}
-| release = Waypoint
+| release = ${process.env.NEXT_PUBLIC_VERSION}
 }}
 '''${data.title}''' is a creature.
 
@@ -94,7 +96,7 @@ export default function Creature() {
 ==Appearance==
 ${data.appearance}
 
-==Alias names==
+==Alias Names==
 ${data.defaultTitle ? `{{aliasc|text=Original|name=${data.defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${data.title}}}
 
 ==Discovery Menu==
@@ -109,7 +111,7 @@ ${data.coordinates ? `{{coords|${data.coordinates.split(':')[0] ? data.coordinat
 ===Glyphs===
 {{Gl|${data.glyphs}}}
 
-==Additional information==
+==Additional Information==
 ${data.additionalInfo}
 
 ==Gallery==
@@ -138,7 +140,7 @@ ${data.gallery.map((image) => {
         <meta name='description' content="Generate boilerplate markdown code for a new creature. Create a new creature page on the No Man's Sky Fandom wiki with your generated code." />
       </Head>
       <div className='frmGroup50' ref={myRef}>
-        <Input id='title' type='text' label='Base Name' onChange={(value) => dispatch({ type: 'title', value })} />
+        <Input id='title' type='text' label='Creature Name' onChange={(value) => dispatch({ type: 'title', value })} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => dispatch({ type: 'defaultTitle', value })} />
         <Dropzone label='Image of Base' maxFiles={1} onUpload={(photos) => dispatch({ type: 'image', value: photos[0].name })} />
         <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => dispatch({ type: 'galaxy', value })} />
@@ -184,20 +186,30 @@ ${data.gallery.map((image) => {
         onUpload={(photos) => dispatch({ type: 'gallery.upload', value: photos })}
         onChange={(value, index) => dispatch({ type: 'gallery.caption', value, index })}
       />
-      <div className='btnContainer'>
+      <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
+          ga.buttonClick('View Code');
         }}>
           View Code
         </button>
-        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => copyToClipboard()}>
+        <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
+          copyToClipboard();
+          ga.buttonClick('Copy Code');
+          ga.recordCiv(data.civ);
+        }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${data.title.replace(/ /g,'_')}?action=edit`} className={`btn whiteBtn ${styles.btn}`} target='_blank' rel='noreferrer'>
+        <a href={`https://nomanssky.fandom.com/wiki/${data.title.replace(/ /g,'_')}?action=edit`}
+          className={`btn whiteBtn ${styles.btn}`}
+          target='_blank'
+          rel='noreferrer'
+          onClick={() => ga.buttonClick('Create Page')}>
           Create Page
         </a>
       </div>
+      <CreateCategory type='system' title={data.system} parentTitle={data.region} />
     </CodeView>
   );
 }

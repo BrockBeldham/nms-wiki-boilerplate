@@ -22,14 +22,13 @@
 }
 
 .text {
-  font-size: 0.8em;
   margin: 0 0 10px;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
-  padding: 40px 20px;
+  padding: 40px 20px 0;
   max-width: 1400px;
   margin: 0 auto;
 }

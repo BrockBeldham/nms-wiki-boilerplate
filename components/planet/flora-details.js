@@ -29,7 +29,7 @@ export default function FloraDetails({ details, onChange, deleteFlora }) {
       ))}
     </div>
   );
-};
+}
 
 FloraDetails.propTypes = {
   details: PropTypes.array,
