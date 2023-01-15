@@ -1,6 +1,6 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
-import baseReducer from '../reducers/base';
+import reducer from '../reducers/base';
 import * as ga from '../lib/ga';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
@@ -56,7 +56,7 @@ export default function Creature() {
   const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);
-  const [data, dispatch] = useReducer(baseReducer, initialState);
+  const [data, dispatch] = useReducer(reducer, initialState);
 
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Creature infobox
