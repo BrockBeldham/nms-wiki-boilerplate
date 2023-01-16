@@ -33,6 +33,7 @@ const faunaDefault = {
   discovered: '',
   description: ''
 };
+
 const floraDefault = {
   image: '',
   name: '',
@@ -306,7 +307,7 @@ ${data.gallery.map((image) => {
           { label: 'Yes', value: 'Yes' },
           { label: 'No', value: 'No' }
         ]} tooltip='See https://nomanssky.fandom.com/wiki/Garden_World for official definition.' onChange={(value) => dispatch({ type: 'garden', value })} />
-        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civilized', value })} />
+        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civ', value })} />
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => dispatch({ type: 'discovered', value })} />
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => dispatch({ type: 'discoveredLink', value })} />
         <SelectGameMode onChange={(value) => dispatch({ type: 'mode', value })} />
@@ -333,115 +334,88 @@ ${data.gallery.map((image) => {
           <h2 className={styles.heading}>Environmental Conditions</h2>
           <div className='frmGroup50'>
             <div className='frmGroup50 frmItem'>
-              <Input id='daytemp' type='number' label='Daytime' onChange={(value) => setDaytemp(value)} />
-              <Input id='nighttemp' type='number' label='Nighttime' onChange={(value) => setNighttemp(value)} />
+              <Input id='daytemp' type='number' label='Daytime' onChange={(value) => dispatch({ type: 'daytemp', value })} />
+              <Input id='nighttemp' type='number' label='Nighttime' onChange={(value) => dispatch({ type: 'nighttemp', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='radnorm' type='number' label='Radiation' onChange={(value) => setRadnorm(value)} />
-              <Input id='toxicnorm' type='number' label='Toxicity' onChange={(value) => setToxicnorm(value)} />
+              <Input id='radnorm' type='number' label='Radiation' onChange={(value) => dispatch({ type: 'radnorm', value })} />
+              <Input id='toxicnorm' type='number' label='Toxicity' onChange={(value) => dispatch({ type: 'toxicnorm', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='daystormtemp' type='number' label='Daytime Storm' onChange={(value) => setDaystormtemp(value)} />
-              <Input id='nightstormtemp' type='number' label='Nighttime Storm' onChange={(value) => setNightstormtemp(value)} />
+              <Input id='daystormtemp' type='number' label='Daytime Storm' onChange={(value) => dispatch({ type: 'daystormtemp', value })} />
+              <Input id='nightstormtemp' type='number' label='Nighttime Storm' onChange={(value) => dispatch({ type: 'nightstormtemp', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='radstorm' type='number' label='Radiation Storm' onChange={(value) => setRadstorm(value)} />
-              <Input id='toxicstorm' type='number' label='Toxicity Storm' onChange={(value) => setToxicstorm(value)} />
+              <Input id='radstorm' type='number' label='Radiation Storm' onChange={(value) => dispatch({ type: 'radstorm', value })} />
+              <Input id='toxicstorm' type='number' label='Toxicity Storm' onChange={(value) => dispatch({ type: 'toxicstorm', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='daycavetemp' type='number' label='Daytime' onChange={(value) => setDaycavetemp(value)} />
-              <Input id='nightcavetemp' type='number' label='Nighttime' onChange={(value) => setNightcavetemp(value)} />
+              <Input id='daycavetemp' type='number' label='Daytime' onChange={(value) => dispatch({ type: 'daycavetemp', value })} />
+              <Input id='nightcavetemp' type='number' label='Nighttime' onChange={(value) => dispatch({ type: 'nightcavetemp', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='daystormcavetemp' type='number' label='Radiation' onChange={(value) => setDaystormcavetemp(value)} />
-              <Input id='nightstormcavetemp' type='number' label='Toxicity' onChange={(value) => setNightstormcavetemp(value)} />
+              <Input id='daystormcavetemp' type='number' label='Radiation' onChange={(value) => dispatch({ type: 'daystormcavetemp', value })} />
+              <Input id='nightstormcavetemp' type='number' label='Toxicity' onChange={(value) => dispatch({ type: 'nightstormcavetemp', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='radcave' type='number' label='Daytime Storm' onChange={(value) => setRadcavetemp(value)} />
-              <Input id='toxiccave' type='number' label='Nighttime Storm' onChange={(value) => setToxiccavetemp(value)} />
+              <Input id='radcave' type='number' label='Daytime Storm' onChange={(value) => dispatch({ type: 'radcave', value })} />
+              <Input id='toxiccave' type='number' label='Nighttime Storm' onChange={(value) => dispatch({ type: 'toxiccave', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='cavestormrad' type='number' label='Radiation Storm' onChange={(value) => setCavestormrad(value)} />
-              <Input id='cavestormtoxic' type='number' label='Toxicity Storm' onChange={(value) => setCavestormtoxic(value)} />
+              <Input id='cavestormrad' type='number' label='Radiation Storm' onChange={(value) => dispatch({ type: 'cavestormrad', value })} />
+              <Input id='cavestormtoxic' type='number' label='Toxicity Storm' onChange={(value) => dispatch({ type: 'cavestormtoxic', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='daywatertemp' type='number' label='Daytime' onChange={(value) => setDaywatertemp(value)} />
-              <Input id='nightwatertemp' type='number' label='Nighttime' onChange={(value) => setNightwatertemp(value)} />
+              <Input id='daywatertemp' type='number' label='Daytime' onChange={(value) => dispatch({ type: 'daywatertemp', value })} />
+              <Input id='nightwatertemp' type='number' label='Nighttime' onChange={(value) => dispatch({ type: 'nightwatertemp', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='waterrad' type='number' label='Radiation' onChange={(value) => setWaterrad(value)} />
-              <Input id='watertoxic' type='number' label='Toxicity' onChange={(value) => setWatertoxic(value)} />
+              <Input id='waterrad' type='number' label='Radiation' onChange={(value) => dispatch({ type: 'waterrad', value })} />
+              <Input id='watertoxic' type='number' label='Toxicity' onChange={(value) => dispatch({ type: 'watertoxic', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='daystormwatertemp' type='number' label='Daytime Storm' onChange={(value) => setDaystormwatertemp(value)} />
-              <Input id='nightstormwatertemp' type='number' label='Nighttime Storm' onChange={(value) => setNightstormwatertemp(value)} />
+              <Input id='daystormwatertemp' type='number' label='Daytime Storm' onChange={(value) => dispatch({ type: 'daystormwatertemp', value })} />
+              <Input id='nightstormwatertemp' type='number' label='Nighttime Storm' onChange={(value) => dispatch({ type: 'nightstormwatertemp', value })} />
             </div>
             <div className='frmGroup50 frmItem'>
-              <Input id='waterstormrad' type='number' label='Radiation Storm' onChange={(value) => setWaterstormrad(value)} />
-              <Input id='waterstormtoxic' type='number' label='Toxicity Storm' onChange={(value) => setWaterstormtoxic(value)} />
+              <Input id='waterstormrad' type='number' label='Radiation Storm' onChange={(value) => dispatch({ type: 'waterstormrad', value })} />
+              <Input id='waterstormtoxic' type='number' label='Toxicity Storm' onChange={(value) => dispatch({ type: 'waterstormtoxic', value })} />
             </div>
           </div>
         </>
       }
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
-      <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
-      <FaunaDetails details={faunaDetails} onChange={(index, key, value) => {
-        setFaunaDetails((prevState) => (prevState.map((f, prevIndex) => {
-          if (index === prevIndex) {
-            return { ...f, [key]: value };
-          }
-
-          return f;
-        })));
-      }} deleteFauna={(id) => {
-        const filterFauna = faunaDetails.filter((_item, index) => (index !== id));
-        setFaunaDetails(filterFauna);
-      }} />
-      <button type='button' className={`btn ${styles.btn}`} onClick={() => setFaunaDetails([
-        ...faunaDetails,
-        faunaDefault
-      ])}>
+      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
+      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
+      <FaunaDetails
+        details={data.faunaDetails}
+        onChange={(index, key, value) => dispatch({ type: 'faunaDetails.change', value, index, key })}
+        deleteFauna={(value) => dispatch({ type: 'faunaDetails.delete', value })}
+      />
+      <button
+        type='button'
+        className={`btn ${styles.btn}`}
+        onClick={() => dispatch({ type: 'faunaDetails.add', value: faunaDefault })}>
         Add Creature
       </button>
-      <FloraDetails details={floraDetails} onChange={(index, key, value) => {
-        setFloraDetails((prevState) => (prevState.map((f, prevIndex) => {
-          if (index === prevIndex) {
-            return { ...f, [key]: value };
-          }
-
-          return f;
-        })));
-      }} deleteFlora={(id) => {
-        const filterFlora = floraDetails.filter((_item, index) => (index !== id));
-        setFloraDetails(filterFlora);
-      }} />
-      <button type='button' className={`btn ${styles.btn}`} onClick={() => setFloraDetails([
-        ...floraDetails,
-        floraDefault
-      ])}>
+      <FloraDetails
+        details={data.floraDetails}
+        onChange={(index, key, value) => dispatch({ type: 'floraDetails.change', value, index, key })}
+        deleteFlora={(value) => dispatch({ type: 'floraDetails.delete', value })}
+      />
+      <button
+        type='button'
+        className={`btn ${styles.btn}`}
+        onClick={() => dispatch({ type: 'floraDetails.add', value: floraDefault })}>
         Add Plant
       </button>
-      <Textarea id='moons' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => setSentinelDetails(value)} />
-      <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the planet.' onChange={(value) => setAdditionalInfo(value)} />
+      <Textarea id='sentinelDetails' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => dispatch({ type: 'sentinelDetails', value })} />
+      <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the planet.' onChange={(value) => dispatch({ type: 'additionalInfo', value })} />
       <div className='frmGroup50'>
-        <Gallery gallery={gallery} onUpload={(photos) => setGallery(photos)} onChange={(value, index) => {
-          setGallery((prevState) => {
-            const newState = prevState.map((image, prevIndex) => {
-              if (index === prevIndex) {
-                return {
-                  path: image.path,
-                  preview: image.preview,
-                  name: image.name,
-                  caption: value
-                };
-              }
-
-              return image;
-            });
-
-            return newState;
-          });
-        }} />
+        <Gallery
+          gallery={data.gallery}
+          onUpload={(photos) => dispatch({ type: 'gallery.upload', value: photos })}
+          onChange={(value, index) => dispatch({ type: 'gallery.caption', value, index })}
+        />
       </div>
       <div className={styles.btnContainer}>
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
@@ -454,11 +428,11 @@ ${data.gallery.map((image) => {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           copyToClipboard();
           ga.buttonClick('Copy Code');
-          ga.recordCiv(civ);
+          ga.recordCiv(data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`}
+        <a href={`https://nomanssky.fandom.com/wiki/${data.title.replace(/ /g,'_')}?action=edit`}
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
@@ -466,7 +440,7 @@ ${data.gallery.map((image) => {
           Create Page
         </a>
       </div>
-      <CreateCategory type='moon' title={title} parentTitle={planet} />
+      <CreateCategory type='moon' title={data.title} parentTitle={data.planet} />
     </CodeView>
   );
 }
