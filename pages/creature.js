@@ -172,7 +172,7 @@ ${data.gallery.map((image) => {
         <Input id='notes' type='text' label='Additional Observations' onChange={(value) => dispatch({ type: 'notes', value })} />
         <Select id='produces' label='Produces' config={faunaProducts} isSearchable onChange={(value) => dispatch({ type: 'produces', value })} />
         <Select id='genus' label='Genus' config={faunaGenus} isSearchable onChange={(value) => dispatch({ type: 'genus', value })} />
-        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civilized', value })} />
+        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civ', value })} />
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => dispatch({ type: 'discovered', value })} />
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => dispatch({ type: 'discoveredLink', value })} />
         <Input id='researchTeam' type='text' label='Research Team' onChange={(value) => dispatch({ type: 'researchTeam', value })} />

@@ -123,7 +123,7 @@ ${data.gallery.map((image) => {
       </Head>
       <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Base Name' onChange={(value) => dispatch({ type: 'title', value })} />
-        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civilized', value })} />
+        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civ', value })} />
         <Dropzone label='Image of Base' maxFiles={1} onUpload={(photos) => dispatch({ type: 'image', value: photos[0].name })} />
         <Input id='builder' type='text' label='Builder in-game username' onChange={(value) => dispatch({ type: 'builder', value })} />
         <Input id='builderLink' type='text' label='Builder wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Builder Name.' onChange={(value) => dispatch({ type: 'builderLink', value })} />

@@ -15,6 +15,13 @@ import CreateCategory from '../components/create-category';
 
 import styles from '../styles/forms.module.scss';
 
+const memberDefault = {
+  name: '',
+  platform: '',
+  homePlanet: '',
+  homeSystem: '',
+};
+
 const initialState = {
   title: '',
   image: '',
@@ -38,12 +45,7 @@ const initialState = {
   background: '',
   guidelines: '',
   joining: '',
-  members: [{
-    name: '',
-    platform: '',
-    homePlanet: '',
-    homeSystem: '',
-  }],
+  members: [memberDefault],
   rules: [''],
   additionalInfo: '',
   gallery: [],
@@ -220,12 +222,7 @@ ${data.gallery.map((image) => {
       <button
         type='button'
         className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'members.add', value: {
-          name: '',
-          platform: '',
-          homePlanet: '',
-          homeSystem: '',
-        } })}>
+        onClick={() => dispatch({ type: 'members.add', value: memberDefault })}>
         Add Member
       </button>
       <div className='frmGroup50'>
