@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import Head from 'next/head';
 import * as ga from '../lib/ga';
+import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -17,7 +18,7 @@ import styles from '../styles/forms.module.scss';
 
 export default function Starship() {
   const myRef = useRef(null);
-  const [codeCopied, setCodeCopied] = useState(false);
+  const [codeCopied, handleCopy] = useCopyToClipboard();
   const [viewCode, setViewCode] = useState(false);
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
@@ -111,14 +112,6 @@ ${gallery.length > 0 ? `<gallery>
 ${gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
 }).toString().replace(/,/g,'')}</gallery>` : ''}`;
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(codeTemplate);
-    setCodeCopied(true);
-    setTimeout(() => {
-      setCodeCopied(false);
-    }, 3000);
-  };
 
   return (
     <CodeView
@@ -218,7 +211,7 @@ ${gallery.map((image) => {
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
-          copyToClipboard();
+          handleCopy(codeTemplate);
           ga.buttonClick('Copy Code');
           ga.recordCiv(civ);
         }}>

@@ -1,6 +1,7 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
 import * as ga from '../lib/ga';
+import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import reducer from '../reducers';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
@@ -22,7 +23,7 @@ const initialState = {
 
 export default function Creature() {
   const myRef = useRef(null);
-  const [codeCopied, setCodeCopied] = useState(false);
+  const [codeCopied, handleCopy] = useCopyToClipboard();
   const [viewCode, setViewCode] = useState(false);
   const [data, dispatch] = useReducer(reducer, initialState);
 
@@ -61,14 +62,6 @@ The following regions border ${data.title}:
 ==Civilized Space==
 ${data.civ ? `This region has been explored by the [[${data.civ}]].` : 'This region has not been explored by a [[Civilized space|civilization]]'}`;
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(codeTemplate);
-    setCodeCopied(true);
-    setTimeout(() => {
-      setCodeCopied(false);
-    }, 3000);
-  };
-
   return (
     <CodeView
       code={codeTemplate}
@@ -103,7 +96,7 @@ ${data.civ ? `This region has been explored by the [[${data.civ}]].` : 'This reg
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
-          copyToClipboard();
+          handleCopy(codeTemplate);
           ga.buttonClick('Copy Code');
           ga.recordCiv(data.civ);
         }}>

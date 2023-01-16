@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as ga from '../lib/ga';
+import useCopyToClipboard from '../hooks/copy-to-clipboard';
 
 import styles from './create-category.module.scss';
 
 export default function CreateCategory({ type, title, parentTitle }) {
-  const [codeCopied, setCodeCopied] = useState(false);
+  const [codeCopied, handleCopy] = useCopyToClipboard();
 
   const categoryTemplate = {
     region: `This category is for content related to the '''${title}''' [[region]].
@@ -26,21 +26,13 @@ export default function CreateCategory({ type, title, parentTitle }) {
 [[Category: ${parentTitle}]]`
   };
 
-  const copyCode = () => {
-    navigator.clipboard.writeText(categoryTemplate[type]);
-    setCodeCopied(true);
-    setTimeout(() => {
-      setCodeCopied(false);
-    }, 3000);
-  };
-
   return (
     <>
       <h2 className={styles.title}>Create Category</h2>
       <p className={styles.text}>When you create a new page, you should always create a category. This keeps your pages organized in a hierarchical structure. Simple click &quot;copy category&quot; and then click &quot;create category&quot; to open the Wiki and create a category for this page.</p>
       <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
-          copyCode();
+          handleCopy(categoryTemplate[type]);
           ga.buttonClick('Copy Category');
         }}>
           {codeCopied ? 'Category Copied' : 'Copy Category'}

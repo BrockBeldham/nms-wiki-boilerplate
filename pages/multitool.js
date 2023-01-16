@@ -1,6 +1,7 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
 import * as ga from '../lib/ga';
+import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import reducer from '../reducers';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
@@ -47,7 +48,7 @@ const initialState = {
 
 export default function Multitool() {
   const myRef = useRef(null);
-  const [codeCopied, setCodeCopied] = useState(false);
+  const [codeCopied, handleCopy] = useCopyToClipboard();
   const [viewCode, setViewCode] = useState(false);
   const [data, dispatch] = useReducer(reducer, initialState);
 
@@ -110,14 +111,6 @@ ${data.gallery.length > 0 ? `<gallery>
 ${data.gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
 }).toString().replace(/,/g,'')}</gallery>` : ''}`;
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(codeTemplate);
-    setCodeCopied(true);
-    setTimeout(() => {
-      setCodeCopied(false);
-    }, 3000);
-  };
 
   return (
     <CodeView
@@ -202,7 +195,7 @@ ${data.gallery.map((image) => {
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
-          copyToClipboard();
+          handleCopy(codeTemplate);
           ga.buttonClick('Copy Code');
           ga.recordCiv(data.civ);
         }}>
