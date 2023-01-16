@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
 import * as ga from '../lib/ga';
+import reducer from '../reducers';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
@@ -22,103 +23,107 @@ import planetResources from '../lib/select-data/planet-resources';
 
 import styles from '../styles/forms.module.scss';
 
-export default function System() {
-  const faunaDefault = {
-    image: '',
-    name: '',
-    ecosystem: '',
-    genus: '',
-    height: '',
-    weight: '',
-    discovered: '',
-    description: ''
-  };
-  const floraDefault = {
-    image: '',
-    name: '',
-    age: '',
-    roots: '',
-    nutrients: '',
-    elements: '',
-    discovered: '',
-    description: ''
-  };
+const faunaDefault = {
+  image: '',
+  name: '',
+  ecosystem: '',
+  genus: '',
+  height: '',
+  weight: '',
+  discovered: '',
+  description: ''
+};
+const floraDefault = {
+  image: '',
+  name: '',
+  age: '',
+  roots: '',
+  nutrients: '',
+  elements: '',
+  discovered: '',
+  description: ''
+};
 
+let initialState = {
+  title: '',
+  defaultTitle: '',
+  image: '',
+  galaxy: '',
+  region: '',
+  system: '',
+  planet: '',
+  description: '',
+  type: '',
+  atmosphere: '',
+  terrain: '',
+  weather: '',
+  resources: [],
+  sentinels: '',
+  flora: '',
+  fauna: '',
+  garden: '',
+  civ: '',
+  mode: '',
+  discovered: '',
+  discoveredLink: '',
+  bases: '',
+  moonType: '',
+  temp: '',
+  tempUnit: '',
+  daytemp: '',
+  nighttemp: '',
+  radnorm: '',
+  toxicnorm: '',
+  daystormtemp: '',
+  nightstormtemp: '',
+  radstorm: '',
+  toxicstorm: '',
+  daycavetemp: '',
+  nightcavetemp: '',
+  daystormcavetemp: '',
+  nightstormcavetemp: '',
+  radcave: '',
+  toxiccave: '',
+  cavestormrad: '',
+  cavestormtoxic: '',
+  daywatertemp: '',
+  nightwatertemp: '',
+  waterrad: '',
+  watertoxic: '',
+  daystormwatertemp: '',
+  nightstormwatertemp: '',
+  waterstormrad: '',
+  waterstormtoxic: '',
+  glyphs: '',
+  sentinelDetails: '',
+  additionalInfo: '',
+  gallery: [],
+  faunaDetails: [faunaDefault],
+  floraDetails: [floraDefault]
+};
+
+export default function System() {
   const myRef = useRef(null);
   const [codeCopied, setCodeCopied] = useState(false);
   const [viewCode, setViewCode] = useState(false);
-  const [title, setTitle] = useState('');
-  const [defaultTitle, setDefaultTitle] = useState('');
-  const [image, setImage] = useState('');
-  const [galaxy, setGalaxy] = useState('');
-  const [region, setRegion] = useState('');
-  const [system, setSystem] = useState('');
-  const [planet, setPlanet] = useState('');
-  const [description, setDescription] = useState('');
-  const [type, setType] = useState('');
-  const [atmosphere, setAtmosphere] = useState('');
-  const [terrain, setTerrain] = useState('');
-  const [weather, setWeather] = useState('');
-  const [resources, setResources] = useState([]);
-  const [sentinels, setSentinels] = useState('');
-  const [flora, setFlora] = useState('');
-  const [fauna, setFauna] = useState('');
-  const [garden, setGarden] = useState('');
-  const [civ, setCiv] = useState('');
-  const [mode, setMode] = useState('');
-  const [discovered, setDiscovered] = useState('');
-  const [discoveredLink, setDiscoveredLink] = useState('');
-  const [bases, setBases] = useState('');
-  const [moonType, setMoonType] = useState('');
-  const [temp, setTemp] = useState('');
-  const [tempUnit, setTempUnit] = useState('');
-  const [daytemp, setDaytemp] = useState('');
-  const [nighttemp, setNighttemp] = useState('');
-  const [radnorm, setRadnorm] = useState('');
-  const [toxicnorm, setToxicnorm] = useState('');
-  const [daystormtemp, setDaystormtemp] = useState('');
-  const [nightstormtemp, setNightstormtemp] = useState('');
-  const [radstorm, setRadstorm] = useState('');
-  const [toxicstorm, setToxicstorm] = useState('');
-  const [daycavetemp, setDaycavetemp] = useState('');
-  const [nightcavetemp, setNightcavetemp] = useState('');
-  const [daystormcavetemp, setDaystormcavetemp] = useState('');
-  const [nightstormcavetemp, setNightstormcavetemp] = useState('');
-  const [radcave, setRadcavetemp] = useState('');
-  const [toxiccave, setToxiccavetemp] = useState('');
-  const [cavestormrad, setCavestormrad] = useState('');
-  const [cavestormtoxic, setCavestormtoxic] = useState('');
-  const [daywatertemp, setDaywatertemp] = useState('');
-  const [nightwatertemp, setNightwatertemp] = useState('');
-  const [waterrad, setWaterrad] = useState('');
-  const [watertoxic, setWatertoxic] = useState('');
-  const [daystormwatertemp, setDaystormwatertemp] = useState('');
-  const [nightstormwatertemp, setNightstormwatertemp] = useState('');
-  const [waterstormrad, setWaterstormrad] = useState('');
-  const [waterstormtoxic, setWaterstormtoxic] = useState('');
-  const [glyphs, setGlyphs] = useState('');
-  const [sentinelDetails, setSentinelDetails] = useState('');
-  const [additionalInfo, setAdditionalInfo] = useState('');
-  const [gallery, setGallery] = useState([]);
-  const [faunaDetails, setFaunaDetails] = useState([faunaDefault]);
-  const [floraDetails, setFloraDetails] = useState([floraDefault]);
+  const [data, dispatch] = useReducer(reducer, initialState);
 
   const renderFauna = () => {
-    if (faunaDetails.length === 1
-      && !faunaDetails.image
-      && !faunaDetails.name
-      && !faunaDetails.ecosystem
-      && !faunaDetails.genus
-      && !faunaDetails.height
-      && !faunaDetails.weight
-      && !faunaDetails.discovered
-      && !faunaDetails.description) {
+    if (data.faunaDetails.length === 1
+      && !data.faunaDetails.image
+      && !data.faunaDetails.name
+      && !data.faunaDetails.ecosystem
+      && !data.faunaDetails.genus
+      && !data.faunaDetails.height
+      && !data.faunaDetails.weight
+      && !data.faunaDetails.discovered
+      && !data.faunaDetails.description) {
       return 'Fauna has not been logged at this time.';
     } else {
       return `
 {| class="article-table" style="width:100%; max-width: 1000px;"
 ! width="150px" | Image !! Name !! Ecosystem !! Genus !! Height !! Weight !! Discovered !! Brief description
-${faunaDetails.map((f) => (`
+${data.faunaDetails.map((f) => (`
 |-
 | [[File:${f.image || 'nmsMisc_NotAvailable.png'}|150px]]
 | '''${f.name}'''
@@ -134,21 +139,21 @@ ${faunaDetails.map((f) => (`
   };
 
   const renderFlora = () => {
-    if (floraDetails.length === 1
-      && !floraDetails.image
-      && !floraDetails.name
-      && !floraDetails.age
-      && !floraDetails.roots
-      && !floraDetails.nutrients
-      && !floraDetails.elements
-      && !floraDetails.discovered
-      && !floraDetails.description) {
+    if (data.floraDetails.length === 1
+      && !data.floraDetails.image
+      && !data.floraDetails.name
+      && !data.floraDetails.age
+      && !data.floraDetails.roots
+      && !data.floraDetails.nutrients
+      && !data.floraDetails.elements
+      && !data.floraDetails.discovered
+      && !data.floraDetails.description) {
       return 'Flora has not been logged at this time.';
     } else {
       return `
 {| class="article-table" style="width:100%; max-width: 1000px;"
 ! width="150px" | Image !! Name !! Age !! Root Structure !! Nutrient Source !! Elements !! Discovered !! Brief description
-${floraDetails.map((f) => (`
+${data.floraDetails.map((f) => (`
 |-
 | [[File:${f.image || 'nmsMisc_NotAvailable.png'}|150px]]
 | '''${f.name}'''
@@ -164,80 +169,80 @@ ${floraDetails.map((f) => (`
 
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{Moon infobox
-| name = ${title}
-| image = ${image || 'nmsMisc_NotAvailable.png'}
-| planet = ${planet}
-| system = ${system}
-| region = ${region}
-| galaxy = ${galaxy}
-| description = ${description}
-| type = ${type}
-| atmosphere = ${atmosphere}
-| terrain = ${terrain}
-| weather = ${weather}
-| resources = ${resources.map((resource) => resource.value).join(', ')}
-| sentinel = ${sentinels}
-| flora = ${flora}
-| fauna = ${fauna}
-| garden = ${garden.value === 'Yes' ? 'Yes' : ''}
-| civilized = ${civ || 'No Man\'s High Hub'}
-| discovered = ${discoveredLink ? '' : discovered}
-| discoveredlink = ${discoveredLink}
-| mode = ${mode}
+| name = ${data.title}
+| image = ${data.image || 'nmsMisc_NotAvailable.png'}
+| planet = ${data.planet}
+| system = ${data.system}
+| region = ${data.region}
+| galaxy = ${data.galaxy}
+| description = ${data.description}
+| type = ${data.type}
+| atmosphere = ${data.atmosphere}
+| terrain = ${data.terrain}
+| weather = ${data.weather}
+| resources = ${data.resources.map((resource) => resource.value).join(', ')}
+| sentinel = ${data.sentinels}
+| flora = ${data.flora}
+| fauna = ${data.fauna}
+| garden = ${data.garden.value === 'Yes' ? 'Yes' : ''}
+| civilized = ${data.civ || 'No Man\'s High Hub'}
+| discovered = ${data.discoveredLink ? '' : data.discovered}
+| discoveredlink = ${data.discoveredLink}
+| mode = ${data.mode}
 | release = ${process.env.NEXT_PUBLIC_VERSION}
 }}
-'''${title}''' is a moon.
+'''${data.title}''' is a moon.
 
 ==Summary==
-'''${title}''' is a [[moon]] in the [[${system}]] [[star system]].
+'''${data.title}''' is a [[moon]] in the [[${data.system}]] [[star system]].
 
-It orbits the planet [[${planet}]].
+It orbits the planet [[${data.planet}]].
 
 ==Alias Names==
-${defaultTitle ? `{{aliasc|text=Original|name=${defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${title}}}
+${data.defaultTitle ? `{{aliasc|text=Original|name=${data.defaultTitle}}}\n` : ''}{{aliasc|text=Current|name=${data.title}}}
 
 ==Moon Type==
-${moonType}
+${data.moonType}
 
-${temp === 'Yes' ?
+${data.temp === 'Yes' ?
 `===Environment Conditions===
-The surface has ${weather} weather conditions.
+The surface has ${data.weather} weather conditions.
 
 {{PlanetWeather
-|tunit=${tempUnit}
-|daytemp=${daytemp}
-|nighttemp=${nighttemp}
-|radnorm=${radnorm}
-|toxicnorm=${toxicnorm}
-|daystormtemp=${daystormtemp}
-|nightstormtemp=${nightstormtemp}
-|radstorm=${radstorm}
-|toxicstorm=${toxicstorm}
-|daycavetemp=${daycavetemp}
-|nightcavetemp=${nightcavetemp}
-|daystormcavetemp=${daystormcavetemp}
-|nightstormcavetemp=${nightstormcavetemp}
-|radcave=${radcave}
-|toxiccave=${toxiccave}
-|cavestormrad=${cavestormrad}
-|cavestormtoxic=${cavestormtoxic}
-|daywatertemp=${daywatertemp}
-|nightwatertemp=${nightwatertemp}
-|waterrad=${waterrad}
-|watertoxic=${watertoxic}
-|daystormwatertemp=${daystormwatertemp}
-|nightstormwatertemp=${nightstormwatertemp}
-|waterstormrad=${waterstormrad}
-|waterstormtoxic=${waterstormtoxic}
+|tunit=${data.tempUnit}
+|daytemp=${data.daytemp}
+|nighttemp=${data.nighttemp}
+|radnorm=${data.radnorm}
+|toxicnorm=${data.toxicnorm}
+|daystormtemp=${data.daystormtemp}
+|nightstormtemp=${data.nightstormtemp}
+|radstorm=${data.radstorm}
+|toxicstorm=${data.toxicstorm}
+|daycavetemp=${data.daycavetemp}
+|nightcavetemp=${data.nightcavetemp}
+|daystormcavetemp=${data.daystormcavetemp}
+|nightstormcavetemp=${data.nightstormcavetemp}
+|radcave=${data.radcave}
+|toxiccave=${data.toxiccave}
+|cavestormrad=${data.cavestormrad}
+|cavestormtoxic=${data.cavestormtoxic}
+|daywatertemp=${data.daywatertemp}
+|nightwatertemp=${data.nightwatertemp}
+|waterrad=${data.waterrad}
+|watertoxic=${data.watertoxic}
+|daystormwatertemp=${data.daystormwatertemp}
+|nightstormwatertemp=${data.nightstormwatertemp}
+|waterstormrad=${data.waterstormrad}
+|waterstormtoxic=${data.waterstormtoxic}
 }}` : ''}
 
 ==Moon Glyphs==
-{{Gl|${glyphs}}}
+{{Gl|${data.glyphs}}}
 
 ==Notable Locations / Waypoints==
-${bases ? (`Notable Bases include:
+${data.bases ? (`Notable Bases include:
 
-{{CARGOBasesPlanet|${title}}}`) : ''}
+{{CARGOBasesPlanet|${data.title}}}`) : ''}
   
 ==Life==
 ===Fauna===
@@ -247,17 +252,17 @@ ${renderFauna()}
 ${renderFlora()}
   
 ==Sentinels==
-${sentinelDetails}
+${data.sentinelDetails}
 
 ==Resources==
-${resources.length > 0 ? `The following resources can be found on this planet:
-${resources.map((resource) => `* {{Resource2icon|${resource.value}}} [[${resource.value}]]\n`).join('')}` : ''}
+${data.resources.length > 0 ? `The following resources can be found on this planet:
+${data.resources.map((resource) => `* {{Resource2icon|${resource.value}}} [[${resource.value}]]\n`).join('')}` : ''}
 ==Additional Information==
-${additionalInfo}
+${data.additionalInfo}
 
 ==Gallery==
-${gallery.length > 0 ? `<gallery>
-${gallery.map((image) => {
+${data.gallery.length > 0 ? `<gallery>
+${data.gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
 }).join('')}</gallery>` : ''}`;
 
@@ -281,49 +286,49 @@ ${gallery.map((image) => {
         <meta name='description' content="Generate boilerplate markdown code for a new moon. Create a new moon page on the No Man's Sky Fandom wiki with your generated code." />
       </Head>
       <div className='frmGroup50' ref={myRef}>
-        <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => setTitle(value)} />
-        <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
-        <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
-        <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
-        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
-        <Input id='system' type='text' label='System Name' onChange={(value) => setSystem(value)} />
-        <Input id='planet' type='text' label='Moon`s Planet' tooltip='The name of the planet this moon orbits.' onChange={(value) => setPlanet(value)} />
-        <Select id='description' label='Planet`s Description' config={planetDescription} isSearchable onChange={(value) => setDescription(value)} />
-        <Select id='type' label='Planet`s Biome Type' config={planetBiome} isSearchable onChange={(value) => setType(value)} />
-        <Input id='atmosphere' type='text' label='Atmosphere Make-up' onChange={(value) => setAtmosphere(value)} />
-        <Input id='terrain' type='text' label='Terrain' onChange={(value) => setTerrain(value)} />
-        <Select id='weather' label='Weather' config={planetWeather} isSearchable onChange={(value) => setWeather(value)} />
-        <SelectMulti id='resources' label='Resources' config={planetResources} isSearchable onChange={(items) => setResources(items)} />
-        <Select id='sentinels' label='Sentinels' config={planetSentinels} isSearchable onChange={(items) => setSentinels(items)} />
-        <Select id='flora' label='Flora' config={planetFloraFauna} isSearchable onChange={(items) => setFlora(items)} />
-        <Select id='fauna' label='Fauna' config={planetFloraFauna} isSearchable onChange={(items) => setFauna(items)} />
+        <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => dispatch({ type: 'title', value })} />
+        <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => dispatch({ type: 'defaultTitle', value })} />
+        <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => dispatch({ type: 'image', value: photos[0].name })} />
+        <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => dispatch({ type: 'galaxy', value })} />
+        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'region', value })} />
+        <Input id='system' type='text' label='System Name' onChange={(value) => dispatch({ type: 'system', value })} />
+        <Input id='planet' type='text' label='Moon`s Planet' tooltip='The name of the planet this moon orbits.' onChange={(value) => dispatch({ type: 'planet', value })} />
+        <Select id='description' label='Planet`s Description' config={planetDescription} isSearchable onChange={(value) => dispatch({ type: 'description', value })} />
+        <Select id='type' label='Planet`s Biome Type' config={planetBiome} isSearchable onChange={(value) => dispatch({ type: 'type', value })} />
+        <Input id='atmosphere' type='text' label='Atmosphere Make-up' onChange={(value) => dispatch({ type: 'atmosphere', value })} />
+        <Input id='terrain' type='text' label='Terrain' onChange={(value) => dispatch({ type: 'terrain', value })} />
+        <Select id='weather' label='Weather' config={planetWeather} isSearchable onChange={(value) => dispatch({ type: 'weather', value })} />
+        <SelectMulti id='resources' label='Resources' config={planetResources} isSearchable onChange={(items) => dispatch({ type: 'resources', value: items })} />
+        <Select id='sentinels' label='Sentinels' config={planetSentinels} isSearchable onChange={(items) => dispatch({ type: 'sentinels', value: items })} />
+        <Select id='flora' label='Flora' config={planetFloraFauna} isSearchable onChange={(items) => dispatch({ type: 'flora', value: items })} />
+        <Select id='fauna' label='Fauna' config={planetFloraFauna} isSearchable onChange={(items) => dispatch({ type: 'fauna', value: items })} />
         <Select id='garden' label='Garden World' config={[
           { label: 'Yes', value: 'Yes' },
           { label: 'No', value: 'No' }
-        ]} tooltip='See https://nomanssky.fandom.com/wiki/Garden_World for official definition.' onChange={(value) => setGarden(value)} />
-        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
-        <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => setDiscovered(value)} />
-        <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
-        <SelectGameMode onChange={(value) => setMode(value)} />
+        ]} tooltip='See https://nomanssky.fandom.com/wiki/Garden_World for official definition.' onChange={(value) => dispatch({ type: 'garden', value })} />
+        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civilized', value })} />
+        <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => dispatch({ type: 'discovered', value })} />
+        <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => dispatch({ type: 'discoveredLink', value })} />
+        <SelectGameMode onChange={(value) => dispatch({ type: 'mode', value })} />
         <Select id='bases' label='Are there, or will there be, bases on this planet?' config={[
           { label: 'Yes', value: 'Yes' },
           { label: 'No', value: 'No' }
-        ]} onChange={(value) => setBases(value)} />
+        ]} onChange={(value) => dispatch({ type: '', value })} />
       </div>
-      <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => setMoonType(value)} />
+      <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => dispatch({ type: '', value })} />
       <div className='frmGroup50'>
         <Select id='temp' label='Include surface temperatures?' config={[
           { label: 'Yes', value: 'Yes' },
           { label: 'No', value: 'No' }
-        ]} onChange={(value) => setTemp(value)} />
-        {temp === 'Yes' &&
+        ]} onChange={(value) => dispatch({ type: 'temp', value })} />
+        {data.temp === 'Yes' &&
           <Select id='tempUnit' label='Temperature Units' config={[
             { label: 'C', value: 'C' },
             { label: 'F', value: 'F' }
-          ]} onChange={(value) => setTempUnit(value)} />
+          ]} onChange={(value) => dispatch({ type: 'tempUnit', value })} />
         }
       </div>
-      {temp === 'Yes' &&
+      {data.temp === 'Yes' &&
         <>
           <h2 className={styles.heading}>Environmental Conditions</h2>
           <div className='frmGroup50'>
