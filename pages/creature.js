@@ -1,6 +1,6 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
-import reducer from '../reducers/base';
+import reducer from '../reducers';
 import * as ga from '../lib/ga';
 import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import CodeView from '../components/layouts/code-view';
