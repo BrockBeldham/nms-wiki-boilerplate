@@ -131,6 +131,24 @@ function reducer(state, action) {
         ]
       };
 
+    case 'planets.set':
+      return {
+        ...state,
+        planets: [ ...Array(action.value) ]
+      };
+
+    case 'planets.change':
+      return {
+        ...state,
+        planets: state.planets.map((planet, prevIndex) => {
+          if (action.index === prevIndex) {
+            return { ...planet, [action.key]: action.value };
+          }
+
+          return planet;
+        })
+      };
+
     default:
       return {
         ...state,

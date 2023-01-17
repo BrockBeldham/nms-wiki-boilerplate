@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
 import * as ga from '../lib/ga';
+import reducer from '../reducers';
 import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
@@ -24,48 +25,52 @@ import systemVehicleTech from '../lib/select-data/system-tech-vehicle';
 
 import styles from '../styles/forms.module.scss';
 
+const initialState = {
+  title: '',
+  image: '',
+  region: '',
+  galaxy: '',
+  multiplestars: '',
+  color: '',
+  starClass: '',
+  distance: '',
+  coordinates: '',
+  planet: '2',
+  moon: '0',
+  water: '',
+  gateway: '',
+  faction: '',
+  economy: '',
+  economybuy: '',
+  economysell: '',
+  wealth: '',
+  conflict: '',
+  mode: '',
+  civ: '',
+  discovered: '',
+  discoveredLink: '',
+  defaultTitle: '',
+  planets: [...Array(2)],
+  resources: [],
+  glyphs: '',
+  galaxyMap: '',
+  multitoolTech: [],
+  starshipTech: [],
+  exosuitTech: [],
+  vehicleTech: [],
+  additionalInfo: '',
+  gallery: [],
+};
+
 export default function System() {
   const myRef = useRef(null);
   const [codeCopied, handleCopy] = useCopyToClipboard();
   const [viewCode, setViewCode] = useState(false);
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
-  const [region, setRegion] = useState('');
-  const [galaxy, setGalaxy] = useState('');
-  const [multiplestars, setMultiplestars] = useState('');
-  const [color, setColor] = useState('');
-  const [starClass, setStarClass] = useState('');
-  const [distance, setDistance] = useState('');
-  const [coordinates, setCoordinates] = useState('');
-  const [planet, setPlanet] = useState('2');
-  const [moon, setMoon] = useState('0');
-  const [water, setWater] = useState('');
-  const [gateway, setGateway] = useState('');
-  const [faction, setFaction] = useState('');
-  const [economy, setEconomy] = useState('');
-  const [economybuy, setEconomybuy] = useState('');
-  const [economysell, setEconomysell] = useState('');
-  const [wealth, setWealth] = useState('');
-  const [conflict, setConflict] = useState('');
-  const [mode, setMode] = useState('');
-  const [civ, setCiv] = useState('');
-  const [discovered, setDiscovered] = useState('');
-  const [discoveredLink, setDiscoveredLink] = useState('');
-  const [defaultTitle, setDefaultTitle] = useState('');
-  const [planets, setPlanets] = useState([...Array(2)]);
-  const [resources, setResources] = useState([]);
-  const [glyphs, setGlyphs] = useState('');
-  const [galaxyMap, setGalaxyMap] = useState('');
-  const [multitoolTech, setMultitoolTech] = useState([]);
-  const [starshipTech, setStarshipTech] = useState([]);
-  const [exosuitTech, setExosuitTech] = useState([]);
-  const [vehicleTech, setVehicleTech] = useState([]);
-  const [additionalInfo, setAdditionalInfo] = useState('');
-  const [gallery, setGallery] = useState([]);
+  const [data, dispatch] = useReducer(reducer, initialState);
 
   const renderPlanets = () => {
     const usedResources = [];
-    return planets.map((planet) => planet ? `| [[File:${planet.photo || 'nmsMisc_NotAvailable.png'}|150px]] 
+    return data.planets.map((planet) => planet ? `| [[File:${planet.photo || 'nmsMisc_NotAvailable.png'}|150px]] 
 | ${planet.name || '[[PlanetName]]'}
 | ${planet.type || 'type'}
 | ${planet.weather || 'weather'}
@@ -95,62 +100,61 @@ export default function System() {
 |-
 |colspan=2 | '''Resources:'''
 |colspan=5 | '''Notes:'''
-|-
-`).join('');
+|-`).join('');
   };
 
   const renderSpaceStation = () => {
-    if (multitoolTech.length === 0 && starshipTech.length === 0 && exosuitTech.length === 0 && vehicleTech.length === 0) {
+    if (data.multitoolTech.length === 0 && data.starshipTech.length === 0 && data.exosuitTech.length === 0 && data.vehicleTech.length === 0) {
       return 'The space station merchants\' inventory has not been logged at this time.';
     } else {
       return `The space station merchants offer the following {{class|S}} class items for sale:
 
-${multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
-${multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
-${starshipTech.length > 0 ? `===Starship Technology Merchant===
-${starshipTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
-${exosuitTech.length > 0 ? `===Exosuit Technology Merchant===
-${exosuitTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
-${vehicleTech.length > 0 ? `===Vehicle Shop Merchant===
-${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
+${data.multitoolTech.length > 0 ? `===Multi-tool Technology Merchant===
+${data.multitoolTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
+${data.starshipTech.length > 0 ? `===Starship Technology Merchant===
+${data.starshipTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
+${data.exosuitTech.length > 0 ? `===Exosuit Technology Merchant===
+${data.exosuitTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}
+${data.vehicleTech.length > 0 ? `===Vehicle Shop Merchant===
+${data.vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
     }
   };
 
   const codeTemplate = `{{Version|${process.env.NEXT_PUBLIC_VERSION}}}
 {{System infobox
-| name = ${title}
-| image = ${image || 'nmsMisc_NotAvailable.png'}
-| region = ${region}
-| galaxy = ${galaxy}
-| multiplestars = ${multiplestars !== '1' ? multiplestars : ''}
-| color = ${color}
-| class = ${starClass}
-| distance = ${distance}
-| coordinates = ${coordinates}
-| planet = ${planet}
-| moon = ${moon || 0}
-| water = ${water}
-| gateway = ${gateway === 'Yes' ? 'Yes' : ''}
-| faction = ${faction}
-| economy = ${economy}
-| economybuy = ${economybuy}
-| economysell = ${economysell}
-| wealth = ${wealth}
-| conflict = ${conflict}
-| mode = ${mode}
-| civilized = ${civ || 'No Man\'s High Hub'}
-| discovered = ${discoveredLink ? '' : discovered}
-| discoveredlink = ${discoveredLink}
+| name = ${data.title}
+| image = ${data.image || 'nmsMisc_NotAvailable.png'}
+| region = ${data.region}
+| galaxy = ${data.galaxy}
+| multiplestars = ${data.multiplestars !== '1' ? data.multiplestars : ''}
+| color = ${data.color}
+| class = ${data.starClass}
+| distance = ${data.distance}
+| coordinates = ${data.coordinates}
+| planet = ${data.planet}
+| moon = ${data.moon || 0}
+| water = ${data.water}
+| gateway = ${data.gateway === 'Yes' ? 'Yes' : ''}
+| faction = ${data.faction}
+| economy = ${data.economy}
+| economybuy = ${data.economybuy}
+| economysell = ${data.economysell}
+| wealth = ${data.wealth}
+| conflict = ${data.conflict}
+| mode = ${data.mode}
+| civilized = ${data.civ || 'No Man\'s High Hub'}
+| discovered = ${data.discoveredLink ? '' : data.discovered}
+| discoveredlink = ${data.discoveredLink}
 | release = ${process.env.NEXT_PUBLIC_VERSION}
 }}
-'''${title}''' is a star system.
+'''${data.title}''' is a star system.
 
 ==Summary==
-'''${title}''' is a [[star system]] in the [[${region}]].
+'''${data.title}''' is a [[star system]] in the [[${data.region}]].
 
 ==Alias Names==
-{{aliasc|text=Original|name=${defaultTitle}}}
-{{aliasc|text=Current|name=${title}}}
+{{aliasc|text=Original|name=${data.defaultTitle}}}
+{{aliasc|text=Current|name=${data.title}}}
 
 ==Planets & Moons==
 {| class="article-table" style="width:100%; max-width: 1000px;"
@@ -162,30 +166,29 @@ ${vehicleTech.map((tech) => (`* [[${tech.value}]]\n`)).join('')}` : ''}`;
 ! {{Style_header}} width=100 | Sentinels
 ! {{Style_header}} width=100 | Fauna
 ! {{Style_header}} width=100 | Flora
-|-
-${renderPlanets()}
+|-${renderPlanets()}
 |}
 
 ==Location information==
 ===Coordinates===
-${coordinates ? `{{coords|${coordinates.split(':')[0] ? coordinates.split(':')[0] : 'XXXX'}|${coordinates.split(':')[1] ? coordinates.split(':')[1] : 'XXXX'}|${coordinates.split(':')[2] ? coordinates.split(':')[2] : 'XXXX'}|${coordinates.split(':')[3] ? coordinates.split(':')[3] : 'XXXX'}}}` : ''}
+${data.coordinates ? `{{coords|${data.coordinates.split(':')[0] ? data.coordinates.split(':')[0] : 'XXXX'}|${data.coordinates.split(':')[1] ? data.coordinates.split(':')[1] : 'XXXX'}|${data.coordinates.split(':')[2] ? data.coordinates.split(':')[2] : 'XXXX'}|${data.coordinates.split(':')[3] ? data.coordinates.split(':')[3] : 'XXXX'}}}` : ''}
 
 ===Glyphs===
-{{Gl|${glyphs}}}
+{{Gl|${data.glyphs}}}
 
 ===Navigation Images===
-[[File:${galaxyMap}|400px]]
+[[File:${data.galaxyMap}|400px]]
 
 ===System Location===
 
 ==Space Station==
 ${renderSpaceStation()}
 ==Additional Information==
-${additionalInfo}
+${data.additionalInfo}
 
 ==Gallery==
-${gallery.length > 0 ? `<gallery>
-${gallery.map((image) => {
+${data.gallery.length > 0 ? `<gallery>
+${data.gallery.map((image) => {
   return `${image.name}${image.caption ? `|${image.caption}` : ''}\n`;
 }).join('')}</gallery>` : ''}`;
 
@@ -201,98 +204,77 @@ ${gallery.map((image) => {
         <meta name='description' content="Generate boilerplate markdown code for a new star system. Create a new star system page on the No Man's Sky Fandom wiki with your generated code." />
       </Head>
       <div className='frmGroup50' ref={myRef}>
-        <Input id='title' type='text' label='System Name' onChange={(value) => setTitle(value)} />
-        <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => setDefaultTitle(value)} />
-        <Dropzone label='Space Station or Star System Image' maxFiles={1} onUpload={(photos) => setImage(photos[0].name)} />
-        <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => setGalaxy(value)} />
-        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setRegion(value)} />
+        <Input id='title' type='text' label='System Name' onChange={(value) => dispatch({ type: 'title', value })} />
+        <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => dispatch({ type: 'defaultTitle', value })} />
+        <Dropzone label='Space Station or Star System Image' maxFiles={1} onUpload={(photos) => dispatch({ type: 'image', value: photos[0].name })} />
+        <Input id='galaxy' type='text' label='Galaxy Name' onChange={(value) => dispatch({ type: 'galaxy', value })} />
+        <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'region', value })} />
         <Select id='multiplestars' label='Amount of Stars' config={[
           { value: '1', label :'1' },
           { value: '2', label :'2' },
           { value: '3', label :'3' }
-        ]} onChange={(value) => setMultiplestars(value)} />
+        ]} onChange={(value) => dispatch({ type: 'multiplestars', value })} />
         <Select id='color' label='Star Color' config={[
           { value: 'Yellow', label :'Yellow' },
           { value: 'Green', label :'Green' },
           { value: 'Red', label :'Red' },
           { value: 'Blue', label :'Blue' },
           { value: 'Black Hole', label :'Black Hole' }
-        ]} onChange={(value) => setColor(value)} />
-        <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setStarClass(value)} />
-        <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => setDistance(value)} />
-        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => setCoordinates(value)} />
+        ]} onChange={(value) => dispatch({ type: 'color', value })} />
+        <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'starClass', value })} />
+        <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => dispatch({ type: 'distance', value })} />
+        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => dispatch({ type: 'coordinates', value })} />
         <Input id='planet' type='number' min='2' max='6' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => {
-          setPlanet(value);
-          setPlanets([...Array(Number(value) + Number(moon))]);
+          dispatch({ type: 'planet', value });
+          dispatch({ type: 'planets.set', value: Number(value) + Number(data.moon) });
         }} />
         <Input id='moon' type='number' min='0' max='4' label='Moon Amount' tooltip='The amount of lunar bodies in this system' onChange={(value) => {
-          setMoon(value);
-          setPlanets([...Array(Number(planet) + Number(value))]);
+          dispatch({ type: 'moon', value });
+          dispatch({ type: 'planets.set', value: Number(value) + Number(data.planet) });
         }} />
         <Select id='water' label='Contains Water' config={[
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
-        ]} onChange={(value) => setWater(value)} />
+        ]} onChange={(value) => dispatch({ type: 'water', value })} />
         <Select id='gateway' label='Gateway System' config={[
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
-        ]} onChange={(value) => setGateway(value)} />
-        <Select id='faction' label='System`s Faction' config={systemFaction} onChange={(value) => setFaction(value)} />
-        <Select id='economy' label='Economy Type' config={systemEconomy} isSearchable onChange={(value) => setEconomy(value)} />
-        <Input id='economybuy' type='text' label='Economy Buy Rate' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setEconomybuy(value)} />
-        <Input id='economysell' type='text' label='Economy Sell Rate' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => setEconomysell(value)} />
-        <Select id='wealth' label='System`s Wealth' config={systemWealth} isSearchable onChange={(value) => setWealth(value)} />
-        <Select id='conflict' label='System`s Conflict' config={systemConflict} isSearchable onChange={(value) => setConflict(value)} />
-        <SelectGameMode onChange={(value) => setMode(value)} />
-        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => setCiv(value)} />
-        <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => setDiscovered(value)} />
-        <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => setDiscoveredLink(value)} />
+        ]} onChange={(value) => dispatch({ type: 'gateway', value })} />
+        <Select id='faction' label='System`s Faction' config={systemFaction} onChange={(value) => dispatch({ type: 'faction', value })} />
+        <Select id='economy' label='Economy Type' config={systemEconomy} isSearchable onChange={(value) => dispatch({ type: 'economy', value })} />
+        <Input id='economybuy' type='text' label='Economy Buy Rate' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'economybuy', value })} />
+        <Input id='economysell' type='text' label='Economy Sell Rate' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'economysell', value })} />
+        <Select id='wealth' label='System`s Wealth' config={systemWealth} isSearchable onChange={(value) => dispatch({ type: 'wealth', value })} />
+        <Select id='conflict' label='System`s Conflict' config={systemConflict} isSearchable onChange={(value) => dispatch({ type: 'conflict', value })} />
+        <SelectGameMode onChange={(value) => dispatch({ type: 'mode', value })} />
+        <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civ', value })} />
+        <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => dispatch({ type: 'discovered', value })} />
+        <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => dispatch({ type: 'discoveredLink', value })} />
       </div>
-      <Planets amount={Number(moon) + Number(planet)} onChange={(index, key, value) => {
+      <Planets amount={Number(data.moon) + Number(data.planet)} onChange={(index, key, value) => {
         if (key === 'resources') {
           const flatValues = value.map((val) => (val.label));
-          const newResources = resources;
+          const newResources = data.resources;
           newResources[index] = flatValues;
-          setResources(newResources.flat());
+          dispatch({ type: 'resources', value: newResources.flat() });
         }
-        setPlanets((prevState) => {
-          return prevState.map((p, prevIndex) => {
-            if (index === prevIndex) {
-              return { ...p, [key]: value };
-            }
-
-            return p;
-          });
-        });
+        dispatch({ type: 'planets.change', value, index, key });
       }} />
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={glyphs} onChange={(value) => setGlyphs(value)} />
-      <Glyphs onChange={(value) => setGlyphs(glyphs + value)} />
+      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
+      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
       <div className='frmGroup50'>
-        <Dropzone label='Galaxy Map' maxFiles={1} onUpload={(photos) => setGalaxyMap(photos[0].name)} />
-        <Gallery gallery={gallery} onUpload={(photos) => setGallery(photos)} onChange={(value, index) => {
-          setGallery((prevState) => {
-            const newState = prevState.map((image, prevIndex) => {
-              if (index === prevIndex) {
-                return {
-                  path: image.path,
-                  preview: image.preview,
-                  name: image.name,
-                  caption: value
-                };
-              }
-
-              return image;
-            });
-
-            return newState;
-          });
-        }} />
-        <SelectMulti id='multitoolTech' label='Multi-tool S-class Upgrades Available' config={systemMultitoolTech} onChange={(items) => setMultitoolTech(items)} />
-        <SelectMulti id='starshipTech' label='Starship S-class Upgrades Available' config={systemStarshipTech} onChange={(items) => setStarshipTech(items)} />
-        <SelectMulti id='exosuitTech' label='Exosuit S-class Upgrades Available' config={systemExosuitTech} onChange={(items) => setExosuitTech(items)} />
-        <SelectMulti id='vehicleTech' label='Vehicle S-class Upgrades Available' config={systemVehicleTech} onChange={(items) => setVehicleTech(items)} />
+        <Dropzone label='Galaxy Map' maxFiles={1} onUpload={(photos) => dispatch({ type: 'galaxyMap', value: photos[0].name })} />
+        <Gallery
+          gallery={data.gallery}
+          onUpload={(photos) => dispatch({ type: 'gallery.upload', value: photos })}
+          onChange={(value, index) => dispatch({ type: 'gallery.caption', value, index })}
+        />
+        <SelectMulti id='multitoolTech' label='Multi-tool S-class Upgrades Available' config={systemMultitoolTech} onChange={(items) => dispatch({ type: 'multitoolTech', value: items })} />
+        <SelectMulti id='starshipTech' label='Starship S-class Upgrades Available' config={systemStarshipTech} onChange={(items) => dispatch({ type: 'starshipTech', value: items })} />
+        <SelectMulti id='exosuitTech' label='Exosuit S-class Upgrades Available' config={systemExosuitTech} onChange={(items) => dispatch({ type: 'exosuitTech', value: items })} />
+        <SelectMulti id='vehicleTech' label='Vehicle S-class Upgrades Available' config={systemVehicleTech} onChange={(items) => dispatch({ type: 'vehicleTech', value: items })} />
       </div>
-      <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => setAdditionalInfo(value)} />
+      <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything else to note?' onChange={(value) => dispatch({ type: 'additionalInfo', value })} />
       <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
@@ -304,11 +286,11 @@ ${gallery.map((image) => {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
           ga.buttonClick('Copy Code');
-          ga.recordCiv(civ);
+          ga.recordCiv(data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
-        <a href={`https://nomanssky.fandom.com/wiki/${title.replace(/ /g,'_')}?action=edit`}
+        <a href={`https://nomanssky.fandom.com/wiki/${data.title.replace(/ /g,'_')}?action=edit`}
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
@@ -316,7 +298,7 @@ ${gallery.map((image) => {
           Create Page
         </a>
       </div>
-      <CreateCategory type='system' title={title} parentTitle={region} />
+      <CreateCategory type='system' title={data.title} parentTitle={data.region} />
     </CodeView>
   );
 }
