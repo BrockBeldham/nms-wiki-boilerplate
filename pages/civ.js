@@ -1,9 +1,9 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
+import reducer from '../reducers';
 import * as ga from '../lib/ga';
 import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import civTemplate from '../lib/code-templates/civ-template';
-import reducer from '../reducers';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
 import Glyphs from '../components/glyphs';
