@@ -28,108 +28,6 @@ function reducer(state, action) {
           return image;
         })
       };
-    
-    case 'members.change':
-      return {
-        ...state,
-        members: state.members.map((member, prevIndex) => {
-          if (action.index === prevIndex) {
-            return { ...member, [action.key]: action.value };
-          }
-  
-          return member;
-        })
-      };
-
-    case 'members.delete':
-      return {
-        ...state,
-        members: state.members.filter((_item, index) => (index !== action.value))
-      };
-
-    case 'members.add':
-      return {
-        ...state,
-        members: [
-          ...state.members,
-          action.value
-        ]
-      };
-    
-    case 'rules.change':
-      return {
-        ...state,
-        rules: state.rules.map((member, prevIndex) => action.index === prevIndex ? action.value : member)
-      };
-
-    case 'rules.delete':
-      return {
-        ...state,
-        rules: state.rules.filter((_item, index) => (index !== action.value))
-      };
-
-    case 'rules.add':
-      return {
-        ...state,
-        rules: [
-          ...state.rules,
-          action.value
-        ]
-      };
-    
-    case 'fauna.change':
-      return {
-        ...state,
-        faunaDetails: state.faunaDetails.map((fauna, prevIndex) => {
-          if (action.index === prevIndex) {
-            return { ...fauna, [action.key]: action.value };
-          }
-
-          return fauna;
-        })
-      };
-
-    case 'fauna.delete':
-      return {
-        ...state,
-        faunaDetails: state.faunaDetails.filter((_item, index) => (index !== action.value))
-      };
-
-    case 'fauna.add':
-      return {
-        ...state,
-        faunaDetails: [
-          ...state.faunaDetails,
-          action.value
-        ]
-      };
-    
-    case 'flora.change':
-      return {
-        ...state,
-        floraDetails: state.floraDetails.map((flora, prevIndex) => {
-          if (action.index === prevIndex) {
-            return { ...flora, [action.key]: action.value };
-          }
-
-          return flora;
-        })
-      };
-
-    case 'flora.delete':
-      return {
-        ...state,
-        floraDetails: state.floraDetails.filter((_item, index) => (index !== action.value))
-      };
-
-    case 'flora.add':
-      return {
-        ...state,
-        floraDetails: [
-          ...state.floraDetails,
-          action.value
-        ]
-      };
 
     case 'planets.set':
       return {
@@ -137,15 +35,15 @@ function reducer(state, action) {
         planets: [ ...Array(action.value) ]
       };
 
-    case 'planets.change':
+    case 'changeObjInArray':
       return {
         ...state,
-        planets: state.planets.map((planet, prevIndex) => {
+        [action.id]: state[action.id].map((obj, prevIndex) => {
           if (action.index === prevIndex) {
-            return { ...planet, [action.key]: action.value };
+            return { ...obj, [action.key]: action.value };
           }
 
-          return planet;
+          return obj;
         })
       };
 

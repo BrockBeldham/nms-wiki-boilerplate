@@ -170,13 +170,13 @@ export default function Company() {
       <Textarea id='joining' label='How to Join' placeholder='If you want to join our company, you should...' onChange={(value) => dispatch({ type: 'joining', value })} />
       <Members
         details={data.members}
-        onChange={(index, key, value) => dispatch({ type: 'members.change', value, index, key })}
-        deleteMember={(value) => dispatch({ type: 'members.delete', value })}
+        onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'members', value, index, key })}
+        deleteMember={(value) => dispatch({ type: 'deleteItemFromArray', id: 'members', value })}
       />
       <button
         type='button'
         className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'members.add', value: memberDefault })}>
+        onClick={() => dispatch({ type: 'addItemToArray', id: 'members', value: memberDefault })}>
         Add Member
       </button>
       <div className='frmGroup50'>

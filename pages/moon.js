@@ -226,24 +226,24 @@ export default function System() {
       <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
       <FaunaDetails
         details={data.faunaDetails}
-        onChange={(index, key, value) => dispatch({ type: 'faunaDetails.change', value, index, key })}
-        deleteFauna={(value) => dispatch({ type: 'faunaDetails.delete', value })}
+        onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'faunaDetails', value, index, key })}
+        deleteFauna={(value) => dispatch({ type: 'deleteItemFromArray', id: 'faunaDetails', value })}
       />
       <button
         type='button'
         className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'faunaDetails.add', value: faunaDefault })}>
+        onClick={() => dispatch({ type: 'addItemToArray', id: 'faunaDetails', value: faunaDefault })}>
         Add Creature
       </button>
       <FloraDetails
         details={data.floraDetails}
-        onChange={(index, key, value) => dispatch({ type: 'floraDetails.change', value, index, key })}
-        deleteFlora={(value) => dispatch({ type: 'floraDetails.delete', value })}
+        onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'floraDetails', value, index, key })}
+        deleteFlora={(value) => dispatch({ type: 'deleteItemFromArray', id: 'floraDetails', value })}
       />
       <button
         type='button'
         className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'floraDetails.add', value: floraDefault })}>
+        onClick={() => dispatch({ type: 'addItemToArray', id: 'floraDetails', value: floraDefault })}>
         Add Plant
       </button>
       <Textarea id='sentinelDetails' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => dispatch({ type: 'sentinelDetails', value })} />
