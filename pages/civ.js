@@ -135,7 +135,7 @@ export default function Civ() {
           { value: 'XB', label: 'XB' },
           { value: 'NS', label: 'NS' },
           { value: 'All', label: 'All' },
-        ]} isSearchable onChange={(items) => dispatch({ type: 'platform', items })} />
+        ]} isSearchable onChange={(items) => dispatch({ type: 'platform', value: items })} />
       </div>
       <Textarea id='mission' label='Civilization`s Mission' placeholder='Our mission is to...' onChange={(value) => dispatch({ type: 'mission', value })} />
       <Textarea id='background' label='Civilization`s Background/History' placeholder='The civilization first started...' onChange={(value) => dispatch({ type: 'background', value })} />

@@ -17,51 +17,58 @@ export default function Home() {
           <h2 className={styles.subtitle}>Wiki Boilerplate Creator</h2>
           <p className={styles.text}>Which page do you want to create?</p>
         </div>
-        <Link href='/civ'>
-          <a className={`btn ${styles.btn}`}>
-            New Civilization
-          </a>
-        </Link>
-        <Link href='/region'>
-          <a className={`btn ${styles.btn}`}>
-            New Region
-          </a>
-        </Link>
-        <Link href='/system'>
-          <a className={`btn ${styles.btn}`}>
-            New Star System
-          </a>
-        </Link>
-        <Link href='/planet'>
-          <a className={`btn ${styles.btn}`}>
-            New Planet
-          </a>
-        </Link>
-        <Link href='/moon'>
-          <a className={`btn ${styles.btn}`}>
-            New Moon
-          </a>
-        </Link>
-        <Link href='/base'>
-          <a className={`btn ${styles.btn}`}>
-            New Base
-          </a>
-        </Link>
-        <Link href='/creature'>
-          <a className={`btn ${styles.btn}`}>
-            New Creature
-          </a>
-        </Link>
-        <Link href='/starship'>
-          <a className={`btn ${styles.btn}`}>
-            New Starship
-          </a>
-        </Link>
-        <Link href='/multitool'>
-          <a className={`btn ${styles.btn}`}>
-            New Multitool
-          </a>
-        </Link>
+        <div className={styles.btnWpr}>
+          <Link href='/civ'>
+            <a className={`btn ${styles.btn}`}>
+              New Civilization
+            </a>
+          </Link>
+          <Link href='/company'>
+            <a className={`btn ${styles.btn}`}>
+              New Company
+            </a>
+          </Link>
+          <Link href='/region'>
+            <a className={`btn ${styles.btn}`}>
+              New Region
+            </a>
+          </Link>
+          <Link href='/system'>
+            <a className={`btn ${styles.btn}`}>
+              New Star System
+            </a>
+          </Link>
+          <Link href='/planet'>
+            <a className={`btn ${styles.btn}`}>
+              New Planet
+            </a>
+          </Link>
+          <Link href='/moon'>
+            <a className={`btn ${styles.btn}`}>
+              New Moon
+            </a>
+          </Link>
+          <Link href='/base'>
+            <a className={`btn ${styles.btn}`}>
+              New Base
+            </a>
+          </Link>
+          <Link href='/creature'>
+            <a className={`btn ${styles.btn}`}>
+              New Creature
+            </a>
+          </Link>
+          <Link href='/starship'>
+            <a className={`btn ${styles.btn}`}>
+              New Starship
+            </a>
+          </Link>
+          <Link href='/multitool'>
+            <a className={`btn ${styles.btn}`}>
+              New Multitool
+            </a>
+          </Link>
+        </div>
       </div>
       <Footer />
     </>

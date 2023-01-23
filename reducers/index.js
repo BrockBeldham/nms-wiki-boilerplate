@@ -59,7 +59,7 @@ function reducer(state, action) {
     case 'rules.change':
       return {
         ...state,
-        rules: state.members.map((member, prevIndex) => action.index === prevIndex ? action.value : member)
+        rules: state.rules.map((member, prevIndex) => action.index === prevIndex ? action.value : member)
       };
 
     case 'rules.delete':
@@ -147,6 +147,27 @@ function reducer(state, action) {
 
           return planet;
         })
+      };
+
+    case 'changeItemInArray':
+      return {
+        ...state,
+        [action.id]: state[action.id].map((item, prevIndex) => action.index === prevIndex ? action.value : item)
+      };
+
+    case 'deleteItemFromArray':
+      return {
+        ...state,
+        [action.id]: state[action.id].filter((_item, index) => (index !== action.value))
+      };
+
+    case 'addItemToArray':
+      return {
+        ...state,
+        [action.id]: [
+          ...state[action.id],
+          action.value
+        ]
       };
 
     default:
