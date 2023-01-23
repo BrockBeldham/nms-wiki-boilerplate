@@ -4,19 +4,17 @@ import Input from '../input';
 
 import styles from './flora-details.module.scss';
 
-export default function FloraDetails({ details, onChange, deleteFlora }) {
+export default function FloraDetails({ details, onChange, deleteFlora, addFlora }) {
   return (
     <div className={styles.container}>
       {details.map((flora, index) => (
         <div className={`frmGroup50 ${styles.flora}`} key={index}>
           <h2 className={styles.title}>Plant {index + 1}</h2>
-          {index > 0 &&
-            <button className={`icon ${styles.deleteFlora}`} onClick={() => deleteFlora(index)}>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-                <use href='#svgClose' />
-              </svg>
-            </button>
-          }
+          <button className={`icon ${styles.deleteFlora}`} onClick={() => deleteFlora(index)}>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+              <use href='#svgClose' />
+            </svg>
+          </button>
           <Dropzone label='Image' maxFiles={1} onUpload={(photos) => onChange(index, 'image', photos[0].name)} />
           <Input defaultValue={flora.name} id={`nameFlora_${index}`} type='text' label='Name' onChange={(value) => onChange(index, 'name', value)} />
           <Input defaultValue={flora.age} id={`ageFlora_${index}`} type='text' label='Age' onChange={(value) => onChange(index, 'age', value)} />
@@ -27,6 +25,23 @@ export default function FloraDetails({ details, onChange, deleteFlora }) {
           <Input defaultValue={flora.description} id={`descriptionFlora_${index}`} type='text' label='Brief description' onChange={(value) => onChange(index, 'description', value)} />
         </div>
       ))}
+      <div className={styles.btnContainer}>
+        <button
+          type='button'
+          className='btn'
+          onClick={() => addFlora({
+            image: '',
+            name: '',
+            age: '',
+            roots: '',
+            nutrients: '',
+            elements: '',
+            discovered: '',
+            description: ''
+          })}>
+          Add Plant
+        </button>
+      </div>
     </div>
   );
 }
@@ -34,5 +49,6 @@ export default function FloraDetails({ details, onChange, deleteFlora }) {
 FloraDetails.propTypes = {
   details: PropTypes.array,
   onChange: PropTypes.func,
-  deleteFlora: PropTypes.func
+  deleteFlora: PropTypes.func,
+  addFlora: PropTypes.func
 };

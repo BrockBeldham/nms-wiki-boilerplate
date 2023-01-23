@@ -25,28 +25,6 @@ import planetResources from '../lib/select-data/planet-resources';
 
 import styles from '../styles/forms.module.scss';
 
-const faunaDefault = {
-  image: '',
-  name: '',
-  ecosystem: '',
-  genus: '',
-  height: '',
-  weight: '',
-  discovered: '',
-  description: ''
-};
-
-const floraDefault = {
-  image: '',
-  name: '',
-  age: '',
-  roots: '',
-  nutrients: '',
-  elements: '',
-  discovered: '',
-  description: ''
-};
-
 const initialState = {
   title: '',
   defaultTitle: '',
@@ -102,8 +80,8 @@ const initialState = {
   sentinelDetails: '',
   additionalInfo: '',
   gallery: [],
-  faunaDetails: [faunaDefault],
-  floraDetails: [floraDefault]
+  faunaDetails: [],
+  floraDetails: []
 };
 
 export default function Planet() {
@@ -230,24 +208,14 @@ export default function Planet() {
         details={data.faunaDetails}
         onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'faunaDetails', value, index, key })}
         deleteFauna={(value) => dispatch({ type: 'deleteItemFromArray', id: 'faunaDetails', value })}
+        addFauna={(value) => dispatch({ type: 'addItemToArray', id: 'faunaDetails', value })}
       />
-      <button
-        type='button'
-        className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'addItemToArray', id: 'faunaDetails', value: faunaDefault })}>
-        Add Creature
-      </button>
       <FloraDetails
         details={data.floraDetails}
         onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'floraDetails', value, index, key })}
         deleteFlora={(value) => dispatch({ type: 'deleteItemFromArray', id: 'floraDetails', value })}
+        addFlora={(value) => dispatch({ type: 'addItemToArray', id: 'floraDetails', value })}
       />
-      <button
-        type='button'
-        className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'addItemToArray', id: 'floraDetails', value: floraDefault })}>
-        Add Plant
-      </button>
       <Textarea id='sentinelDetails' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => dispatch({ type: 'sentinelDetails', value })} />
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the planet.' onChange={(value) => dispatch({ type: 'additionalInfo', value })} />
       <div className='frmGroup50'>

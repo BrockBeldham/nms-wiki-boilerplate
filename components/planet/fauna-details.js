@@ -6,19 +6,17 @@ import faunaGenus from '../../lib/select-data/fauna-genus';
 
 import styles from './fauna-details.module.scss';
 
-export default function FaunaDetails({ details, onChange, deleteFauna }) {
+export default function FaunaDetails({ details, onChange, deleteFauna, addFauna }) {
   return (
     <div className={styles.container}>
       {details.map((fauna, index) => (
         <div className={`frmGroup50 ${styles.fauna}`} key={index}>
           <h2 className={styles.title}>Creature {index + 1}</h2>
-          {index > 0 &&
-            <button className={`icon ${styles.deleteFauna}`} onClick={() => deleteFauna(index)}>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-                <use href='#svgClose' />
-              </svg>
-            </button>
-          }
+          <button className={`icon ${styles.deleteFauna}`} onClick={() => deleteFauna(index)}>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+              <use href='#svgClose' />
+            </svg>
+          </button>
           <Dropzone label='Image' maxFiles={1} onUpload={(photos) => onChange(index, 'image', photos[0].name)} />
           <Input defaultValue={fauna.name} id={`nameFauna_${index}`} type='text' label='Name' onChange={(value) => onChange(index, 'name', value)} />
           <Select defaultValue={fauna.ecosystem} id={`ecosystemFauna_${index}`} label='Ecosystem' config={[
@@ -34,6 +32,23 @@ export default function FaunaDetails({ details, onChange, deleteFauna }) {
           <Input defaultValue={fauna.description} id={`descriptionFauna_${index}`} type='text' label='Brief description' onChange={(value) => onChange(index, 'description', value)} />
         </div>
       ))}
+      <div className={styles.btnContainer}>
+        <button
+          type='button'
+          className='btn'
+          onClick={() => addFauna({
+            image: '',
+            name: '',
+            ecosystem: '',
+            genus: '',
+            height: '',
+            weight: '',
+            discovered: '',
+            description: ''
+          })}>
+          Add Creature
+        </button>
+      </div>
     </div>
   );
 }
@@ -41,5 +56,6 @@ export default function FaunaDetails({ details, onChange, deleteFauna }) {
 FaunaDetails.propTypes = {
   details: PropTypes.array,
   onChange: PropTypes.func,
-  deleteFauna: PropTypes.func
+  deleteFauna: PropTypes.func,
+  addFauna: PropTypes.func
 };
