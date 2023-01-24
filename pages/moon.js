@@ -132,7 +132,7 @@ export default function System() {
           { label: 'No', value: 'No' }
         ]} onChange={(value) => dispatch({ type: '', value })} />
       </div>
-      <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => dispatch({ type: '', value })} />
+      <Textarea id='moonType' label='Moon Type' placeholder='Describe the moon`s surface (geology, grass and ocean colour, types of flora and fauna etc.)' onChange={(value) => dispatch({ type: 'moonType', value })} />
       <div className='frmGroup50'>
         <Select id='temp' label='Include surface temperatures?' config={[
           { label: 'Yes', value: 'Yes' },
