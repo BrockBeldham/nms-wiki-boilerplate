@@ -106,7 +106,7 @@ export default function Planet() {
       <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => dispatch({ type: 'title', value })} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => dispatch({ type: 'defaultTitle', value })} />
-        <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => dispatch({ type: 'title', value: photos[0].name })} />
+        <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => dispatch({ type: 'image', value: photos[0].name })} />
         <Input id='moon' type='text' label='Planet`s Moon' tooltip='Name(s) of the moon(s) orbiting this planet or number of orbiting moons. Leave blank if there are no moons.' onChange={(value) => dispatch({ type: 'moon', value })} />
         <Input id='system' type='text' label='System Name' onChange={(value) => dispatch({ type: 'system', value })} />
         <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'region', value })} />
