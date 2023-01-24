@@ -137,7 +137,7 @@ export default function System() {
           newResources[index] = flatValues;
           dispatch({ type: 'resources', value: newResources.flat() });
         }
-        dispatch({ type: 'planets.change', value, index, key });
+        dispatch({ type: 'changeObjInArray', id: 'planets', value, index, key });
       }} />
       <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
       <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />

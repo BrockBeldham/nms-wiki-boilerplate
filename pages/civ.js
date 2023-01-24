@@ -135,7 +135,7 @@ export default function Civ() {
           { value: 'XB', label: 'XB' },
           { value: 'NS', label: 'NS' },
           { value: 'All', label: 'All' },
-        ]} isSearchable onChange={(items) => dispatch({ type: 'platform', items })} />
+        ]} isSearchable onChange={(items) => dispatch({ type: 'platform', value: items })} />
       </div>
       <Textarea id='mission' label='Civilization`s Mission' placeholder='Our mission is to...' onChange={(value) => dispatch({ type: 'mission', value })} />
       <Textarea id='background' label='Civilization`s Background/History' placeholder='The civilization first started...' onChange={(value) => dispatch({ type: 'background', value })} />
@@ -143,13 +143,13 @@ export default function Civ() {
       <Textarea id='joining' label='How to Join' placeholder='If you want to join, you should...' onChange={(value) => dispatch({ type: 'joining', value })} />
       <Members
         details={data.members}
-        onChange={(index, key, value) => dispatch({ type: 'members.change', value, index, key })}
-        deleteMember={(value) => dispatch({ type: 'members.delete', value })}
+        onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'members', value, index, key })}
+        deleteMember={(value) => dispatch({ type: 'deleteItemFromArray', id: 'members', value })}
       />
       <button
         type='button'
         className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'members.add', value: memberDefault })}>
+        onClick={() => dispatch({ type: 'addItemToArray', id: 'members', value: memberDefault })}>
         Add Member
       </button>
       <div className='frmGroup50'>
@@ -161,10 +161,10 @@ export default function Civ() {
               id={`rule_${index}`}
               type='text'
               label={`Rule ${index + 1}`}
-              onChange={(value) => dispatch({ type: 'rules.change', value, index })}
+              onChange={(value) => dispatch({ type: 'changeItemInArray', id: 'rules', value, index })}
             />
             {index > 0 &&
-              <button className={`icon ${styles.deleteRule}`} onClick={() => dispatch({ type: 'rules.delete', value: index })}>
+              <button className={`icon ${styles.deleteRule}`} onClick={() => dispatch({ type: 'deleteItemFromArray', id: 'rules', value: index })}>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                   <use href='#svgClose' />
                 </svg>
@@ -173,7 +173,7 @@ export default function Civ() {
           </div>
         ))}
       </div>
-      <button type='button' className={`btn ${styles.btn}`} onClick={() => dispatch({ type: 'rules.add', value: '' })}>
+      <button type='button' className={`btn ${styles.btn}`} onClick={() => dispatch({ type: 'addItemToArray', id: 'rules', value: '' })}>
         Add Rule
       </button>
       <div className='frmGroup50'>

@@ -25,28 +25,6 @@ import planetResources from '../lib/select-data/planet-resources';
 
 import styles from '../styles/forms.module.scss';
 
-const faunaDefault = {
-  image: '',
-  name: '',
-  ecosystem: '',
-  genus: '',
-  height: '',
-  weight: '',
-  discovered: '',
-  description: ''
-};
-
-const floraDefault = {
-  image: '',
-  name: '',
-  age: '',
-  roots: '',
-  nutrients: '',
-  elements: '',
-  discovered: '',
-  description: ''
-};
-
 const initialState = {
   title: '',
   defaultTitle: '',
@@ -102,8 +80,8 @@ const initialState = {
   sentinelDetails: '',
   additionalInfo: '',
   gallery: [],
-  faunaDetails: [faunaDefault],
-  floraDetails: [floraDefault]
+  faunaDetails: [],
+  floraDetails: []
 };
 
 export default function Planet() {
@@ -128,7 +106,7 @@ export default function Planet() {
       <div className='frmGroup50' ref={myRef}>
         <Input id='title' type='text' label='Planet/Moon Name' onChange={(value) => dispatch({ type: 'title', value })} />
         <Input id='defaultTitle' type='text' label='Original Procgen Name' onChange={(value) => dispatch({ type: 'defaultTitle', value })} />
-        <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => dispatch({ type: 'title', value: photos[0].name })} />
+        <Dropzone label='Planetary Surface Image' maxFiles={1} onUpload={(photos) => dispatch({ type: 'image', value: photos[0].name })} />
         <Input id='moon' type='text' label='Planet`s Moon' tooltip='Name(s) of the moon(s) orbiting this planet or number of orbiting moons. Leave blank if there are no moons.' onChange={(value) => dispatch({ type: 'moon', value })} />
         <Input id='system' type='text' label='System Name' onChange={(value) => dispatch({ type: 'system', value })} />
         <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'region', value })} />
@@ -228,26 +206,16 @@ export default function Planet() {
       <Textarea id='moons' label='Moons' placeholder='Does this planet have any moons? Leave blank if none.' onChange={(value) => dispatch({ type: 'moons', value })} />
       <FaunaDetails
         details={data.faunaDetails}
-        onChange={(index, key, value) => dispatch({ type: 'faunaDetails.change', value, index, key })}
-        deleteFauna={(value) => dispatch({ type: 'faunaDetails.delete', value })}
+        onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'faunaDetails', value, index, key })}
+        deleteFauna={(value) => dispatch({ type: 'deleteItemFromArray', id: 'faunaDetails', value })}
+        addFauna={(value) => dispatch({ type: 'addItemToArray', id: 'faunaDetails', value })}
       />
-      <button
-        type='button'
-        className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'faunaDetails.add', value: faunaDefault })}>
-        Add Creature
-      </button>
       <FloraDetails
         details={data.floraDetails}
-        onChange={(index, key, value) => dispatch({ type: 'floraDetails.change', value, index, key })}
-        deleteFlora={(value) => dispatch({ type: 'floraDetails.delete', value })}
+        onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'floraDetails', value, index, key })}
+        deleteFlora={(value) => dispatch({ type: 'deleteItemFromArray', id: 'floraDetails', value })}
+        addFlora={(value) => dispatch({ type: 'addItemToArray', id: 'floraDetails', value })}
       />
-      <button
-        type='button'
-        className={`btn ${styles.btn}`}
-        onClick={() => dispatch({ type: 'floraDetails.add', value: floraDefault })}>
-        Add Plant
-      </button>
       <Textarea id='sentinelDetails' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => dispatch({ type: 'sentinelDetails', value })} />
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the planet.' onChange={(value) => dispatch({ type: 'additionalInfo', value })} />
       <div className='frmGroup50'>
