@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
-import Tooltip from 'rc-tooltip';
+import Tooltip from './tooltip';
 
 import styles from './select.module.scss';
 import customStyles from '../lib/select-styles';
@@ -47,13 +47,7 @@ function Select({
         }}
       />
       {tooltip &&
-        <Tooltip trigger='click' placement='right' overlay={tooltip}>
-          <span className='icon iconWhite ttpIcon'>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
-              <use href='#svgHelp'/>
-            </svg>
-          </span>
-        </Tooltip>
+        <Tooltip overlay={tooltip} />
       }
     </div>
   );

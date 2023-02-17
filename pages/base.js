@@ -151,7 +151,8 @@ export default function Base() {
           id='coordinates'
           type='text'
           label='Signal Booster Coordinates'
-          tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/'
+          tooltip={<p>Found using a signal booster OR convert glyphs here: <a href='https://nmsportals.github.io/'
+          target='_blank' rel='noreferrer'>https://nmsportals.github.io/</a></p>}
           onChange={(value) => dispatch({ type: 'coordinates', value })}
         />
         <SelectGameMode onChange={(value) => dispatch({ type: 'mode', value })} />
