@@ -65,7 +65,10 @@ Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };
 
 export default Input;

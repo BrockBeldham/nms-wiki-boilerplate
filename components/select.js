@@ -61,7 +61,10 @@ Select.propTypes = {
   isSearchable: PropTypes.bool,
   config: PropTypes.array.isRequired,
   onChange: PropTypes.func,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };
 
 export default Select;

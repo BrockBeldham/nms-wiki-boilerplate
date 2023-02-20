@@ -200,8 +200,10 @@ export default function System() {
           </div>
         </>
       }
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
+      <Glyphs
+        noCoords
+        changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+      />
       <FaunaDetails
         details={data.faunaDetails}
         onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'faunaDetails', value, index, key })}

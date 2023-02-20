@@ -102,7 +102,10 @@ export default function System() {
         ]} onChange={(value) => dispatch({ type: 'color', value })} />
         <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'starClass', value })} />
         <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => dispatch({ type: 'distance', value })} />
-        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => dispatch({ type: 'coordinates', value })} />
+        <Glyphs
+          changeCoords={(value) => dispatch({ type: 'coordinates', value })}
+          changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+        />
         <Input id='planet' type='number' min='2' max='6' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => {
           dispatch({ type: 'planet', value });
           dispatch({ type: 'planets.set', value: Number(value) + Number(data.moon) });
@@ -139,8 +142,6 @@ export default function System() {
         }
         dispatch({ type: 'changeObjInArray', id: 'planets', value, index, key });
       }} />
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
       <div className='frmGroup50'>
         <Dropzone label='Galaxy Map' maxFiles={1} onUpload={(photos) => dispatch({ type: 'galaxyMap', value: photos[0].name })} />
         <Gallery

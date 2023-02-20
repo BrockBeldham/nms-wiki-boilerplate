@@ -201,8 +201,10 @@ export default function Planet() {
           </div>
         </>
       }
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
+      <Glyphs
+        noCoords
+        changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+      />
       <Textarea id='moons' label='Moons' placeholder='Does this planet have any moons? Leave blank if none.' onChange={(value) => dispatch({ type: 'moons', value })} />
       <FaunaDetails
         details={data.faunaDetails}

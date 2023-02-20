@@ -83,10 +83,11 @@ export default function Creature() {
         <Input id='planet' type='text' label='Planet Name' tooltip='Planet Name OR the planet circled by the moon where the creature can be found.' onChange={(value) => dispatch({ type: 'planet', value })} />
         <Input id='moon' type='text' label='Moon Name' tooltip='If the creature is located on a moon. Leave blank if the creature is on a planet.' onChange={(value) => dispatch({ type: 'moon', value })} />
       </div>
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
+      <Glyphs
+        changeCoords={(value) => dispatch({ type: 'coordinates', value })}
+        changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+      />
       <div className='frmGroup50'>
-        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => dispatch({ type: 'coordinates', value })} />
         <Select id='rarity' label='Rarity' config={[
           { label: 'Common', value: 'Common' },
           { label: 'Uncommon', value: 'Uncommon' },

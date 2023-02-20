@@ -121,23 +121,11 @@ export default function Civ() {
           label='Capital Planet Name'
           onChange={(value) => dispatch({ type: 'planet', value })}
         />
-        <Input
-          id='coordinates'
-          type='text'
-          label='Signal Booster Coordinates'
-          tooltip={<p>Found using a signal booster OR convert glyphs here: <a href='https://nmsportals.github.io/' target='_blank' rel='noreferrer'>https://nmsportals.github.io/</a></p>}
-          onChange={(value) => dispatch({ type: 'coordinates', value })}
-        />
       </div>
-      <Input
-        id='glyphs'
-        type='text'
-        label='Planetary Glyphs'
-        tooltip='Found in screenshot mode. Glyphs are specific to each planet.'
-        defaultValue={data.glyphs}
-        onChange={(value) => dispatch({ type: 'glyphs', value })}
+      <Glyphs
+        changeCoords={(value) => dispatch({ type: 'coordinates', value })}
+        changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
       />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
       <div className='frmGroup50'>
         <Select
           id='government'
