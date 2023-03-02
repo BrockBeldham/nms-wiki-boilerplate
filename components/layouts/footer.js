@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <div className={styles.container}>
       <hr className={styles.linebreak} />
-      <p className={styles.text}>This site was heavily inspired by Lenni&apos;s Galactic Hub specific <a href='https://lenni009.github.io/NMSWikiPageCreator/' target='_blank' rel='noreferrer'>Hub Wiki Page Creator</a>.</p>
+      <p className={styles.text}>This site was heavily inspired by Lenni&apos;s Galactic Hub specific <a href='https://lenni009.github.io/HubWikiPageCreator/' target='_blank' rel='noreferrer'>Hub Wiki Page Creator</a>.</p>
       <p className={styles.text}>Huge thanks to these communities for using and testing the wiki page creator!</p>
       <ul className={styles.logoList}>
         <li className={styles.logoItem}>
