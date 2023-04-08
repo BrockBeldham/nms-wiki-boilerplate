@@ -39,6 +39,7 @@ const initialState = {
   planet: '2',
   moon: '0',
   water: '',
+  dissonant: '',
   gateway: '',
   faction: '',
   economy: '',
@@ -118,6 +119,10 @@ export default function System() {
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
         ]} onChange={(value) => dispatch({ type: 'water', value })} />
+        <Select id='gateway' label='Dissonant' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => dispatch({ type: 'dissonant', value })} />
         <Select id='gateway' label='Gateway System' config={[
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
