@@ -12,7 +12,7 @@ export default function Footer() {
         <li className={styles.logoItem}>
           <a href="https://nomanssky.fandom.com/wiki/No_Man's_High_Hub" className='nolink' target='_blank' rel='noreferrer'>
             <Image
-              src='/images/logo-NMHH.png'
+              src='/images/logo-NMHH.webp'
               alt='No Man`s High Hub Logo'
               width={300}
               height={293}
@@ -22,7 +22,7 @@ export default function Footer() {
         <li className={styles.logoItem}>
           <a href='https://nomanssky.fandom.com/wiki/United_Nations_42' className='nolink' target='_blank' rel='noreferrer'>
             <Image
-              src='/images/logo-UN42.png'
+              src='/images/logo-UN42.webp'
               alt='United Nations 42 Logo'
               width={300}
               height={293}
