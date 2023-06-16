@@ -9,12 +9,13 @@ import Input from '../components/input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
 import Select from '../components/select';
+import SelectMulti from '../components/select-multi';
 import Textarea from '../components/textarea';
 import Gallery from '../components/gallery';
 import CreateCategory from '../components/create-category';
-import SelectFeatures from '../components/base/select-features';
 import SelectGameMode from '../components/select-game-mode';
 import SelectPlatform from '../components/select-platform';
+import baseFeatures from '../lib/select-data/base-features';
 
 import styles from '../styles/forms.module.scss';
 
@@ -204,7 +205,13 @@ export default function Base() {
         label='Layout'
         placeholder='Walk us through your base as if you were a realtor.'
         onChange={(value) => dispatch({ type: 'layout', value })} />
-      <SelectFeatures onChange={(items) => dispatch({ type: 'features', value: items })} />
+      <SelectMulti
+        id='features'
+        label='Features'
+        config={baseFeatures}
+        isSearchable
+        onChange={(items) => dispatch({ type: 'features', value: items })}
+      />
       <Textarea
         id='additionalInfo'
         label='Additional Info'
@@ -222,7 +229,7 @@ export default function Base() {
           onClick={() => {
             myRef.current.scrollIntoView();
             setViewCode(true);
-            ga.buttonClick('View Code');
+            ga.event('View Code', 'Base', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
           }}>
           View Code
         </button>
@@ -231,8 +238,7 @@ export default function Base() {
           className={`btn whiteBtn ${styles.btn}`}
           onClick={() => {
             handleCopy(codeTemplate);
-            ga.buttonClick('Copy Code');
-            ga.recordCiv(data.civ);
+            ga.event('Copy Code', 'Base', data.civ);
           }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -241,7 +247,7 @@ export default function Base() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.buttonClick('Create Page')}>
+          onClick={() => ga.event('Create Page', 'Base', data.civ)}>
           Create Page
         </a>
       </div>

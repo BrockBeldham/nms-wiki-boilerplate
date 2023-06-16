@@ -229,14 +229,13 @@ export default function System() {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.buttonClick('View Code');
+          ga.event('View Code', 'Moon', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.buttonClick('Copy Code');
-          ga.recordCiv(data.civ);
+          ga.event('Copy Code', 'Moon', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -244,7 +243,7 @@ export default function System() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.buttonClick('Create Page')}>
+          onClick={() => ga.event('Create Page', 'Moon', data.civ)}>
           Create Page
         </a>
       </div>
