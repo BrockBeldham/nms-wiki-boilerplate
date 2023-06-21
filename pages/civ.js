@@ -303,7 +303,7 @@ export default function Civ() {
           onClick={() => {
             myRef.current.scrollIntoView();
             setViewCode(true);
-            ga.event('View Code', 'Civilization', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
+            ga.event('click', 'View Civilization Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
           }}>
           View Code
         </button>
@@ -312,7 +312,7 @@ export default function Civ() {
           className={`btn whiteBtn ${styles.btn}`}
           onClick={() => {
             handleCopy(codeTemplate);
-            ga.event('Copy Code', 'Civilization', data.title);
+            ga.event('click', 'Copy Civilization', data.title);
           }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -320,7 +320,7 @@ export default function Civ() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.event('Create Page', 'Civilization', data.title)}>
+          onClick={() => ga.event('click', 'Create Civilization', data.title)}>
           Create Page
         </a>
       </div>

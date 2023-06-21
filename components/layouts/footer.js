@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <div className={styles.container}>
       <hr className={styles.linebreak} />
-      <p className={styles.text}>This site was heavily inspired by Lenni&apos;s Galactic Hub specific <a href='https://lenni009.github.io/HubWikiPageCreator/' target='_blank' rel='noreferrer' onClick={() => ga.event('Footer Click', 'Footer', 'GH')}>Hub Wiki Page Creator</a>.</p>
+      <p className={styles.text}>This site was heavily inspired by Lenni&apos;s Galactic Hub specific <a href='https://lenni009.github.io/HubWikiPageCreator/' target='_blank' rel='noreferrer' onClick={() => ga.event('click', 'Footer', 'GH')}>Hub Wiki Page Creator</a>.</p>
       <p className={styles.text}>Huge thanks to these communities for using and testing the wiki page creator!</p>
       <ul className={styles.logoList}>
         <li className={styles.logoItem}>
@@ -16,7 +16,7 @@ export default function Footer() {
             className='nolink'
             target='_blank'
             rel='noreferrer'
-            onClick={() => ga.event('Footer Click', 'Footer', 'NMH')}>
+            onClick={() => ga.event('click', 'Footer', 'NMH')}>
             <Image
               src='/images/logo-NMHH.webp'
               alt='No Man`s High Hub Logo'
@@ -31,7 +31,7 @@ export default function Footer() {
             className='nolink'
             target='_blank'
             rel='noreferrer'
-            onClick={() => ga.event('Footer Click', 'Footer', 'UN42')}>
+            onClick={() => ga.event('click', 'Footer', 'UN42')}>
             <Image
               src='/images/logo-UN42.webp'
               alt='United Nations 42 Logo'

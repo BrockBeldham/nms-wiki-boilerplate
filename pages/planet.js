@@ -231,13 +231,13 @@ export default function Planet() {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.event('View Code', 'Planet', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
+          ga.event('click', 'View Planet Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.event('Copy Code', 'Planet', data.civ);
+          ga.event('click', 'Copy Planet', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -245,7 +245,7 @@ export default function Planet() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.event('Create Page', 'Planet', data.civ)}>
+          onClick={() => ga.event('click', 'Create Planet', data.civ)}>
           Create Page
         </a>
       </div>

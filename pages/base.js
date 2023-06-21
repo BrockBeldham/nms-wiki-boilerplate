@@ -229,7 +229,7 @@ export default function Base() {
           onClick={() => {
             myRef.current.scrollIntoView();
             setViewCode(true);
-            ga.event('View Code', 'Base', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
+            ga.event('click', 'View Base Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
           }}>
           View Code
         </button>
@@ -238,7 +238,7 @@ export default function Base() {
           className={`btn whiteBtn ${styles.btn}`}
           onClick={() => {
             handleCopy(codeTemplate);
-            ga.event('Copy Code', 'Base', data.civ);
+            ga.event('click', 'Copy Base', data.civ);
           }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -247,7 +247,7 @@ export default function Base() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.event('Create Page', 'Base', data.civ)}>
+          onClick={() => ga.event('click', 'Create Base', data.civ)}>
           Create Page
         </a>
       </div>

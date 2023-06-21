@@ -191,13 +191,13 @@ export default function Company() {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.event('View Code', 'Company', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
+          ga.event('click', 'View Company Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.event('Copy Code', 'Company', data.title);
+          ga.event('click', 'Copy Company', data.title);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -205,7 +205,7 @@ export default function Company() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.event('Create Page', 'Company', data.title)}>
+          onClick={() => ga.event('click', 'Create Company', data.title)}>
           Create Page
         </a>
       </div>

@@ -134,13 +134,13 @@ export default function Multitool() {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.event('View Code', 'Multitool', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
+          ga.event('click', 'View Multitool Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.event('Copy Code', 'Multitool', data.civ);
+          ga.event('click', 'Copy Multitool', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -148,7 +148,7 @@ export default function Multitool() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.event('Create Page', 'Multitool', data.civ)}>
+          onClick={() => ga.event('click', 'Create Multitool', data.civ)}>
           Create Page
         </a>
       </div>

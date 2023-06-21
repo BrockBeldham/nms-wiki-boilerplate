@@ -59,13 +59,13 @@ export default function Creature() {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.event('View Code', 'Region', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
+          ga.event('click', 'View Region Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.event('Copy Code', 'Region', data.civ);
+          ga.event('click', 'Copy Region', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -73,7 +73,7 @@ export default function Creature() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.event('Create Page', 'Region', data.civ)}>
+          onClick={() => ga.event('click', 'Create Region', data.civ)}>
           Create Page
         </a>
       </div>
