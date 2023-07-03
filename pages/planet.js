@@ -77,7 +77,6 @@ const initialState = {
   waterstormtoxic: '',
   glyphs: '',
   moonsDetails: '',
-  sentinelDetails: '',
   additionalInfo: '',
   gallery: [],
   faunaDetails: [],
@@ -218,7 +217,6 @@ export default function Planet() {
         deleteFlora={(value) => dispatch({ type: 'deleteItemFromArray', id: 'floraDetails', value })}
         addFlora={(value) => dispatch({ type: 'addItemToArray', id: 'floraDetails', value })}
       />
-      <Textarea id='sentinelDetails' label='Sentinels' placeholder='Describe the Sentinels behaviour.' onChange={(value) => dispatch({ type: 'sentinelDetails', value })} />
       <Textarea id='additionalInfo' label='Additional Info' placeholder='Anything special to note about the planet.' onChange={(value) => dispatch({ type: 'additionalInfo', value })} />
       <div className='frmGroup50'>
         <Gallery
