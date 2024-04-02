@@ -39,6 +39,7 @@ const initialState = {
   planet: '2',
   moon: '0',
   water: '',
+  dissonant: '',
   gateway: '',
   faction: '',
   economy: '',
@@ -102,7 +103,10 @@ export default function System() {
         ]} onChange={(value) => dispatch({ type: 'color', value })} />
         <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'starClass', value })} />
         <Input id='distance' type='text' label='Distance to Center' tooltip='Found in the top right of the galaxy map.' onChange={(value) => dispatch({ type: 'distance', value })} />
-        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => dispatch({ type: 'coordinates', value })} />
+        <Glyphs
+          changeCoords={(value) => dispatch({ type: 'coordinates', value })}
+          changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+        />
         <Input id='planet' type='number' min='2' max='6' label='Planet Amount' tooltip='The amount of planetary bodies in this system' onChange={(value) => {
           dispatch({ type: 'planet', value });
           dispatch({ type: 'planets.set', value: Number(value) + Number(data.moon) });
@@ -115,6 +119,10 @@ export default function System() {
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
         ]} onChange={(value) => dispatch({ type: 'water', value })} />
+        <Select id='gateway' label='Dissonant' config={[
+          { value: 'Yes', label :'Yes' },
+          { value: 'No', label :'No' }
+        ]} onChange={(value) => dispatch({ type: 'dissonant', value })} />
         <Select id='gateway' label='Gateway System' config={[
           { value: 'Yes', label :'Yes' },
           { value: 'No', label :'No' }
@@ -139,8 +147,6 @@ export default function System() {
         }
         dispatch({ type: 'changeObjInArray', id: 'planets', value, index, key });
       }} />
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
       <div className='frmGroup50'>
         <Dropzone label='Galaxy Map' maxFiles={1} onUpload={(photos) => dispatch({ type: 'galaxyMap', value: photos[0].name })} />
         <Gallery
@@ -158,14 +164,13 @@ export default function System() {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.buttonClick('View Code');
+          ga.event('click', 'View System Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.buttonClick('Copy Code');
-          ga.recordCiv(data.civ);
+          ga.event('click', 'Copy System', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -173,7 +178,7 @@ export default function System() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.buttonClick('Create Page')}>
+          onClick={() => ga.event('click', 'Create System', data.civ)}>
           Create Page
         </a>
       </div>

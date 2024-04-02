@@ -200,8 +200,10 @@ export default function System() {
           </div>
         </>
       }
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
+      <Glyphs
+        noCoords
+        changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+      />
       <FaunaDetails
         details={data.faunaDetails}
         onChange={(index, key, value) => dispatch({ type: 'changeObjInArray', id: 'faunaDetails', value, index, key })}
@@ -227,14 +229,13 @@ export default function System() {
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.buttonClick('View Code');
+          ga.event('click', 'View Moon Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.buttonClick('Copy Code');
-          ga.recordCiv(data.civ);
+          ga.event('click', 'Copy Moon', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -242,7 +243,7 @@ export default function System() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.buttonClick('Create Page')}>
+          onClick={() => ga.event('click', 'Create Moon', data.civ)}>
           Create Page
         </a>
       </div>

@@ -89,8 +89,10 @@ export default function Starship() {
         ]} onChange={(value) => dispatch({ type: 'location', value })} />
         <Input id='axes' type='text' label='Planetary Longitude and Latitude' tooltip='Found using your analysis visor OR on your ships dashboard' onChange={(value) => dispatch({ type: 'axes', value })} />
       </div>
-      <Input id='glyphs' type='text' label='Planetary Glyphs' tooltip='Found in screenshot mode. Glyphs are specific to each planet.' defaultValue={data.glyphs} onChange={(value) => dispatch({ type: 'glyphs', value })} />
-      <Glyphs onChange={(value) => dispatch({ type: 'glyphs.selector', value })} />
+      <Glyphs
+        changeCoords={(value) => dispatch({ type: 'coordinates', value })}
+        changeGlyphs={(value) => dispatch({ type: 'glyphs', value })}
+      />
       <div className='frmGroup50'>
         <Select id='economy' label='Economy Type' config={systemEconomy} isSearchable onChange={(value) => dispatch({ type: 'economy', value })} />
         <Input id='pilot' type='text' label='NPC Pilot`s Name' onChange={(value) => dispatch({ type: 'pilot', value })} />
@@ -120,7 +122,6 @@ export default function Starship() {
         <Input id='techslots' type='text' label='Tech Slots' onChange={(value) => dispatch({ type: 'techslots', value })} />
         <Input id='cargoslots' type='text' label='Cargo Slots' onChange={(value) => dispatch({ type: 'cargoslots', value })} />
         <Input id='cost' type='text' label='Cost' onChange={(value) => dispatch({ type: 'cost', value })} />
-        <Input id='coordinates' type='text' label='Signal Booster Coordinates' tooltip='Found using a signal booster OR convert glyphs here: https://nmsportals.github.io/' onChange={(value) => dispatch({ type: 'coordinates', value })} />
         <Input id='civilized' type='text' label='Civilization Name' onChange={(value) => dispatch({ type: 'civ', value })} />
         <Input id='discovered' type='text' label='Discoverer in-game username' onChange={(value) => dispatch({ type: 'discovered', value })} />
         <Input id='discoveredLink' type='text' label='Discoverer wiki username' tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Discoverer Name.' onChange={(value) => dispatch({ type: 'discoveredLink', value })} />
@@ -141,14 +142,13 @@ export default function Starship() {
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           myRef.current.scrollIntoView();
           setViewCode(true);
-          ga.buttonClick('View Code');
+          ga.event('click', 'View Starship Code', window.innerWidth < 800 ? 'Popup' : 'ScrollTo');
         }}>
           View Code
         </button>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(codeTemplate);
-          ga.buttonClick('Copy Code');
-          ga.recordCiv(data.civ);
+          ga.event('click', 'Copy Starship', data.civ);
         }}>
           {codeCopied ? 'Code Copied' : 'Copy Code'}
         </button>
@@ -156,7 +156,7 @@ export default function Starship() {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.buttonClick('Create Page')}>
+          onClick={() => ga.event('click', 'Create Starship', data.civ)}>
           Create Page
         </a>
       </div>

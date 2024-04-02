@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from 'rc-tooltip';
+import Tooltip from './tooltip';
 
 import styles from './input.module.scss';
 
@@ -46,13 +46,7 @@ function Input({
         }}
       />
       {tooltip &&
-        <Tooltip trigger='click' placement='right' overlay={tooltip}>
-          <span className='icon iconWhite ttpIcon'>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
-              <use href='#svgHelp'/>
-            </svg>
-          </span>
-        </Tooltip>
+        <Tooltip overlay={tooltip} />
       }
     </div>
   );
@@ -71,7 +65,10 @@ Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };
 
 export default Input;

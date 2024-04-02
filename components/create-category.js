@@ -33,7 +33,7 @@ export default function CreateCategory({ type, title, parentTitle }) {
       <div className={styles.btnContainer}>
         <button type='button' className={`btn whiteBtn ${styles.btn}`} onClick={() => {
           handleCopy(categoryTemplate[type]);
-          ga.buttonClick('Copy Category');
+          ga.event('click', 'Copy Category', title);
         }}>
           {codeCopied ? 'Category Copied' : 'Copy Category'}
         </button>
@@ -41,7 +41,7 @@ export default function CreateCategory({ type, title, parentTitle }) {
           className={`btn whiteBtn ${styles.btn}`}
           target='_blank'
           rel='noreferrer'
-          onClick={() => ga.buttonClick('Create Category')}>
+          onClick={() => ga.event('click', 'Create Category', title)}>
           Create Category
         </a>
       </div>
