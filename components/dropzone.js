@@ -71,7 +71,7 @@ function Dropzone({ label, maxFiles, onUpload }) {
         }
 
       </div>
-      <p className={styles.note}><strong>Editor&apos;s note:</strong> Images are not uploaded to the wiki from this site or saved in any way. You need to do upload to the wiki yourself. This upload tool is to place the image name into the page code.</p>
+      <p className={styles.note}><strong>Editor&apos;s note:</strong> Images are not uploaded to the wiki from this site or saved in any way. You need to upload to the wiki yourself. This upload tool is to take the image name and place it into the wiki page code.</p>
     </div>
   );
 }
