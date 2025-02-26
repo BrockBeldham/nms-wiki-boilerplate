@@ -1,0 +1,68 @@
+@import '../styles/settings';
+
+.frmItemFull {
+  width: 100% !important;
+  text-align: left;
+
+  label {
+    display: inline-block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.checkbox {
+  position: relative;
+  display: inline-block;
+  margin: 0 10px 0 0;
+
+  input {
+    position: absolute;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    opacity: 0;
+
+    + label::before {
+      display: inline-block;
+      vertical-align: sub;
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      content: "";
+      background: url('/images/checkbox.svg') transparent center no-repeat;
+      background-position-x: -20px;
+      border: 1px solid $color_white;
+      position: absolute;
+      left: 0;
+    }
+
+    &:checked + label::before {
+      background-position-x: 0;
+    }
+
+    &:focus + label::before {
+      box-shadow: 0 0 4px 2px rgba($color_focus, 1);
+    }
+  }
+
+  label {
+    font-size: 0.8rem;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px 0 5px 25px;
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.frmItemHalf {
+  width: 50%;
+  margin: 0;
+}
