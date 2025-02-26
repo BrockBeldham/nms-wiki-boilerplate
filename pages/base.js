@@ -1,11 +1,14 @@
 import { useState, useRef, useReducer } from 'react';
 import Head from 'next/head';
+import { format } from 'date-fns';
 import reducer from '../reducers';
 import * as ga from '../lib/ga';
 import useCopyToClipboard from '../hooks/copy-to-clipboard';
 import baseTemplate from '../lib/code-templates/base-template';
 import CodeView from '../components/layouts/code-view';
 import Input from '../components/input';
+import Checkbox from '../components/checkbox';
+import DateInput from '../components/date-input';
 import Glyphs from '../components/glyphs';
 import Dropzone from '../components/dropzone';
 import Select from '../components/select';
@@ -25,6 +28,10 @@ const initialState = {
   civ: '',
   builder: '',
   builderLink: '',
+  reddit: '',
+  discord: '',
+  friendCode: '',
+  arrival: '',
   galaxy: '',
   region: '',
   system: '',
@@ -97,6 +104,41 @@ export default function Base() {
           tooltip='If a wiki username is filled, the code will link the base to the wiki username. If no wiki username is supplied, the code will "revert" to the In-Game Builder Name.'
           onChange={(value) => dispatch({ type: 'builderLink', value })}
         />
+      </div>
+      <Checkbox id='census' label='This is a census base' onChange={(value) => dispatch({ type: 'census', value })} />
+      {data.census &&
+        <div className='frmGroup50'>
+          <Input
+            id='reddit'
+            type='text'
+            label='Reddit Username'
+            onChange={(value) => dispatch({ type: 'reddit', value })}
+            defaultValue={data.reddit}
+          />
+          <Input
+            id='discord'
+            type='text'
+            label='Discord Username'
+            onChange={(value) => dispatch({ type: 'discord', value })}
+            defaultValue={data.discord}
+          />
+          <Input
+            id='friendCode'
+            type='text'
+            label='Friend Code'
+            onChange={(value) => dispatch({ type: 'friendCode', value })}
+            defaultValue={data.friendCode}
+          />
+          <DateInput
+            id='arrival'
+            label='Arrival Date'
+            maxDate={new Date()}
+            dateFormat='yyyy/MM/dd'
+            onChange={(value) => dispatch({ type: 'arrival', value: format(value, 'yyyy/MM/dd') })}
+          />
+        </div>
+      }
+      <div className='frmGroup50'>
         <Input
           id='galaxy'
           type='text'
