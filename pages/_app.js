@@ -1,3 +1,4 @@
+import '../node_modules/react-datepicker/dist/react-datepicker.css';
 import '../public/fonts/fonts.css';
 import '../styles/globals.scss';
 import PropTypes from 'prop-types';
