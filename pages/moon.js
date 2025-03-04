@@ -17,7 +17,7 @@ import FloraDetails from '../components/planet/flora-details';
 import Gallery from '../components/gallery';
 import CreateCategory from '../components/create-category';
 import planetBiome from '../lib/select-data/planet-biome';
-import planetDescription from '../lib/select-data/planet-description';
+// import planetDescription from '../lib/select-data/planet-description';
 import planetWeather from '../lib/select-data/planet-weather';
 import planetSentinels from '../lib/select-data/planet-sentinels';
 import planetFloraFauna from '../lib/select-data/planet-flora-fauna';
@@ -110,7 +110,8 @@ export default function System() {
         <Input id='region' type='text' label='Region Name' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'region', value })} />
         <Input id='system' type='text' label='System Name' onChange={(value) => dispatch({ type: 'system', value })} />
         <Input id='planet' type='text' label='Moon`s Planet' tooltip='The name of the planet this moon orbits.' onChange={(value) => dispatch({ type: 'planet', value })} />
-        <Select id='description' label='Planet`s Description' config={planetDescription} isSearchable onChange={(value) => dispatch({ type: 'description', value })} />
+        <Input id='description' type='text' label='Planet`s Description' onChange={(value) => dispatch({ type: 'description', value })} />
+        {/* <Select id='description' label='Planet`s Description' config={planetDescription} isSearchable onChange={(value) => dispatch({ type: 'description', value })} /> */}
         <Select id='type' label='Planet`s Biome Type' config={planetBiome} isSearchable onChange={(value) => dispatch({ type: 'type', value })} />
         <Input id='atmosphere' type='text' label='Atmosphere Make-up' onChange={(value) => dispatch({ type: 'atmosphere', value })} />
         <Input id='terrain' type='text' label='Terrain' onChange={(value) => dispatch({ type: 'terrain', value })} />

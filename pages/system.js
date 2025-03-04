@@ -99,6 +99,7 @@ export default function System() {
           { value: 'Green', label :'Green' },
           { value: 'Red', label :'Red' },
           { value: 'Blue', label :'Blue' },
+          { value: 'Purple', label :'Purple' },
           { value: 'Black Hole', label :'Black Hole' }
         ]} onChange={(value) => dispatch({ type: 'color', value })} />
         <Input id='starClass' type='text' label='Star Class' tooltip='Found on the expanded view of the galaxy map.' onChange={(value) => dispatch({ type: 'starClass', value })} />
