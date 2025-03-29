@@ -9,7 +9,7 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_GOOGLE_ANALYTICS: 'G-8YL3N5E1Q0',
-    NEXT_PUBLIC_VERSION: 'WorldsTwo'
+    NEXT_PUBLIC_VERSION: 'Relics'
   }
 };
 
